@@ -1,0 +1,30 @@
+<table width="800px" cellspacing="0">
+        <tr class="director_row1">
+				<td width="20px"></td>
+				<td></td>
+				<td align="center"></td>
+				
+
+			</tr>
+		<tr class="director_header_row">
+			<td width="20px"></td>
+			<td>Number of Registrations (all time)</td>
+			<td align="center">Service Fee (all time)</td>
+			
+		</tr>
+        <tr class="director_header_row">
+			<td width="20px"></td>
+			<td><%= @num %> </td>
+            <td align="center"><%= number_to_currency (@sf.to_f) %></td>
+			
+		</tr>
+
+		
+	</table>
+<table width="1200px">
+  <tr>
+    <td><%= @reg_graph %></td>
+    <td><%= @svc_graph %></td>
+    
+  </tr>
+</table>

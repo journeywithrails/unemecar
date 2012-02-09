@@ -1,0 +1,79 @@
+<% content_for :head_title do %>Event Races / Categories<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "2"}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Event Races / Categories</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<div id="director_table_holder">
+		<div style="padding-right:10px;padding-left:20px;padding-top: 3px;	padding-bottom: 3px;">
+			<%= show_error(flash[:notice])%>
+		</div>
+		<% @dir_event.race_groups.each do | grp | %>
+			<div class="group_div">
+				<table width="100%">
+                 
+					<tr id="<%= grp.id%>_gr">
+
+						<td width="120px">
+                           <% if false %>
+                          <h3><%= grp.title %></h3><%= link_to_function("Edit", update_page{|page| }) %> | <%= link_to_function("Create New", update_page{|page|
+							}) %>
+                          <% end  %>
+                        </td>
+						<td align="right"><%= link_to add_race_button_image, :controller => "setup", :action => "race", :group => grp.id%></td>
+					</tr>
+					
+					<tr id="<%= grp.id%>_gr_edit" style="display:none;">
+					    <td colspan="2">
+					    	<%= text_field(:grp, :name, {"size" => "10", :class => "search_form_input"}) %>
+					    	
+				    	</td>
+					    
+					    <td></td>
+					  </tr>
+					
+				</table>
+				
+			</div>
+			<table width="100%" cellspacing="0">
+				<tr class="director_header_row">
+					<td width="20px"></td>
+					<td width="200px">Race</td>
+					<td>Distance</td>
+					<td>Start Time</td>
+					<td>Entry Fee</td>
+					<td width="80px">Reg Open?</td>
+					<td width="60px">Field</td>
+					<!--<td>Cert.</td>-->
+					<td></td>
+				</tr>
+				<% grp.races.find_all_by_event_id(@dir_event.id).each do | race | %>
+					<%= render :partial => 'race_row',:locals => {:style => cycle('director_row1', 'director_row2'), :race => race}%>
+               <% end %>
+						
+				
+			</table>
+		<% end %>
+      <br/>
+      <div style="padding-right:10px;padding-left:20px;padding-top: 3px;	padding-bottom: 3px;">
+        <%= link_to "reorder races", :action => "reorder_races" %>
+      </div>
+      <br/>
+	</div>
+	
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

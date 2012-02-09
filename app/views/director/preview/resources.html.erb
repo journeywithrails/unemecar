@@ -1,0 +1,39 @@
+<% content_for :head_title do %>Race Director Resources<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %>
+	
+<table width="100%" height="80px" valign="middle">
+	<tr>
+		<td>
+			<!-- image cell -->
+			
+		</td>
+		<td>
+			<span class="pageTITLE" style="padding-left:24px;padding-top:20px">Race Director Resources</span>
+          
+		</td>
+	</tr>
+</table><% end %>
+<% content_for :extra_head do %>
+	<%= stylesheet_link_tag "RD"%>
+<% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom"></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+  <%= Content.find_by_name("rd resources").item_content %>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

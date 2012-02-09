@@ -1,0 +1,100 @@
+<% content_for :head_title do %>Registrations<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "3"}%><% end %>
+<% content_for :extra_head do %>
+	
+	<%= javascript_include_tag "default-values" %>
+<% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Registrations</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<div id="director_table_holder">
+	<table width="100%" cellspacing="0">
+		
+		<% if true %>
+			<tr id="searchBarOpen" class="director_search_row_closed director_search_row_open" onclick="toggleSearch()">
+				<td width="20px"></td>
+				<td colspan="7">Search Registrants</td>
+			</tr>
+			<tr id="searchFieldsOpen">
+				<td width="20px"></td>
+				<td colspan="8"><%= render :partial => 'search', :locals => {:search => @search_req}%></td>
+			</tr>
+		<% else %>
+			<tr id="searchBarOpen" class="director_search_row_closed" onclick="toggleSearch()">
+				<td width="20px"></td>
+				<td colspan="7">Search</td>
+			</tr>
+			<tr id="searchFieldsOpen" style="display:none">
+				<td width="20px"></td>
+				<td colspan="8"><%= render :partial => 'search'%></td>
+			</tr>
+			
+		<% end %>
+		<tr class="director_header_row">
+				<td width="20px"></td>
+				
+				<td><%= show_sort_text("Reg. Date", "created_at") %> <%=show_sort_image("created_at")%></td>
+				<td><%= show_sort_text("First Name", "first_name") %> <%=show_sort_image("first_name")%></td>
+				<td><%= show_sort_text("Last Name", "last_name") %> <%=show_sort_image("last_name")%></td>
+				<% if (@search.blank? == false and @search["show_all_events"].blank? == false) %>
+					<td><%= show_sort_text("Event", "event_id") %> <%=show_sort_image("event_id")%></td>
+				<% else %>
+					<td><%= show_sort_text("Gender", "sex") %> <%=show_sort_image("sex")%></td>
+				<% end %>
+				
+				<td><%= show_sort_text("Age (event date)", "birthday") %> <%=show_sort_image("birthday")%></td>
+				<td><%= show_sort_text("Email", "email") %> <%=show_sort_image("email")%></td>
+				<!-- <td>Race <%=show_sort_image("race_id")%></td> -->
+				<td align="right"></td>
+			</tr>
+		<tr class="director_row1">
+			<td></td>
+			<td colspan="7"><%= will_paginate(@regs, :params => {:search_req => @search_req, :sort => params[:sort]}) %></td>
+		</tr>
+		<% @regs.each do | er | %>
+			<% if (@search.blank? == false and @search["show_all_events"].blank? == false) %>
+				<%= render :partial => 'registration_row',:locals => {:add_event => true, :reg => er, :style => cycle('director_row1', 'director_row2')}%>
+			<% else %>
+				<%= render :partial => 'registration_row',:locals => {:add_event => false, :reg => er, :style => cycle('director_row1', 'director_row2')}%>
+			<% end %>
+			
+		<% end %>
+		<tr class="director_row1">
+			<td></td>
+			<td colspan="7"><%= will_paginate(@regs, :params => {:search_req => @search_req, :sort => params[:sort]}) %></td>
+		</tr>
+		
+	</table>
+	</div>
+	
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+<script>
+function toggleSearch(){
+	if ($('searchFieldsOpen').visible()) {
+		$('searchFieldsOpen').hide();
+		$('searchBarOpen').removeClassName('director_search_row_open')		
+	}
+	else {
+		$('searchFieldsOpen').show();
+		$('searchBarOpen').addClassName('director_search_row_open')	
+	}
+    
+
+  }
+</script>

@@ -1,0 +1,148 @@
+<% @disciplines = Discipline.find(:all) %>
+<div id="race_type_top"><div class="race_type_text">
+			<table>
+      			<tr>
+      				<td width="400"><%= check_box_tag(:show_all, "show_all", @search_request["types"].nil?, {:onclick => "toggleMainCheckBoxes2();", :id => "show_all_race_cb"}) %><%= label_tag :show_all, "Show me everything!" %></td>
+            		<td style="float:right;padding-right:30px"><%= link_to_function (close_button_image, update_page{|page| 
+            			page["race_distance_fields"].hide
+      					page["race_type"].hide })%>
+      				</td>
+      			</tr>
+      		</table>
+			      			
+      		</div></div>
+<div id="race_type_mid">
+    <div class="race_type_body_text">
+             
+
+<div id="show_main_types" >
+  <table>
+    <tbody>
+      <tr>
+      <% for discipline in @disciplines %>
+		<% if discipline.event_types.size > 0 %>
+	        <td>
+	          <div class="race_type_discip_text" id="<%= discipline.name %>" onmouseover="mainMouseOverState('<%= discipline.name %>');" onmouseout="allMouseOutState('<%= discipline.name %>');">
+	            <%= check_box(:discipline, {},{:onclick => "toggleDiscCheckbox(this, this.checked, false);", :id => "event_#{discipline.name}", :class => "disc_chebx"}, "#{discipline.id}") %>
+	            <%= label_tag :discipline, discipline.name.upcase %>
+	          </div>
+	        </td>
+        <% end %>
+      <% end %>
+       <tr><td colspan="<%=@disciplines.size%>"><hr/></td></tr>
+      </tr>
+      <tr>
+      <% for discipline in @disciplines %>
+		<% if discipline.event_types.size > 0 %>
+			<td valign="top">
+				<% discipline.event_types.each do |event| %>
+				<% eclass = "rtype_cb" if @search_request["types"].nil? == false and @search_request["types"].include?("#{event.id}") %>
+				<%=check_box_tag 'search_request[types][]', "#{event.id}",
+				 (@search_request["types"].nil? ? false : @search_request["types"].include?("#{event.id}")), {:onclick => "updateRTCP(this.id)", :class => "race_event_#{discipline.name} #{eclass}", :id => "cbevent_#{event.id}"}%><%= label_tag :event_type, event.name.capitalize, {:id => "lbl_cbevent_#{event.id}"} %><br/>
+				<% end %>
+			</td>
+		<% end %>
+      <% end %>
+      </tr>
+      <tr><td style="text-align:center;" colspan="<%=@disciplines.size%>">
+      	<%= link_to_function(ok_button_image, update_page{|page|
+      		#calculate what needs to be shown in the text field
+      		page.call "updateRTextField"
+      		page["race_distance_fields"].hide
+      		page["race_type"].hide
+  		})%>
+      </td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+                       
+</div>
+<div id="race_type_bot"></div>
+<script type="text/javascript">
+
+  function updateRTextField() {
+  	cbArray = $$('input.* rtype_cb');
+  	var counter = 0;
+  	res = "no good";
+  	for (var index = 0; index < cbArray.length; ++index) {
+  		var item = cbArray[index];
+  		
+  		if (item.hasClassName('rtype_cb')) {
+  			counter++;
+  			//get the value
+  			lid = 'lbl_' + item.id;
+  			res = $(lid).innerHTML;
+  		}
+		
+	}
+	if (counter > 1 ){
+		res = "Multi";
+	}
+	
+	//if 'show me all' cb is checked, it overrides everything else
+	if ($('show_all_race_cb').checked == true) {
+		res = "Everything";
+	}
+  	 
+  	$('discipline_text').value= res;
+  }
+
+  function updateRTCP(cb) {
+  	
+  	if ($(cb).checked == true) {
+  		$(cb).addClassName('rtype_cb');
+  	} else {
+  		$(cb).removeClassName('rtype_cb');
+  	}
+  }
+  
+//used externally so that when the pop up opens everything is checked and inactive
+  function toggleMainCheckBoxes(){
+  	value = $('show_all_race_cb').checked;
+  	//toggle all the children to true
+  	myArray = $$('input.disc_chebx');
+  	for (var index = 0; index < myArray.length; ++index) {
+		var item = myArray[index];
+		toggleDiscCheckbox(item, true, value == true)
+	}
+
+  }
+
+//used internally to toggle... needs to be changed cause alain wants everything to become unchecked when all is unchecked
+  function toggleMainCheckBoxes2(){
+  	value = $('show_all_race_cb').checked;
+  	//toggle all the children to true
+  	myArray = $$('input.disc_chebx');
+  	for (var index = 0; index < myArray.length; ++index) {
+		var item = myArray[index];
+		toggleDiscCheckbox(item, value == true, value == true)
+	}
+
+  }
+
+
+  function toggleDiscCheckbox(item, check, disable) {
+  	item.checked = check;
+  	if (disable == true) {
+  		Field.disable(item);
+  	} else {
+  		Field.enable(item);
+  	}
+  	//update the child nodes
+  	myNArray = $$('input.race_' + item.id);
+  	for (var index = 0; index < myNArray.length; ++index) {
+		var child = myNArray[index];
+		child.checked = check;
+		if (check == true) {
+			child.addClassName('rtype_cb');
+	  		Field.disable(child);
+	  	} else {
+	  		child.removeClassName('rtype_cb');
+	  		Field.enable(child);
+	  	}
+	}
+  }
+  
+</script>

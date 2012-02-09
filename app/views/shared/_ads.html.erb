@@ -1,0 +1,5 @@
+<span style="font-size:6px">&nbsp;<br></span>
+<% Feature.find_all_by_visible(true, :order => "feature_order ASC").each do | feature | %>
+	<%= link_to image_tag(feature.image(:thumb), :border => 0), "/event/feature/#{feature.id}" %>
+	<span style="font-size:6px"><br>&nbsp;<br></span>
+<% end %>

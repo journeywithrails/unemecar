@@ -1,0 +1,89 @@
+<% content_for :head_title do %>Create a New Event - Name Select<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'add_event/top_nav', :locals => {:event => @event, :step => "2"}%><% end %>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Name Select</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableROWS">
+	<% form_tag(:controller => "add_event", :action => "name_select") do%>
+	<table border="0" align="center" cellpadding="5" cellspacing="0" id="formText">
+		<% if @candidates.size > 0 %>
+			<tr>
+				<td width="600px">
+					<strong>Select which "<%= @event_name %>" event</strong>
+					<hr/>
+					There are events with similar names and locations. Please select one to edit or create a new event with a different name.<br/><br/>
+					<strong>If last year's event is on our calendar, please create a new event rather than editing info from last year's race.</strong><br/>
+					<table width="580px" cellspacing="0" cellpadding="4" style="border-width: 1px;border-spacing: ;	border-style: solid; border-color: gray;">
+					<tr style="background-color: white;">
+						<td>Race Name</td>
+						<td width="100px">Added</td>
+						<td>Contact</td>
+						<td></td>
+						
+					</tr>
+					<% @candidates.each do |event| %>
+						<% if @add_event.nil? or (@add_event.id != event.id) or (session[:edit_current] and @add_event.id == event.id)%>
+						<tr style="vertical-align:middle;<%= cycle('','background-color:white;')%>">
+						<td><%= event.name %></td>
+						<td><%= event.event_date.strftime("%m-%d-%Y") unless event.event_date.nil? %></td>
+      	  				<td><%= event.contact_email %></td>
+      	  				<td><%= link_to edit_button_image, {:action => "do_update", :id => event.id}, {:confirm => "You are claiming ownership of this race.  Are you sure?"} %></td>
+						</tr>
+						<% end %>
+					<% end %>
+						
+				</table>
+				<br/><br/>
+				</td></tr>
+			</tr>
+			<tr><td><strong>OR choose new name</strong> (multiple events can have the same name)<hr/></td></tr>
+		<% else %>
+			
+		<% end %>
+		<tr><td>
+			<table width="600px" border="0" align="center" cellpadding="5" cellspacing="0" >
+						    
+		  		<tr>
+			    <td align="right">Name:</td>
+			    <td valign="top"><%= text_field(:event, :dname, {"size" => "54", :class => "search_form_input"}) %></td>
+			  </tr>
+			  <tr>
+			    <td align="right">City:</td>
+			    <td><%= text_field(:event, :city, {"size" => "36", :class => "search_form_input"}) %>&nbsp;&nbsp;State:<%= select :event, :state, ['AK',
+					'AL','AR','AZ','CA','CO','CT','DC','DE','FL','GA',
+					'HI','IA','ID','IL','IN','KS','KY','LA','MA','MD',
+					'ME','MI','MN','MO','MS','MT','NC','ND','NE','NH',
+					'NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC',
+					'SD','TN','TX','UT','VA','VT','WA','WI','WV',
+					'WY'], 
+					{:selected => @event.state},  {:class => "search_form_input"} %></td>
+			  </tr>
+		  
+		</table>
+		</td></tr>
+		<tr><td>&nbsp;</td></tr>
+    
+  
+  <tr>
+    
+    <td align="center"><%= link_to back_button_image, :action => "name_check" %><%= next_button_image(true) %></td>
+  </tr>
+</table>
+	<% end %>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

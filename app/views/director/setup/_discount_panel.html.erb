@@ -1,0 +1,25 @@
+<% 
+if group.nil?
+	title_text = "Discount for entrants into multiple races / categories"
+	grpid = "main"
+else
+	title_text = group.title
+	grpid = group.id
+end 
+%>
+
+<table>
+	<tr>
+		<td></strong><%= title_text%></strong></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= radio_button_tag grpid, 'plain', true %> No discount - full fee applies</td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= radio_button_tag grpid, 'plain', true %> Each additional entry costs only $<%= text_field(:grp, :dname, {"size" => "4", :class => "search_form_input"}) %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= radio_button_tag grpid, 'plain', true %> Deduct $<%= text_field(:grp, :dname, {"size" => "4", :class => "search_form_input"}) %> from each additional entry fee</td>
+	</tr>
+</table>

@@ -1,0 +1,17 @@
+<table>
+	<tr>
+		<td width="250px"><%= check_box(:race, :is_relay, { :class => 'search_form_input' })%> Triathlon Relay Race?</td>
+		<td>Min Team size:</td>
+		<td><%= text_field(:race, :min_relay_size, :size => "1", :class => "search_form_input") %></td>
+		<td width="120px" align="right">Max Team size:</td>
+		<td><%= text_field(:race, :max_relay_size, :size => "1", :class => "search_form_input") %></td>
+	</tr>
+    <tr>
+		<td colspan="5"><%= check_box(:race, :supports_team, { :class => 'search_form_input' })%> Allow team selection</td>
+        
+	</tr>
+	<tr>
+		<td colspan="5"><%= check_box(:race, :supports_team_creation, { :class => 'search_form_input' })%> Use this race for team creation</td>
+        
+	</tr>
+</table>

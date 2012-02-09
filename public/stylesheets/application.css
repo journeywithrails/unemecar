@@ -1,0 +1,167 @@
+/* 
+    Document   : application
+    Created on : Jun 9, 2009, 11:07:03 AM
+    Author     : Elsie
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+body{
+    font-family:verdana;
+    font-size:12px;
+}
+#container{
+    font-size:12px;
+
+}
+#page_mid{
+    padding-top:30px;
+}
+.tabselector, .tab-selector {
+  width: auto;
+  border-bottom: 1px solid #c0c0c0;
+  padding: 10px 0 0 20px;
+}
+
+.tab-unselected {
+  display: inline;
+  padding: 2px 7px 0 7px;
+  background: #f0f0f0;
+  border: 1px solid #c0c0c0;
+  border-bottom: 0;
+  color: #c0c0c0;
+}
+
+.tab-selected {
+  display: inline;
+  padding: 3px 7px 1px 7px;
+  background: #ffffff;
+  border: 1px solid #c0c0c0;
+  border-bottom: 0;
+}
+
+.tab-unselected a {
+  padding: 6px;
+  color: #a0a0a0;
+}
+
+.tab-selected a {
+  font-weight: bold;
+  color: #0066CC;
+  padding: 6px;
+}
+
+.panes, .pane-selector {
+  width: 100%;
+  padding-left: 0px;
+  margin: 0%;
+  min-height: 300px;
+  overflow: auto;
+}
+
+.pane-selected {
+  list-style-type: none;
+  display: block;
+  padding: 10px;
+}
+
+.pane-unselected {
+  list-style-type: none;
+  display: none;
+}
+
+/* Style for the rating system */
+
+.star-rating{
+        list-style:none;
+        margin: 0px;
+        padding:0px;
+        width: 150px;
+        height: 30px;
+        position: relative;
+        background: url(/images/star_rating.gif) top left repeat-x;
+    }
+    .star-rating li{
+        padding:0px;
+        margin:0px;
+        /*\*/
+        float: left;
+        /* */
+    }
+    .star-rating li a{
+        display:block;
+        width:30px;
+        height: 30px;
+        text-decoration: none;
+        text-indent: -9000px;
+        z-index: 20;
+        position: absolute;
+        padding: 0px;
+    }
+    .star-rating li a:hover{
+        background: url(/images/star_rating.gif) left center;
+        z-index: 2;
+        left: 0px;
+        border:none;
+    }
+    .star-rating a.one-star{
+        left: 0px;
+    }
+    .star-rating a.one-star:hover{
+        width:30px;
+    }
+    .star-rating a.two-stars{
+        left:30px;
+    }
+    .star-rating a.two-stars:hover{
+        width: 60px;
+    }
+    .star-rating a.three-stars{
+        left: 60px;
+    }
+    .star-rating a.three-stars:hover{
+        width: 90px;
+    }
+    .star-rating a.four-stars{
+        left: 90px;
+    }
+    .star-rating a.four-stars:hover{
+        width: 120px;
+    }
+    .star-rating a.five-stars{
+        left: 120px;
+    }
+    .star-rating a.five-stars:hover{
+        width: 150px;
+    }
+    .star-rating li.current-rating{
+        background: url(/images/star_rating.gif) left bottom;
+        position: absolute;
+        height: 30px;
+        display: block;
+        text-indent: -9000px;
+        z-index: 1;
+    }
+
+#app_log{
+  float:right;
+  margin-top:-147px;
+  width:506px;
+  font-size:12px;
+}
+
+
+
+td.ads { display : block; }
+.padrt10 { padding-right: 10px; }
+.nowrap { white-space: nowrap; }
+.img_valign img{ vertical-align: middle; }

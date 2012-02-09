@@ -1,0 +1,126 @@
+<% content_for :head_title do %><%= @htitle %><% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'add_event/top_nav', :locals => {:event => @event, :step => "8"}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p><%= @title %></p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableROWS">
+	<% form_tag(:controller => "add_event", :action => "review") do%>
+	<table border="0" align="center" cellpadding="5" cellspacing="0" >
+		<tr><!-- general event info -->
+			<td>
+				<table width="680px" align="center" cellpadding="4">
+					<tr>
+						<td rowspan="7" valign="top"><%= image_tag(@event.image.url(:thumb), :size => "100x100") %></td>
+						<td align="right" width="100px">Event Name:</td>
+						<td style="font-weight:bold;"><%= @event.name %></td>
+						<td rowspan="6" valign="middle" align="right"><%= link_to edit_button_image, :action => "event_details"%></td>
+					</tr>
+					<% unless @event.tag_line.blank? %>
+					<tr>
+						<td align="right" width="200px">Tagline:</td>
+						<td style="font-weight:bold;"><%= @event.tag_line %></td>
+					</tr>
+					<% end %>
+					<tr>
+						<td align="right" valign="top" width="150px">Description:</td>
+						<td style="font-weight:bold;"><%= @event.description %></td>
+					</tr>
+					<tr>
+						<td align="right">Host:</td>
+						<td style="font-weight:bold;"><%= @event.host %></td>
+					</tr>
+					<tr>
+						<td align="right">Benefiting:</td>
+						<td style="font-weight:bold;"><%= @event.benefiting %></td>
+					</tr>
+					<tr>
+						<td align="right">Website:</td>
+						<td style="font-weight:bold;"><%= @event.register_link %></td>
+					</tr>
+					<tr>
+						<td align="right">Last Year's Results:</td>
+						<td style="font-weight:bold;"><%= @event.last_year_results %></td>
+					</tr>
+					<tr>
+						<td align="right">Location:</td>
+						<td style="font-weight:bold;"><%= "#{@event.address_info}, #{@event.city}, #{@event.state} #{@event.zip}" %></td>
+						<td rowspan="4" valign="middle" align="right"><%= link_to edit_button_image, :action => "location"%></td>
+					</tr>
+				</table>
+				<hr/>
+			</td>
+		</tr>
+		
+		
+		<tr><!-- races info -->
+			
+			<td>
+				<table width="680px" align="center" cellpadding="4">
+					<tr>
+						<td style="font-weight:bold;" width="180px">Race</td>
+						<td width="260px" style="font-weight:bold;">Start</td>
+						<td rowspan="5" valign="middle" align="right"><%= link_to edit_button_image, :action => "sport_details"%></td>
+					</tr>
+					<% @event.races.each do | race | %>
+						<% start = race.start_time.strftime("%a, %b %d  %I:%M %p") unless race.start_time.nil?%>
+						<tr>
+							<td><%= "#{race.name} (#{race.event_type.name})"%></td>
+							<td><%= "#{start}"%></td>
+													
+						</tr>
+					<% end %>
+				</table>
+				<hr/>				
+			</td>
+		</tr>
+		
+		<tr><!-- contact info -->
+			<td>
+				<table width="680px" align="center" cellpadding="4">
+					<tr>
+						<td>Contact Person</td>
+						<td valign="middle" rowspan="4" align="right"><%= link_to edit_button_image, :action => "contact_information"%></td>
+					</tr>
+					<tr>
+						<td style="font-weight:bold;"><%= @event.contact_info.name %></td>
+						
+					</tr>
+					<tr>
+						<td style="font-weight:bold;"><%= @event.contact_info.email %> <%= @event.contact_info.phone %></td>
+						
+					</tr>
+					<tr>
+						<td style="font-weight:bold;"><%= "#{@event.contact_info.address}  #{@event.contact_info.city} #{@event.contact_info.state} #{@event.contact_info.zip} " %></td>
+						
+					</tr>
+				</table>
+			</td>
+		</tr>	
+		<tr>
+			<td align="center">
+				<% if session[:in_edit] == true %>
+					<%= save_button_image(true) %>
+				<% else %>
+					<%= link_to back_button_image, :action => "contact_information" %><%= post_button_image(true) %>
+				<% end %>
+				
+			</td>
+		</tr>
+	</table>
+	<% end %>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

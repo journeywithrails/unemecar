@@ -1,0 +1,270 @@
+<% if params[:mode] == "new"
+	title = "Add Registrations Data Manually"
+	action = "new"
+else 
+	title = "Edit Registration Data - #{@event_registration.first_name} #{@event_registration.last_name}"
+	action = "edit"
+end %>
+<% content_for :head_title do %><%= title %><% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "3"}%><% end %>
+<% content_for :extra_head do %>
+	<%= calendar_date_select_includes "red"%>
+<% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p><%= title %></p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableROWS">
+	<% form_tag(:controller => "registration", :action => "edit", :mode => action, :id => @event_registration) do%>
+	
+	<table border="0" align="center" cellpadding="5" cellspacing="0" id="formText" valign="top">
+	  <tr><td colspan="2" width="100%" align="center"><%= error_messages_for "event_registration", :header_message => nil, :message => nil %></td></tr>
+      <% unless flash[:error].blank? %>
+        <tr><td colspan="2"><%= show_error(flash[:error]) %></td></tr>
+      <% end  %>
+	  <% if action == "new"%>
+	  	 <tr>
+	    <td align="right" valign="top">Race:</td>
+		<td ><%= select( :event_registration, :race_id, @dir_event.races.collect {|p| [ p.name, p.id ] }, {}, {:class => "search_form_input"}) %>
+		<br/><b>Note:</b> Changing race/category may require collecting additional fees.
+		</td>
+	   </tr>
+	  <% else %>
+		<tr id="event_registration_event_handle"><td></td><td align="left"><a href="#" onclick='$("event_registration_event").show();$("event_registration_event_handle").hide(); return false;'>Move Registration to Another Event</a></span></td></tr>
+	  	<tr id="event_registration_event" style="display:none;">
+	    <td align="right">Event:</td>
+		<td><%= select( :event_registration, :event_id, current_user.managed_events.collect {|p| [ p.name, p.id ] }, {}, :class => "search_form_input", :onchange => remote_function( :update => 'event_registration_race', :url => { :action => :change_race_option, :reg_id => @event_registration.id }, :with => '"event_id="+this.value', :method => :get ) ) %>
+			<a href="#" onclick='$("event_registration_event").hide();$("event_registration_event_handle").show(); return false;'>Cancel</a>
+		</td>
+	   </tr>
+	
+		<tr>
+	    <td align="right" valign="top">Race/Category:</td>
+	    <td valign="top" id="event_registration_race"><%= select( :event_registration, :race_id, @dir_event.races.collect {|p| [ p.name, p.id ] }, {}, :class => "search_form_input" ) %>
+		<br/><span style="font-size:smaller"><b>Note:</b> Changing race/category may require collecting additional fees.</span>
+		
+		</td>
+	   </tr>
+	
+		
+	  <% end %>
+	  
+	<% if @event_registration.new_record? == false%>
+	  	 <tr>
+	    <td align="right">Timestamp, UTC (EST=UTC-5):</td>
+	    <td ><%= @event_registration.created_at.strftime("%Y-%m-%d %I:%M%p %Z") %></td>
+	   </tr>
+	  <% end %>
+	  <tr>
+	    <td align="right">First Name:</td>
+	    <td ><%= text_field(:event_registration, :first_name, {:size=>"15", :class => "search_form_input"}) %>&nbsp;&nbsp;Last Name: <%= text_field(:event_registration, :last_name, {:size=>"15", :class => "search_form_input"}) %></td>
+	   </tr>
+	  <tr>
+	    <td align="right">Birth Date:</td>
+	
+			<td><%= calendar_date_select_tag "e_date_and_time", (@event_registration.birthday unless @event_registration.blank?), :time => false, :class => "search_form_input rm_date_select" %>
+				
+		&nbsp;&nbsp;Sex:<%= select :event_registration, :sex, ['','Male', 'Female'], 
+			{},  {:class => "search_form_input"} %>
+				
+		</td>
+	
+	  </tr>
+	  
+	  <tr>
+	    <td align="right">Email:</td>
+	    <td><%= text_field(:event_registration, :email, {"size" => "25", :class => "search_form_input"}) %>&nbsp;&nbsp;&nbsp;Phone: <%= text_field(:event_registration, :phone, {"size" => "15", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Address:</td>
+	    <td><%= text_field(:event_registration, :address, {"size" => "38", :class => "search_form_input"}) %>&nbsp;&nbsp;&nbsp;Apt: <%= text_field(:event_registration, :apt, {"size" => "5", :class => "search_form_input"}) %></td>
+	  </tr>
+	  
+	  <tr>
+	    <td align="right">City:</td>
+	    <td><%= text_field(:event_registration, :city, {"size" => "28", :class => "search_form_input"}) %>&nbsp;&nbsp;State:<%= select :event_registration, :state, states_collection, 
+			{},  {:class => "search_form_input"} %>&nbsp;&nbsp;Zip:<%= text_field(:event_registration, :zip, {"size" => "5", :class => "search_form_input"}) %></td>
+	  </tr>
+	    <tr>
+    	  <td align="right">Country:</td>
+        	<td><%= country_select :event_registration, :country, ['United States'],  {},  {:class => "search_form_input" } %></td>
+      	</tr>
+  	  <tr>
+	    <td align="right">Club/Team:</td>
+		<% if @event_registration.team_entry.nil? == false and  @event_registration.team_entry.team.nil? == false%>
+		<td><%= @event_registration.team_entry.team.name %></td>
+		<% else %>
+	    <td><%= text_field(:event_registration, :club_team, {"size" => "30", :class => "search_form_input"}) %></td>
+		<% end %>
+	  </tr>
+	<% unless @dir_event.has_tshirt_question? %>
+      <tr>
+	    <td align="right">T-shirt:</td>
+	    <td><%= text_field(:event_registration, :tshirt, {"size" => "30", :class => "search_form_input"}) %></td>
+	  </tr>
+  <% end %>
+	  <tr>
+	    <td align="right">Referral:</td>
+	    <td><%= text_field(:event_registration, :refered_by, {"size" => "30", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">License:</td>
+	    <td><%= text_field(:event_registration, :license_num, {"size" => "30", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <% if (@event_registration.race.nil? == false and @event_registration.race.is_relay and @event_registration.relay_team.nil? == false) %>
+	  <!-- show the relay team -->
+	  <tr height="20px"><td>&nbsp;</td><td></td></tr>
+	  <tr>
+	    <td align="right">Relay Team:</td>
+	    <td><%= "#{@event_registration.relay_team.name} (#{@event_registration.relay_team.division})" %></td>
+	  </tr>
+	  	  <% counter = 0%>
+		  <% @event_registration.relay_team.relay_entries.each do | entry | %>
+			  <% counter += 1 %>
+			  <tr style="padding-left:10px">
+			    <td align="right">Relay Entry #<%= counter %>:</td>
+			    <td><%= "#{entry.first_name} #{entry.last_name} (#{entry.email})" %></td>
+			  </tr>
+		  	  <tr style="padding-left:10px">
+			    <td align="right">Info:</td>
+			    <td><%= "#{entry.gender}, age #{EventRegistration.race_age(entry.date_of_birth, @event_registration.event.event_date)}" %></td>
+			  </tr>
+			  <tr style="padding-left:10px">
+			    <td align="right">Emergency Contact:</td>
+			    <td><%= "#{entry.em_con_name} #{entry.em_con_phone}" %></td>
+			  </tr>
+		  <% end %>
+	  <tr height="20px"><td>&nbsp;</td><td></td></tr>
+	  <% end %>
+	  <tr>
+	    <td align="right">Payment Notes:</td>
+	    <td>
+	    	<% if @event_registration.is_manual%>
+	    		<%= text_field(:event_registration, :payment_notes, {"size" => "30", :class => "search_form_input"}) %>
+	    	<% else %>
+	    		<%= "#{number_to_currency @event_registration.cost}, Invoice #{@event_registration.invoice_code}"%>
+	    	<% end %>	
+    	</td>
+	   </tr>
+	   <tr>
+	    <td align="right">Total Amount:</td>
+	    <td>
+	    	<%= "#{number_to_currency @event_registration.payment_gross}"%>
+	    		
+    	</td>
+	   </tr>
+       <% if @event_registration.status == "Trash" and @event_registration.valid?%>
+       <tr>
+	    <td colspan="2" align="center" style="color:red;font-weight:bold">Canceled</td>
+	    
+	  </tr>
+      <% end  %>
+	   <tr>
+	    <td align="right">Emergency Contact:</td>
+	    <td><%= text_field(:event_registration, :em_con_name, {"size" => "21", :class => "search_form_input"}) %> (optional)</td>
+	  </tr>
+	  <tr>
+	    <td align="right">Relationship to You:</td>
+	    <td><%= text_field(:event_registration, :em_con_relationship, {"size" => "21", :class => "search_form_input"}) %> (optional)</td>
+	  </tr>
+	  <tr>
+	    <td align="right">Phone:</td>
+	    <td><%= text_field(:event_registration, :em_con_phone, {"size" => "21", :class => "search_form_input"}) %> (optional)</td>
+	  </tr>
+	  <% if @event_registration.race.nil? == false and ( @event_registration.race.event.id == 5239 or  @event_registration.race.event.id == 5226 or @event_registration.race.event.id == 5238) %>
+		  <tr>
+		    <td align="right">Is this your first triathlon?</td>
+		    <td><%= select :event_registration, :first_tri, ['Yes', 'No'], {:prompt => "Select"},  {:class => "search_form_input"} %></td>
+		  </tr>
+		  <tr>
+		    <td align="right">Is this your first open water swim?</td>
+		    <td><%= select :event_registration, :open_swim, ['Yes', 'No'], {:prompt => "Select"},  {:class => "search_form_input"} %></td>
+		  </tr>
+	  <% end %>
+	  <% unless @event_registration.new_record? %>
+	  	<% @event_registration.event.questions.each do |question| %>
+				<tr><td align="right"><%= question.title %></td>
+					<% answers = @event_registration.answers.find( :all, :conditions => { 'question_id' => question.id } ) %>
+					<td> <%= answers.map{ |a| a.value }.join( ', ' ) %></td>
+				</tr>
+		  <% end %>
+		  
+		  <% @event_registration.merchandise_orders.each do |order| %>
+  			<tr>	<td align="right">
+  						<%= "#{ order.merchandise_item_option.merchandise_item.title } - #{order.merchandise_item_option.title}" %>
+  						(<%= order.quantity %> X <%= number_to_currency order.merchandise_item_option.cost %>):</td>
+  					<td><%= number_to_currency( order.quantity * order.merchandise_item_option.cost ) %></td>
+  			</tr>
+  		<% end -%>
+	  <% end %>
+	  <tr>
+	    <td align="right" valign="top">General Notes:</td>
+	    <td><%= text_area(:event_registration, :general_notes, {:rows => 6, :class => "search_form_input"}) %></td>
+	  </tr>
+	  <% if @event_registration.refund_amount.to_i > 0%>
+	 <tr id="tagline_row">
+	    <td align="right" valign="top">Refund Amount:</td>
+	    <td><%= text_field(:event_registration, :refund_amount, {"size" => "21", :class => "search_form_input"}) %></td>
+	  </tr>
+	 <% else %>
+	 <tr id="tagline_holder">
+	    <td align="right"></td>
+	    <td><%= link_to_function('Issue a refund', update_page{|page|
+	    		page["tagline_holder"].remove 	     
+	    	    page["tagline_row"].show 
+	    	    })%></td>
+	  </tr>
+	  <tr id="tagline_row" style="display:none;">
+	    <td align="right" valign="top">Refund Amount:</td>
+	    <td><%= text_field(:event_registration, :refund_amount, {"size" => "21", :class => "search_form_input"}) %></td>
+	  </tr>
+	 <% end %>
+	 <!-- show the audit log -->
+	 <% if false #@event_registration.audits.each do |audit |
+	  %>
+		<tr>
+			<td align="right"><%= audit.created_at.strftime("%Y-%m-%d %I:%M%p") %></td>
+			<td align="left">
+	 			<%= render :partial => "audit_row", :locals => {:audit => audit}%>
+			</td>
+		</tr>
+	 <% end %>
+	  
+	  <tr>
+        <td>&nbsp;</td>
+        <td>
+          <% unless @event_registration.new_record? %>
+            <%= #link_to email_button_image(false, "resend confirmation email"),{:action => "resend_email", :id => @event_registration.id}, {:confirm => "resend confirmation email?"}
+            submit_tag("resend confirmation email")
+            %>
+            <% if @event_registration.processed == true%>
+            	<%= submit_tag("cancel registration", :confirm => "Are you sure you want to cancel this registration?")%>
+            <% elsif @event_registration.status == "Trash" and @event_registration.valid? %>
+            	<%= submit_tag("undo cancel")%>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+       <tr><td>&nbsp;</td><td></td></tr>
+	  <tr>
+	    <td align="right">&nbsp;</td>
+	    <td><%= ok_button_image(true) %><%= link_to cancel_button_image, :action => "index" %></td>
+	  </tr>
+</table>
+	<% end %>
+	
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

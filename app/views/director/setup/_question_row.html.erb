@@ -1,0 +1,39 @@
+<tr class="<%= style %>">
+	<td></td>
+	<td colspan=2 style="padding:10px 0;"> <span style="margin-right:10px;"><%= question.title %> <%= "(required)" if question.is_required %></span>
+		<input type="hidden" id="questions_<%= question.id %>_id" name="question_ids[]" 
+		value="<%= question.id %>" class="search_for_input" />
+
+		<% if question.question_type == Question::SINGLE_LINE_TEXT %>
+			<input type="text" id="question_<%= question.id %>_dname" name="question[<%= question.id %>][dname]" 
+			value="<%= question.dname %>" class="search_form_input"/>
+
+		<% elsif question.question_type == Question::MULTI_LINE_TEXT%>
+			<br/><%= text_area(:question,:dname, {:id => nil, :class => "search_form_input", :style => "margin-left:100px;", :rows => 3, :cols => 50 }) %>
+
+		<% elsif question.question_type == Question::DROPDOWN_LIST%>
+			<%= select :event, :state, question.question_options.collect {|p| [ p.title, p.id ] },
+				{ :prompt => ' --Select option-- '},  {:class => "search_form_input"} %>
+
+		<% elsif question.question_type == Question::CHECKBOXES%>
+			<b>Checkbox Options :</b> <%= question.question_options.map{ |o| o.title }.join( ', ' ) %>
+
+		<% elsif question.question_type == Question::RADIO_BUTTONS%>
+			<b>Radio button Options :</b> <%= question.question_options.map{ |o| o.title }.join( ', ' ) %>
+
+		<% end %>
+	</td>
+	<td align="right" style="padding-right:5px;"><%=link_to email_button_image, :controller => "email", :action => "index", :rec => question.id%>
+	
+		<%= link_to_function cog_button_image, update_page{|page|
+			page.replace_html "active_q_p", :partial => 'question_panel', 
+				:locals => {:question => question}
+				page["active_q_p"].show
+				page["add_q_p"].hide
+				page << "rescan_values();" 
+
+		} %>
+
+		<%=link_to close_button_image, { :controller => "setup", :action => "delete_question",:id => question.id }, { :confirm => 'Are you sure you want to delete this question ?' }%>
+	</td>
+</tr>

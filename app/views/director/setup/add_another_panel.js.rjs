@@ -1,0 +1,6 @@
+tid = Time.now.to_i
+page.insert_html :after, 'spanel_con', :partial => 'add_event/sport_panel',:locals => {:race => Race.new, :first => false, :visible => false, :tid => tid}
+page << "rescan_values();"
+page["panel_#{tid}"].show
+#also insert prizes panel
+#also insert fees panel

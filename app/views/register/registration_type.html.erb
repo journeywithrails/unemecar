@@ -1,0 +1,117 @@
+
+<% content_for :head_title do %>Event Registration<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "1"}%><% end %>
+<% content_for :extra_head do %>
+	<%= javascript_include_tag "default-values" %>
+<% end %>
+
+<script type="text/javascript">
+	function wait_link(event, race){
+		$('revent_wl_' + event).setAttribute('href', '/register/waitlist?event=' + event +'&race=' + race);
+	}
+</script>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Event Registration</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableROWS">
+
+<div style="width:100%;margin-left:-18px;padding-top:4px;text-align:center;">
+	
+		<%= header_image(@races.first.event) %>
+	
+</div>
+<div>
+	
+	<% first = true %>
+	
+	<% form_tag(:controller => "register", :action => "registration_type") do%>
+	<br>
+		<% if @event.event_series.nil? %>
+			<table width="720px" border="0" align="center" cellpadding="2" cellspacing="0" id="formText">
+				<tr><td colspan="5" style="padding-right:40px"><%= show_error(flash[:error])%></td></tr>
+				<tr style="font-weight:bold;">
+					<td width="245px">Race/Category</td>
+					<td width="75px">Starts</td>
+					<td width="60px">Entry</td>
+					<td width="200px">Prizes/Awards</td>
+					<td>&nbsp;  </td>
+				</tr>
+				
+				<% @races.each do | race |%>
+				<% unless race.visible == false %>
+				    <tr>
+					<!-- A Hack: Set the link to for the selected race -->
+					
+				    	<td><%= radio_button_tag "race", race.id, (race.id == @race.id unless @race.nil?), {
+					:onclick => "toggleFee('#{number_to_currency EventRegistration.calculate_service_fee(race.current_fee, false, @event.id)}');", :disabled => !race.can_reg } %>
+							<%= race.string_desc %>
+	                         <%#= race.name %> <%#= "(registration closed)" unless race.can_reg %>
+	                    </td>
+			      	  	<!-- <td><%= "#{race.distance} #{Race::DISTANCE_UNITS[race.distance_unit]}" unless race.distance_unit.blank?%></td> -->
+			      	  	<td><%= race.start_time.strftime("%I:%M %p") unless race.start_time.blank?%></td>
+			      	  	<td><%= number_to_currency race.current_fee %></td>
+			      	  	<td><%= race.prizes %></td>
+						<td><%= link_to "Join Waitlist", {:action => :waitlist, 
+											:event => @event.id, :race => race.id } if !race.can_reg and race.has_waiting_list %>
+						
+				    </tr>
+				<% end %>
+			    <% end %>
+			     <tr>
+			    <td colspan="5" align="center"></td>
+                </tr
+			    ><tr>
+			    	<td align="right">Referral:</td>
+			    	<td colspan="4"><%= text_field_tag("refered", @refered, "size" => "30", :class => "search_form_input", :id => "ref_box") %><label for="ref_box" class="default-value">ie, person, website, flyer</label></td>
+			  	</tr>
+				
+		    	   <tr><td colspan="3" align="left" id="show_service_fee">&nbsp;&nbsp;</td>
+					<td colspan="2" align="center"></td>
+					</tr>
+				<tr>
+		    	  <td colspan="5" align="center"><%= next_button_image(true) %>
+		  	    </tr>
+		
+			</table>
+		<% else %>
+			<%= render :partial => 'series',:locals => {:series => @event.event_series } %>
+		<% end %>
+	<% end %>
+	</div>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+<script type="text/javascript">
+
+	function toggleFee(value) {
+		
+		if (value == "$0.00") {
+			$('show_service_fee').innerHTML = "&nbsp;&nbsp;";
+		}
+		else {
+			$('show_service_fee').innerHTML = "<i>" + value + " service fee will be added at checkout.</i>";
+		}
+	}
+	
+</script>
+
+<% if @race.nil? == false %>
+	<script type="text/javascript">
+	toggleFee('<%=number_to_currency EventRegistration.calculate_service_fee(@race.current_fee, false, @race.event.id)%>')
+	
+</script>
+<% end %>

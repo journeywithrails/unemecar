@@ -1,0 +1,232 @@
+<% @event_registration = event_registration 
+   @event_registration.none_us_state = @event_registration.state unless @event_registration.country == "united_states"
+%>
+<% if @race.nil? 
+	@race = @event_registration.race
+   end
+%>
+<table border="0" align="center" cellpadding="5" cellspacing="0" id="formText" valign="top">
+	  <% if false %>
+	  <tr>
+		<td align="right" width=150px>Race / Category:</td>
+	    <td><%= collection_select(:event_registration, :race_id, @event_registration.event.real_open_races, :id, :name, {:prompt => "please select"}, { :style => "width:150px;", :class => "search_form_input"}) %>
+		</td>
+	  </tr>
+	  <% end %>
+  	  <% if @race.supports_team_creation %>
+  	  <tr>
+	    <td align="right" width=150px>Team Name:</td>
+	    <td><%= text_field(:event_registration, :club_team, {"size" => "30", :class => "search_form_input"}) %></td>
+	  </tr>
+      <tr>
+	    <td align="right">Team Type:</td>
+	    <td><%= select :event_registration, :team_type, ['Women', 'Men', 'Mixed', 'Ultra'], {:prompt => "-please select-"},  {:class => "search_form_input"} %></td>
+	  </tr>
+	  <% end %>
+	  
+       <% if @race.nil? == false and @race.supports_team %>
+        <tr>
+	    <td align="right" width=150px>Select Team:</td>
+	    <td>
+              <%= collection_select :event_registration, :team_id, @race.event.teams.find_all_by_approved(true), :id, :name_with_type, {:prompt => "-please select-"},  {:class => "search_form_input"} %>
+        </td>
+	  </tr>
+      <% end  %>
+      <tr>
+	    <td align="right"><%= first_name_title(@race) %>:</td>
+	    <td ><%= text_field(:event_registration, :first_name, {:size=>"15", :class => "search_form_input"}) %>&nbsp;&nbsp;<%= last_name_title(@race) %>: <%= text_field(:event_registration, :last_name, {:size=>"15", :class => "search_form_input"}) %></td>
+	   </tr>
+	  <tr>
+	    <td align="right">Birth Date:</td>
+	
+		<% if @event_registration.birthday!=nil %>
+	    	<td><%= text_field(:event_registration, :birthday, {:size=>"11",  :class => "search_form_input", :value=>@event_registration.birthday.strftime("%m/%d/%Y")}) %> (mm/dd/yyyy)
+		<% else %>
+    		<td><%= text_field(:event_registration, :birthday, {:size=>"11",  :class => "search_form_input", :value =>"mm/dd/yyyy", :onclick=>"select();" }) %>
+		<% end %>
+		&nbsp;&nbsp;Sex:<%= select :event_registration, :sex, ['','Male', 'Female'], 
+			{},  {:class => "search_form_input"} %>
+				&nbsp;&nbsp;
+		</td>
+      </tr>
+	  
+	  <% unless @race.event.has_tshirt_question? %>
+	  <tr>
+	    <td align="right">T-Shirt:</td>
+	    <td>
+              <% if @race.event.id == 4706 %>
+                <%= select :event_registration, :tshirt, ['Women Small', 'Women Med', 'Women Large', 'Men Small', 'Men Med'], {:prompt => "-please select-"},  {:class => "search_form_input"} %> only available sizes are displayed
+              <% else  %>
+                <%= select :event_registration, :tshirt, ['X-Small', 'Small', 'Medium', 'Large', 'X-Large'], {:prompt => "-please select-"},  {:class => "search_form_input"} %>
+              <% end  %>
+        </td>
+	  </tr>
+	  <% end %>
+	  <tr>
+	    <td align="right">Email:</td>
+		
+	    <td><%= text_field(:event_registration, :email, {"size" => "25", :class => "search_form_input"}) %>&nbsp;&nbsp;&nbsp;Phone: <%= text_field(:event_registration, :phone, {"size" => "15", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Address:</td>
+	    <td><%= text_field(:event_registration, :address, {"size" => "38", :class => "search_form_input"}) %>&nbsp;&nbsp;&nbsp;Apt: <%= text_field(:event_registration, :apt, {"size" => "5", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">City:</td>
+	    <td><%= text_field(:event_registration, :city, {"size" => "28", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr id="free_states" style="display:none;">
+  		<td align="right">Province:</td>
+  		<td><%= text_field(:event_registration, :none_us_state, {"size" => "10", :class => "search_form_input"}) %></td>
+		</tr>
+		<tr id="us_states">
+  		<td align="right">State:</td>
+  		<td><%= select :event_registration, :state, states_collection, {},  {:class => "search_form_input"} %></td>
+		</tr>
+		<tr>
+  		<td align="right" id="zip_label">Zip:</td>
+  		<td><%= text_field(:event_registration, :zip, {"size" => "5", :class => "search_form_input"}) %></td>
+		</tr>
+	  <tr>
+  		<td align="right">Country:</td>
+  		<td><%= country_select :event_registration, :country, ['United States'],  {:selected => @event_registration.country},  { :id => "country_selector", :class => "search_form_input", :onchange => "toggleStateProvince();" } %></td>
+		</tr>
+	  <% if @race.nil? == false and @race.license_req %>
+	  
+		  <% if @race.needs_tri_disc %>
+		  		<tr>
+		    		<td align="right">USAT License:</td>
+		    		<td><%= select :usat, :license_type, ['annual license', 'one-day license', 'pending'],  {:include_blank => "please select"},  {:id => "usat_selector", :class => "search_form_input" ,:onchange => "toggleUSAT(this.value)" } %></td>
+		  		</tr>
+		  		<tr id="usat_license" style="display:none;">
+	    			<td align="right">USAT License #:</td>
+	    			<td><%= text_field(:event_registration, :license_num, {:id => "usat_license", "size" => "30", :class => "search_form_input"}) %></td>
+	  			</tr>
+		  		<tr id="usat_purchase" style="display:none;">
+		  			<td></td>
+		  			<td>You must purchase a one-day license; $10 fee will be <br/>added at checkout ($5 if under 18)</td>
+		  		</tr>
+		  		<tr id="usat_pending" style="display:none;">
+		  			<td></td>
+		  			<td>I've purchased an annual license but have not yet<br/> received my number.</td>
+		  		</tr>
+		  		<!-- set the license box-->
+		  		<script type="text/javascript">
+		  			value = '<%= @event_registration.license_num%>';
+		  			Form.Element.setValue("usat_selector",value);
+		  			if (value == "annual license") {
+						$('usat_purchase').hide();
+						$('usat_pending').hide();
+						$('usat_license').show();
+					}
+					else if (value == "one-day license") {
+						$('usat_purchase').show();
+						$('usat_pending').hide();
+						$('usat_license').hide();
+					}
+					else if (value == "pending") {
+						$('usat_purchase').hide();
+						$('usat_pending').show();
+						$('usat_license').hide();
+						Form.Element.setValue("usat_license","");
+						
+					}
+					else {
+						$('usat_purchase').hide();
+						$('usat_pending').hide();
+						$('usat_license').hide();
+					}
+		  		</script>
+		  <% else %>
+		  <!-- show regular license box -->
+		  	<tr>
+	    		<td align="right">License #:</td>
+	    		<td><%= text_field(:event_registration, :license_num, {"size" => "30", :class => "search_form_input"}) %></td>
+	  		</tr>
+		  <% end %>
+	  
+	  <% end %>
+	  
+	  <% if @race.event.id == 5239 or  @race.event.id == 5226 or @race.event.id == 5238 %>
+	  <tr>
+	    <td align="right">Is this your first du/triathlon?</td>
+	    <td><%= select :event_registration, :first_tri, ['Yes', 'No'], {:prompt => "Select"},  {:class => "search_form_input"} %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Is this your first open water swim?</td>
+	    <td><%= select :event_registration, :open_swim, ['N/A','Yes', 'No'], {:prompt => "Select"},  {:class => "search_form_input"} %></td>
+	  </tr>
+	  <% end %>
+	  
+	  <% unless (@race.supports_team or @race.supports_team_creation) %>
+  	  <tr>
+	    <td align="right">Club/Team:</td>
+	    <td><%= text_field(:event_registration, :club_team, {"size" => "30", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <% end %>
+	  <tr>
+	    <td align="right">Emergency Contact:</td>
+	    <td><%= text_field(:event_registration, :em_con_name, {"size" => "21", :class => "search_form_input"}) %> <%= optional_tag(@race.event)%></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Relationship to You:</td>
+	    <td><%= text_field(:event_registration, :em_con_relationship, {"size" => "21", :class => "search_form_input"}) %> <%= optional_tag(@race.event)%></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Phone:</td>
+	    <td><%= text_field(:event_registration, :em_con_phone, {"size" => "21", :class => "search_form_input"}) %> <%= optional_tag(@race.event)%></td>
+	  </tr>
+	  
+</table>
+
+<script type="text/javascript">
+
+  function toggleStateProvince() {
+    //alert('hello');
+    value = $F('country_selector');
+    if (value == "United States") {
+      $('free_states').hide();
+  		$('us_states').show();
+  		$('zip_label').innerHTML = "Zip:";
+    }
+    else {
+      $('free_states').show();
+  		$('us_states').hide();
+  		$('zip_label').innerHTML = "Postal Code:";
+    }
+    
+
+  }
+
+	function setLic(value) {
+		Form.Element.setValue("usat_selector",value);
+	}
+	function toggleUSAT(value) {
+		if (value == "annual license") {
+			$('usat_purchase').hide();
+			$('usat_pending').hide();
+			$('usat_license').show();
+		}
+		else if (value == "one-day license") {
+			$('usat_purchase').show();
+			$('usat_pending').hide();
+			$('usat_license').hide();
+		}
+		else if (value == "pending") {
+			$('usat_purchase').hide();
+			$('usat_pending').show();
+			$('usat_license').hide();
+		}
+		else {
+			$('usat_purchase').hide();
+			$('usat_pending').hide();
+			$('usat_license').hide();
+		}
+	}
+	
+	<% unless @event_registration.country.blank? %>
+	//set the country
+	Form.Element.setValue("country_selector",'<%= @event_registration.country %>');
+	toggleStateProvince();
+	<% end %>
+</script>

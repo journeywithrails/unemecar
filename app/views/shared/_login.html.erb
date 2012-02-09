@@ -1,0 +1,46 @@
+<div id="login"><% form_tag "/sessions/login" do%>
+              		<table width="240" border="0" cellspacing="0" cellpadding="0">
+  						<tr>
+    						<td align="left">Email<br /><input type="text" name="username" id="username"/></td>
+  						</tr>
+  						<tr>
+  							<td align="left">&nbsp;</td>
+  						</tr>
+  						<tr>
+    						<td align="left">Password<br /><input type="password" name="password" id="password"/></td>
+  						</tr>
+	  		    </table>
+            	  <table width="240" border="0" cellspacing="0" cellpadding="0">
+              		  <tr>
+               		  	<td width="25" align="left"><input type="checkbox" name="checkbox" value="checkbox" /></td>
+                 	  	<td width="85">Remember me </td>
+                  		<td width="130" align="right"><a href="/forgot_password">Forgot  password?</a>&nbsp;&nbsp;&nbsp;</td>
+					  </tr>
+              	  </table>
+<table width="240" border="0" cellspacing="0" cellpadding="0">
+                	<tr>
+                  		<td width="99" align="right"><%= login_button_image(true)%></td>
+                  		<td width="31" align="center">or</td>
+                  		<td width="120"><%= link_to signup_button_image, :controller => "sessions", :action => "signup" %></td>
+                	</tr>
+           	    </table>
+              	 
+                  <table width="240" border="0" cellspacing="0" cellpadding="5">
+                    <tr>
+                      <td align="center">or login via Facebook</td>
+                    </tr>
+                    <tr>
+                      <td align="center">
+
+						<!-- Trent removed -->
+						<!--img src="/images/img-inner/BTN_fb_square.png" name="FBsquareBTN" width="107" height="25" id="FBsquareBTN" onclick="MM_showHideLayers('login','','hide')" onmouseover="MM_swapImage('FBsquareBTN','','/images/img-inner/BTN_fb_square_f2.png',1)" onmouseout="MM_swapImgRestore()" /-->
+						
+						<!-- Trent's addition -->
+						<!--fb:login-button onlogin="window.location = "http://www.google.com/";></fb:login-button--> 
+						<fb:login-button onlogin="window.location = '/sessions/link_user_accounts'";></fb:login-button> 
+						
+						</td>
+                    </tr>
+                  </table>
+                  <% end %>
+       	      </div>

@@ -1,0 +1,107 @@
+<% content_for :head_title do %>Custom Event Questions<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "2"}%><% end %>
+<% content_for :extra_head do %>
+	<%= javascript_include_tag "default-values" %>	
+<% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" valign="bottom" class="tableHEAD"><p>Custom Event Questions</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<table width="100%">
+		<tr>
+			<td>
+				<table cellspacing="10">
+					<tr>
+						<td width="50%" valign="top">We collect typical entrant info on our registration form. Use custom questions to gather more info, like "How did you hear about this race?" or "Are you running in honor/memory of someone?"
+						</td>
+						<td width="50%">
+							<table>
+								<tr>
+									<td><strong>we ask registrants for:</strong></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>First / Last name</td>
+									<td>Club / Team</td>
+								</tr>
+								<tr>
+									<td>Address</td>
+									<td>Racing License Info</td>
+								</tr>
+								<tr>
+									<td>Phone / Email</td>
+									<td>Emergency Contact Info</td>
+								</tr>
+								<tr>
+									<td>Sex / Age</td>
+									<td>Referral</td>
+								</tr>
+								
+							</table>
+						</td>							
+					</tr>
+				</table>
+			</td>
+			
+		</tr>
+		<!-- questions table -->
+		<tr>
+			<td>
+				<div id="director_table_holder">
+					<table width="99%" cellspacing="0">
+						<tr class="director_header_row">
+							<td width="20px"></td>
+							<td colspan="3">Your custom questions:</td>
+						</tr>
+						<% @dir_event.questions.each do | ques | %>
+							<%= render :partial => 'question_row',
+                            :locals => {:style => cycle('director_row1', 'director_row2'), 
+                            :question => ques}%>
+						<% end %>
+						<tr id="active_q_p" style="display:none;"></tr>
+						<tr id="add_q_p" class="<%= cycle( 'director_row1', 'director_row2' ) %>">
+							<td></td>
+							<td style="padding:10px 0;">Add a Question</td>
+							<td></td>
+							<td align="right" style="padding-right:5px;">
+							<%= link_to_function(add_button_image, update_page{|page|
+								page.replace_html "active_q_p", :partial => 'question_panel',
+									:locals => {:question => Question.new }
+									page["active_q_p"].show
+									page["add_q_p"].hide
+									page << "rescan_values();"
+							}) %>
+							
+							</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+		</tr>
+		
+	</table>
+
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

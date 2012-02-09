@@ -1,0 +1,75 @@
+<% content_for :head_title do %>Create New Series<% end %>
+<% content_for :top_nav do %><%#= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%#= render :partial => 'director/shared/top_nav', :locals => {:step => "3"}%><% end %>
+<% content_for :extra_head do %>
+	
+	<%= javascript_include_tag "default-values" %>
+<% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<% form_for :series,:url => {:controller => "series",:action => "create"} do |f| -%>
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Create New Series</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<div id="director_table_holder">
+	<table width="100%" cellspacing="0">
+	
+	 <tr>
+			    <td colspan="2"><%= error_messages_for :series %></td>
+			  </tr>
+	
+			
+		    <tr>
+			    <td width="200" align="right"><label for="email">Name:</label></td>
+			    <td align="left"><%= f.text_field :name %></td>
+			  </tr>
+			 <tr>&nbsp;</tr> 
+			  <tr>
+			    <td align="right"><label for="password" align="right">Header:</label></td>
+			    <td align="left"><%=  f.file_field :header_file_name %><%#= f.text_field :header %></td>
+			  </tr>
+			   <tr>&nbsp;</tr> 
+			  <tr>
+			    <td align="right" style="vertical-align:top;"><label for="password_confirmation" align="right" >Description:</label></td>
+			    <td align="left"><%= f.text_area :description,:rows => 10,:cols => 20 %></td>
+			  </tr>
+		
+		<tr>
+			    <td>&nbsp;</td>
+			    <td align="left"><%= submit_tag "Create" %>&nbsp; &nbsp; <%= link_to "Cancel", :action => "index" %></td>
+			  </tr>
+		
+		
+	<% end %>
+		
+	</table>
+	</div>
+	
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+<script>
+function toggleSearch(){
+	if ($('searchFieldsOpen').visible()) {
+		$('searchFieldsOpen').hide();
+		$('searchBarOpen').removeClassName('director_search_row_open')		
+	}
+	else {
+		$('searchFieldsOpen').show();
+		$('searchBarOpen').addClassName('director_search_row_open')	
+	}
+    
+
+  }
+</script>

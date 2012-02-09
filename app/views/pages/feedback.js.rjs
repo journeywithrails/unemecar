@@ -1,0 +1,1 @@
+page.replace_html "feed_con", :partial => 'pages/feedback_thankyou'

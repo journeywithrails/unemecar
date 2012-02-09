@@ -1,0 +1,135 @@
+<% @start_list = start_list||= false %>
+<table width="700px" border="0" align="center" cellspacing="0" style="background-color: white;word-wrap: break-word;">
+		
+		<tr>
+			<td colspan="2" align="center">
+				<%= header_image(event) %>
+			</td>
+			
+		</tr>
+		<tr>
+            <td valign="top"><%= image_tag(event.image.url, :width => "100") unless [ 5261, 7385].include?( event.id ) %></td>
+			<td align="left" style="padding:10px"><%= event.description unless [ 5261, 7385].include?( event.id ) %></td>
+			
+		</tr>
+		<% if (event.show_total_on_start_list) %>
+		<tr>
+			<td colspan="2" align="center" width="680px" style="padding-top:10px">
+				<strong><%= event.start_list_size %> people have already registered!</strong>
+				
+			</td>
+		</tr>
+		<% end %>
+		<tr>
+			<td colspan="2" align="center" style="padding-bottom:0px;">
+				<table width="560px" align="center">
+					<tr>
+						<td align="right" width="120px"><br/></td>
+						<td style="font-weight:bold;text-align:left"></td>
+					</tr>
+					<% unless [ 5261, 7385].include?( event.id )%>
+					<tr>
+						<td align="right" valign="top">Date/Time:</td>
+						<td style="font-weight:bold;text-align:left"><%= event.event_date.strftime('%a, %b %d %I:%M%p') %></td>
+					</tr>
+					<tr>
+						<td align="right" valign="top">Hosted by:</td>
+						<td style="font-weight:bold;text-align:left"><%= event.host %></td>
+					</tr>
+					<% unless event.benefiting.blank? %>
+					<tr>
+						<td align="right" valign="top">Benefiting:</td>
+						<td style="font-weight:bold;text-align:left"><%= event.benefiting %></td>
+					</tr>
+					<% end %>
+					<tr>
+						<td align="right" valign="top">More Info:</td>
+						<td style="font-weight:bold;text-align:left"><%= link_to event.register_link, event.valid_url(event.register_link), :popup => true %></td>
+					</tr>
+					<% unless event.last_year_results.blank? %>
+					<tr>
+						<td align="right" valign="top">Last Year's Results:</td>
+						<td style="font-weight:bold;text-align:left"><%= link_to event.last_year_results, event.valid_url(event.last_year_results), :popup => true %></td>
+					</tr>
+					<% end %>
+<!--				<tr>
+						<td align="right" ><br/></td>
+						<td style="font-weight:bold;text-align:left"></td>
+					</tr>
+-->
+					
+					<tr>
+						<td align="right" valign="top">Address:</td>
+						<td style="font-weight:bold;text-align:left">
+                          <%= "#{event.location}<br/>" unless event.location.blank?%>
+                          <%= link_to "#{event.address_info} #{event.city}, #{event.state} #{event.zip}", 
+							"http://maps.google.com/maps?q=#{event.address_info}, #{event.city}, #{event.state}, #{event.zip}", :popup => true%>
+                        </td>
+					</tr>
+					<% end %>
+					
+					<% if preview == false and @start_list == false%>
+						<% if event.is_registerable? %>
+							<td colspan="2" align="center"><br/>
+									<%= link_to register_button_image, :controller => "register", :action => "index", :event => event.id %>
+								</td>
+						<% elsif event.event_registrations.size > 0 %>
+							<td colspan="2" align="center"><br/>
+									Sorry; online registration for this event has closed.  Please contact the event organizer for more information
+								</td>
+						<% end %>
+					<% end %>
+				</table>
+			</td>
+			
+		</tr>
+        <% if @start_list %>
+        <tr>
+          <td colspan="2" align="center" style="padding-top:10px"><%= render :partial => 'slist'%> </td>
+        </tr>
+        <% else  %>
+		<tr>
+			<td colspan="2" align="center" style="padding-top:10px">
+				<% unless [ 5261, 7385].include?( event.id ) %>
+					<table width="700" style="border-width: 1px; border-style: solid; border-color: gray;">
+						<tr style="font-weight:bold;background-color: rgb(233,233,233);">
+                            <% if show_distance_column(event) %>
+                              <td width="265px">Race/Category</td>
+                              <td width="70px">Distance</td>
+                            <% else  %>
+                              <td width="335px">Race/Category</td>
+                            <% end  %>
+							<td width="65px">Starts</td>
+							<td width="60px">Entry</td>
+							<td width="250px">Prizes/Awards</td>
+						</tr>
+						
+						
+						<% event.races.each do |race| %>
+							<% unless race.visible == false %>
+							<tr style="vertical-align:top;<%= cycle('background-color: rgb(233,233,233);',' ')%>">
+                                <% if show_distance_column(event) %>
+                                <td><%= race.name %></td>
+								<td><%= "#{race.distance} #{Race::DISTANCE_UNITS[race.distance_unit]}" unless race.distance_unit.blank? %></td>
+                              <% else  %>
+                                <td><%= race.name %></td>
+								
+                              <% end  %>
+								
+		      	  				<td><%= race.start_time.strftime("%I:%M %p") unless race.start_time.blank? %></td>
+		      	  				<td><%= number_to_currency race.current_fee %></td>
+		      	  				<td><%= race.prizes %> </td>
+								</tr>
+							<% end %>
+						<% end %>	
+					</table>
+				<% end %>
+			</td>
+			
+		</tr>  
+		<tr>
+			<td colspan="2" style="padding-left:10px;padding-right:5px;width:300px;overflow: auto;word-wrap:break-word;"><%= event.registration_text %></td>
+		</tr>    
+        <% end %>
+		
+</table>

@@ -1,0 +1,5 @@
+@dir_event = Event.new
+tid = Time.now.to_i
+page.insert_html :after, 'spanel_con', :partial => 'add_event/sport_panel',:locals => {:race => nil, :first => false, :visible => false, :tid => tid, :multi => true}
+page << "rescan_values();"
+page["panel_#{tid}"].show

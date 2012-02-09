@@ -1,0 +1,79 @@
+<table width="720px" border="0" align="center" cellpadding="2" cellspacing="0" id="formText">
+	<tr><td colspan="4" style="padding-right:40px"><%= show_error(flash[:error])%></td></tr>
+	<tr style="font-weight:bold;"><td colspan="4" align="center"> This event is part of the <%= series.name %></td></tr>
+	<tr><td colspan="4" align="left"></td></tr>
+	<tr><td colspan="4" align="left"></td></tr>
+	<% if series.id == 6%>
+	  <tr><td colspan="4" align="center">These 6 events comprise the <a href="http://racemenu.com/races">2011 RACES - Run Against Cancer Events Series</a>. Pre-register for all 6 races and get a FREE case of <a href="http://mix1life.com" target="_blank">mix1</a> ($35 value) when you pick-up your Super Sunday stuff!<br/><br/></td></tr>
+	<% end %>
+	<tr><td colspan="4" align="center">Check below to sign up for one or more races at the same time.<br/><br/></td></tr>
+	
+	<tr style="font-weight:bold;">
+		<td width="30px"></td>
+		<td width="350px">Event</td>
+		<td width="100px">Date</td>
+		<td width="200px">Category</td>
+		<td> &nbsp; </td>
+	</tr>
+	
+	<% series.events.each do | revent |%>
+		<% unless revent.id == 5261 %>
+			<% @revent = revent %>
+		<% raceid = @race_options[revent.id.to_s] if (@race_options and @race_options.has_key?(revent.id.to_s)) %>
+			
+			<% fields_for "revent[]" do |f| %>
+		    <tr>
+		    	<td width="30px" align="right">
+		
+		<%= f.check_box(:fname,{ :checked => (raceid.nil? ? false : true), :disabled => (revent.has_cap_left == false),:class => 'search_form_input' })%></td>
+		
+		<td ><%= revent.name %> <%= "(sold out)" unless revent.has_cap_left %></td>
+		    	<td ><%= revent.event_date.strftime("%d-%b-%y") %></td>
+		  	  	<td >
+		
+		<%= f.select(:lname, options_for_select( revent.races.find(:all, 
+					:conditions => "(registration_open IS NOT false or has_waiting_list IS true) and (visible IS NOT false)").collect{ |m| [m.string_desc, m.id]}, raceid.to_i ),
+					{:prompt => "please select"}, {:onchange => "wait_link('#{revent.id}', this.value);", :style => "width:150px;", :class => "search_form_input", 
+					 :disabled => (revent.has_cap_left == false and !revent.has_waiting_list?)}) %>
+	
+					</td>
+		  	  <td> 
+			
+				  <%= link_to "Join Waitlist", { :action => :waitlist,  :event => revent.id, :race => raceid }, 
+				{:id => "revent_wl_#{revent.id}"} if revent.has_waiting_list? %>
+			
+			</td>
+			<%= f.hidden_field(:id)%>
+		    </tr>
+			<% end %>
+			
+			<tr><td colspan="4" align="center" height="10x"></td></tr>
+		<% end %>
+		
+    <% end %>
+   <% if series.id == 1 %>
+    <tr>
+    	<td width="30px" align="right"><input type="checkbox" name="sports" value="soccer" class="search_form_input" disabled="true"/></td>
+    	<td>Scituate Duathlon</td>
+    	<td>2010-10-17</td>
+  	  	<td></td>
+  	</tr>
+    <% end  %>
+  	<tr><td colspan="4" align="center" height="10x"></td></tr>
+    <tr>
+    	<td colspan="2" align="right">Referral:</td>
+    	<td colspan="2"><%= text_field_tag("refered", @refered, "size" => "30", :class => "search_form_input", :id => "ref_box") %><label for="ref_box" class="default-value">ie, person, website, flyer</label></td>
+  	</tr>
+		<tr><td colspan="4" align="center" height="10x"></td></tr>
+		 <% if series.id == 5 %>
+		 <tr><td colspan="4" align="left">Streamline Events will pay for the transaction service fee at checkout.</td></tr>
+		 <% elsif series.id == 6 %>
+ 		 <tr><td colspan="4" align="left"></td></tr>
+		 <% else %>
+		 <tr><td colspan="4" align="left" id="show_service_fee_X">Transaction service fee will be added at checkout.</td></tr>
+		 <% end %>
+	   
+	  <td colspan="4" align="center"><%= next_button_image(true) %></td>
+	    </tr>
+
+</table>

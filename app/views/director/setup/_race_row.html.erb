@@ -1,0 +1,30 @@
+<tr class="<%= style %>">
+	<td><!-- empty td --></td>
+	<td><%= "#{race.name}"  %></td>
+	<td><%= "#{race.distance} #{Race::DISTANCE_UNITS[race.distance_unit]}" unless race.distance_unit.blank? %></td>
+    <td><%= race.start_time.strftime("%I:%M %p") unless race.start_time.blank? %></td>
+    <td>$<%= race.current_fee %></td>
+    <td><% if race.registration_open == false %>
+			<%= link_to "no", {:controller => "setup", :action => "race_reg", :mode => "open", :rec => race.id}, {:confirm => "Open registration for #{race.name}"}%>
+		<% else %>
+			<%=link_to "yes", {:controller => "setup", :action => "race_reg", :mode => "close", :rec => race.id}, {:confirm => "Close registration for #{race.name}"}%>
+		<% end %></td>
+	<td><%= race.field_size %></td>
+	<!-- <td>empty td </td>-->
+	<td align="right">
+		<% if race.visible == false %>
+			<%=link_to "show", :controller => "setup", :action => "race_vis", :mode => "show", :rec => race.id%>
+		<% else %>
+			<%=link_to "hide", :controller => "setup", :action => "race_vis", :mode => "hide", :rec => race.id%>
+		<% end %>
+		<%=link_to email_button_image, :controller => "email", :action => "index", :rec => race.id%>
+		<%=link_to cog_button_image, :controller => "setup", :action => "race", :id => race.id%>
+		<% if race.procssed_registrations.size > 0%>
+			<%= link_to_function(close_button_image, update_page{|page|
+				page << "alert('This race has active registrations. Please move these registrations to another race!');"
+			}) %>
+		<% else %>
+			<%=link_to close_button_image, {:controller => "setup", :action => "delete_race", :id => race.id}, {:confirm => "Are you sure? this action cannot be undone!"}%>
+		<% end %>
+		</td>
+</tr>

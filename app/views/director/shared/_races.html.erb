@@ -1,0 +1,48 @@
+
+
+
+<% @races = event.races %>
+
+<div class="pop_race_type_top">
+  <div class="race_type_text">
+			<table width="100%">
+      				    <tr><td width="33%">  <%= label_tag "Event Races" %> </td> </tr>
+		  			</tr>
+      </table>
+			      			
+ 		</div>
+</div>
+
+
+<div class="pop_race_type_mid">
+    <div class="race_type_body_text">
+      <div id="show_main_types" >
+        <table>
+          <tbody>
+            <tr>      </tr>
+            <tr>
+            	<td valign="top">
+				        <% @races.each do |race| %>
+				        	<%= check_box_tag 'merchandise_item[races_ids][]', "#{race.id}", 
+											(checked = true if merch.races.include?(race)), 
+											{ :class => "#{tfield}_rb", :id => "check_#{tfield}"} %>
+				        	<%= label_tag :race, race.name.capitalize, {:id => "_lbl#{merch.id}", 
+											:class =>  "race_type_discip_text"} %><br/>
+				        <% end %>
+			        </td>
+		        </tr>
+		        
+		        <tr>
+		          <td style="text-align:center;">
+			      <%= link_to_function ok_button_image, "updateRTextField('#{tfield}', '#{container}')" %>
+              </td>
+            </tr>
+    
+            <tr> </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>                 
+</div>
+
+

@@ -1,0 +1,24 @@
+<% content_for :head_title do %>PREVIEW: <%= @dir_event.name %><% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "2"}%><% end %>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" valign="bottom" class="tableHEAD" align="center"><p><%= @dir_event.name %></p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td style="background-image: url(/images/img-inner/shadow_tableREPEAT.png);padding-left: 14px;padding-right: 14px;background-repeat: repeat-y;vertical-align: top;color:#003366;">
+	<%= render :partial => '/event/detailed',:locals => {:event => @dir_event, :preview => true}%>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

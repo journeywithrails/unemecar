@@ -1,0 +1,18 @@
+<tr class="<%= style %>">
+	<td><!-- empty td --></td>
+	
+	<td><%= reg.created_at.strftime('%m/%d/%Y') %></td>
+	<td><%= reg.first_name %></td>
+	<td><%= reg.last_name %></td>
+	<% if add_event == true%>
+		<td><%= reg.event.name[0..20]%>...</td>
+	<% else %>
+		<td><%= reg.sex %></td>
+	<% end %>
+	
+	<td><%= age(reg.birthday, reg.event.event_date) unless reg.birthday.nil?%></td>
+	<td><%= reg.email %></td>
+	<!--<td><%= reg.race.name unless reg.race.blank?%></td>-->
+	<td align="right"><%=link_to email_button_image, :controller => "email", :action => "index", :user => reg.id%>
+		<%=link_to cog_button_image, {:controller => "registration", :action => "edit", :id => reg.id, :evid => reg.event.id}, {:popup => true}%></td>
+</tr>

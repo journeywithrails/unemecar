@@ -1,0 +1,22 @@
+<table>
+	<tr>
+		<td width="100px"><strong><%= @race.name unless @race.nil?%></strong></td>
+		<td colspan="2"><b>Starting Fee $ </b><%= text_field(:race, :initial_fee, {"size" => "10", :class => "search_form_input", :disabled => ( @race and !@race.event_registrations.empty?) } ) %> Applicable when registrations opens</td>
+		<td>
+			<%= link_to_function add_button_image, update_page{|page|	
+                    page.insert_html :before, "race_fee_last", :partial => 'fee_panel_item', 
+											   :locals => { :rfchange => RaceFeeChange.new } 
+			 } %>
+		</td>
+	</tr>
+	
+	<% unless @race.nil? %>
+	  <% @race.race_fee_changes.each do |fee| %>
+		<%= render :partial => 'fee_panel_item', :locals => { :first => true, :rfchange => fee} %>
+	  <% end -%>
+	
+	<%= render :partial => 'fee_panel_item',:locals => {:first => true, :rfchange => RaceFeeChange.new} %>
+	<% end -%>
+	
+	<tr id="race_fee_last"> </tr>
+</table>

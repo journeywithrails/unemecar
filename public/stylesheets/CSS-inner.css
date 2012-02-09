@@ -1,0 +1,863 @@
+.text_pages{
+	margin-right:10px;#30px;
+	line-height:16pt;
+	margin-top:20px;
+	
+}
+h1.text_pages{
+	margin-top:10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: 500;
+	align:left;
+}
+
+/* used on about page only */
+.twitter_link{
+	
+	
+	
+}
+
+
+/*  Body style controls the body tag: browser inset margins and back grounds for the entire window. The background image is only so tall, then the background color start where the gradient ends*/
+body {
+	background-color: #516271;
+	background-image: url(/images/img-inner/BG-bodyTag.png);
+	background-repeat: repeat-x;
+	margin-top: 0px;
+	margin-left: 0px;
+	padding-top: 0px;
+	padding-left: 0px;
+}
+/*  the anchor style applies to a div with an id="anchor".  It is right next to the logo, in its own cell.  This div must be RELATIVELY positioned - do NOT change this.  This div contains the pop up layers with the semi-transparent dark backgrounds, these layers are positioned ABSOLUTELY, relative to their parend div.  SO when the window resizes the upper most table, recenters, the anchor div moves with it, and the pop up divs move with it, but stay anchored ABSOLUTELY to it, relatively speaking.  Just trust me this works. */
+#anchor {
+	position: relative;
+	visibility: visible;
+	z-index: 1;
+	height: 3px;
+	width: 3px;
+}
+/*  this next style is for a div named "login" inside the "anchor" div and controls the positioning (which must stay ABSOLUTE) and the padding and the background image.  When you make the other pop up layers copy the "#anchor #login" styles and just change the "#login" part of the name to be whatever you need it to be, but keep the "#anchor" part of the style name.  This will keep all the text styles the same across all the pop ups.  */
+#anchor #login {
+	height: 255px;
+	width: 260px;
+	overflow: hidden;
+	position: absolute;
+	visibility: hidden;
+	z-index: 500;
+	left: 87px;
+	top: -22px;
+	background-image: url(/images/img-inner/popBKG_login.png);
+	padding-top: 20px;
+	padding-left: 30px;
+	background-repeat: no-repeat;
+}
+#anchor #login a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+#anchor #login a:hover {
+	text-decoration: underline;
+	color: #FFFFFF;
+}
+
+#anchor #login td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+}
+#anchor #login #username {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	background-color: #889DB0;
+	height: 16px;
+	width: 220px;
+}
+#anchor #login #password {
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	background-color: #889DB0;
+	height: 16px;
+	width: 220px;
+}
+
+#ufeedback {
+	overflow: hidden;
+	left: 207px;
+	top: -8px;
+	z-index: 10;
+	width:290px;
+	height:299px;
+	background-image: url(/images/img-inner/popBKG_SUGGEST.png);
+	background-repeat: no-repeat;
+	position:absolute;
+}
+
+
+/*  sidebar Header Text is the style for the text right above the ads in the right side column beside the Race Calendar data table*/
+.sidebarHeaderText {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: lighter;
+	color: #FFFFFF;
+	width: 120px;
+	text-align: left;
+}
+
+
+/*  BG page is the background for the main part of the page, the calendar data tables.  This style is only the backgound image behind the calendar data table and does not control the table at all*/
+.BGpage {
+	background-color: #DDE9F1;
+	background-image: url(/images/img-inner/BG-page.png);
+	background-repeat: repeat-x;
+}
+
+
+/*  Table Rows sets the right and left side shadows on either side of the Calendar Data table*/
+#tableROWS {
+	background-image: url(/images/img-inner/shadow_tableREPEAT.png);
+	padding-left: 38px;
+	background-repeat: repeat-y;
+	vertical-align: top;
+}
+
+.content_bg {
+	background-image: url(/images/img-inner/shadow_tableREPEAT.png);
+	padding-left: 38px;
+	background-repeat: repeat-y;
+	vertical-align: top;
+}
+
+
+/*  Table Rows div applies to all divs within any div with a "tableROWS" id.  This style controls the font, padding, and floating of the divs in each row - it does NOT control the widths of the divs in each column - that is done in the column styles*/
+#tableROWS div {
+	/*vertical-align: top;*/
+	float: left;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: lighter;
+	color: #003366;
+	padding-bottom: 2px;
+	
+}
+
+.ev_details {
+	
+	float: left;
+	width: 714px;
+	padding-top: 0px;
+}
+
+/*  Row 1 and Row 2 styles are just samples of how to format the two alternating rows.  Each of the rows in the sample page is either a row 1 or a row 2. Use these styles along with your own method for alternating the row colors*/
+.row1 {
+	clear: right;
+	float: left;
+	height: 25px;
+	position: relative;
+	width: 714px;
+	background-color: #EEF0F1;
+	
+}
+.row2 {
+	clear: right;
+	float: left;
+	height: 25px;
+	position: relative;
+	width: 714px;
+	
+}
+
+.hosted {
+	/*border-left: 1px solid orange;
+	border-right: 1px solid orange;*/
+	
+}
+
+.ractive{
+	background-color: rgb(255,245,206);
+	font-weight: bold;
+}
+
+
+
+
+/*  Table HEAD provides the background image, padding and height for the very top row of the calendar data table, the row with the sort buttons in it. This is a class applied to a table cell*/
+.tableHEAD {
+	background-image: url(/images/img-inner/shadow_tableTOP.png);
+	background-repeat: no-repeat;
+	padding-left: 38px;
+	height: 26px;
+}
+
+
+/*  Table HEAD div applies to any div in the table head div. It sets the text styles and the postitioning of the divs relative to each other in the row*/
+.tableHEAD div {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #003366;
+	text-align: left;
+	height: 15px;
+	position: relative;
+	visibility: visible;
+	padding-top: 11px;
+	float: left;
+}
+
+
+/*  Table BOTTOM shadow applies to any div with the id of "tableBOTTOMshadow.  Originally this same shadow was inserted as a cell background directly without using CSS, but there are instances where the bottom cell expands and there's no way to control image repeating in a table cell so I had to switch it to be a CSS element.*/
+#tableBOTTOMshadow {
+	background-image: url(/images/img-inner/shadow_tableBOTTOM.png);
+	background-repeat: no-repeat;
+}
+
+
+
+/*  Page Title is a text style for the largest text on the page, the text on the left side of the dark blue area right below the logo.  "Find an Event" or the person's name, etc. This is a class that is applied to a table cell*/
+.pageTITLE {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: lighter;
+	color: #FFFFFF;
+}
+
+
+/*  Pagination contols the text inside the top div in the 6th column where the pagination goes.  It just controls the text inside it since it differs with the other text in the row. ALSO it is applied to a span tag inside the topmost col6 div because the span tag will not ignore the padding of the colum6 tag allowing the pagination area to be positioned more appropriately for the height of the graphics*/
+#pagination {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: lighter;
+	color: #003366;
+	text-decoration: none;
+}
+
+
+/*  Col1,2,3,4,5,6 each provide the widths of any div in any row as long as the div in question has an id of "col1" or "col2" etc. This effectively creates column widths that apply to multiple divs in differnt rows*/
+#col1 {
+	width: 81px;
+	
+}
+#col2 {
+	width: 153px;
+}
+#col3 {
+	width: 230px;
+}
+#col4 {
+	width: 65px;
+}
+#col5 {
+	width: 104px;
+	text-align: center;
+}
+/*  Col6 is a little differnt.  It aligns to the right and adjusts the padding slightly to accomodate the height of the icon buttons - delete, add, web, etc.*/
+#col6 {
+	width: 146px;
+	text-align: right;
+	padding-top: 5px;
+}
+/*  Col6 img applies to any image placed in a div with an id="col6" and gives the padding for each icon button*/
+#col6 img {
+	padding-right: 5px;
+}
+
+
+/*  the following "formfield" styles are for each form field named in ALL CAPS in the style name. For instance "formfieldCITY" applies to the field for "city" in the event search area*/
+#formfieldCITY {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 12px;
+	width: 80px;
+	float: left;
+	position: relative;
+	background-color: #FFFFFF;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #000000;
+	padding-left: 5px;
+}
+#formfieldSTATE {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 12px;
+	width: 30px;
+	float: left;
+	position: relative;
+	background-color: #FFFFFF;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #000000;
+	padding-left: 5px;
+	left: 5px;
+}
+#formfieldZIP {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 12px;
+	width: 25px;
+	float: left;
+	position: relative;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #000000;
+	background-color: #FFFFFF;
+	padding-left: 5px;
+	left: 10px;
+}
+#formfieldRADIUS {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 12px;
+	width: 68px;
+	margin-left: 10px;
+	float: left;
+	position: relative;
+	left: 5px;
+}
+.searchColumnTitles {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: lighter;
+	color: #84A3C1;
+	text-align: left;
+}
+#formfieldTYPE {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 12px;
+	width: 117px;
+	background-color: #FFFFFF;
+	border-top: 1px solid #000000;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #000000;
+	padding-left: 5px;
+}
+#formfieldDISTANCE {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 12px;
+	width: 117px;
+	position: relative;
+}
+#formfieldFROM {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 12px;
+	width: 52px;
+	background-color: #FFFFFF;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #000000;
+	padding-left: 5px;
+}
+#formfieldTO {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 12px;
+	width: 52px;
+	background-color: #FFFFFF;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #000000;
+	padding-left: 5px;
+}
+#formfieldRACENAME {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 12px;
+	width: 113px;
+	background-color: #FFFFFF;
+	padding-left: 5px;
+}
+
+
+#formfieldREGION {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 18px;
+	width: 244px;
+}
+
+
+/*  formfield PAGE applies to the page number field in the pagination area*/
+#formfieldPAGE {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	height: 10px;
+	width: 20px;
+}
+
+/*  This next style applies to the text "RaceBuddies" in the blue bar of MyRaceMenu*/
+.userRaceBuddiesTitle {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+/*  This next style applies to all the text (not controled by other styles) in the blue bar of MyRaceMenu.  It is applied to any table with the id "userinfo"  */
+#userinfo {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: lighter;
+	color: #84A3C1;
+}
+#userinfo a {
+	color: #85C2E9;
+	text-decoration: none;
+}
+#userinfo a:hover {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.buddyInfo {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: lighter;
+	color: #84A3C1;
+}
+.buddyInfo a {
+	color: rgb(0,68,121);
+	text-decoration: none;
+}
+.buddyInfo a:hover {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+/*  This next style applies to all the text (not controled by other styles) in the "Add an Event" pages as well as "RaceDirector" pages.  It is applied to any table with the id "formText"  */
+#formText {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #003366;
+}
+/*  This next style applies to all table titles in the "Add an Event" pages as well as "RaceDirector" pages.  This is te text that replaces the column heads across the rounded top part of the body table. It is applied to any paragraph tag inside something with a class of "tableHEAD" in this case (the only case) it's the table header bar (it's not used anywhere else)  */
+.tableHEAD p {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #003366;
+	font-weight: bold;
+	padding-top: 5px;
+	height: 19px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+#ads img {
+	margin-bottom: 1px;
+}
+
+.mrm_title {
+	color: #336699;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: lighter;
+}
+
+
+#footer {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #336699;
+}
+#footer a {
+	color: #3366FF;
+	text-decoration: none;
+}
+#footer a:hover {
+	color: #3399FF;
+	text-decoration: underline;
+}
+.reviewsH2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+.reviewTITLEandAUTHOR {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #003366;
+}
+#review a {
+	color: #0000FF;
+	text-decoration: underline;
+}
+#reviews a:hover {
+	color: #3399FF;
+	text-decoration: none;
+}
+#recommendedRaces {
+	position: relative;
+	height: 130px;
+	width: 765px;
+	overflow: auto;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-align: center;
+}
+#recommendedRaces a {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+	text-decoration: none;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	font-weight: normal;
+}
+#recommendedRaces td {
+	width: 100px;
+	padding-top: 7px;
+	padding-right: 2px;
+}#reviewTITLE {
+	width: 440px;
+}
+#reviewTEXT {
+	width: 440px;
+	height: 300px;
+}
+#reviewsDISCLAIMER {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #666666;
+}
+
+.event_details_popup {
+	width:328px;
+	height:209px;
+	z-index:10;
+	background-image: url(/images/img-inner/popBKG_add.png);
+	background-repeat: no-repeat;
+	position:absolute;
+}
+
+.result_details_popup {
+	width:441px;
+	height:275px;
+	z-index:10;
+	background-image: url(/images/img-inner/popBKG_sports.png);
+	background-repeat: no-repeat;
+	position:relative;
+	left: -100px;
+}
+
+#suggest_popup {
+	width:290px;
+	height:299px;
+	z-index:10;
+	background-image: url(/images/img-inner/popBKG_SUGGEST.png);
+	background-repeat: no-repeat;
+	position:absolute;
+	left: -12px;
+	top: -3px;
+	
+}
+
+.details_head {
+	width: 100px;
+	text-align:right;
+	vertical-align:top;
+	font-weight: bold;
+}
+
+.add_event_details {
+	z-index:10;
+	padding-right: 10px;
+	padding-left: 10px;
+	color:white;
+	width:100%;
+}
+
+.details_data {
+	color: rgb(0,68,121);
+	
+	text-align:left;
+	vertical-align:top;
+	
+}
+
+.lable {
+		text-align:right;
+		font-weight:bold;
+		width:200px;
+	}
+
+.search_form_input {
+font: normal 14px arial;
+color: black;
+border: solid 1px #001d51;
+padding:2px;
+}
+
+.search_form_input:focus {
+background-color: #ffc;
+color:black;
+}
+
+.location_select {
+	width:220px;
+}
+
+a.tooltip{
+    position:relative; /*this is the key*/
+    z-index:0;
+    border-bottom: 1px dashed rgb(102, 114, 149); 
+    color: rgb(0,68,121);
+    text-decoration:none}
+
+a.tooltip:hover{z-index:25; background-color:#ff0}
+
+a.tooltip span{display: none}
+
+a.tooltip:hover span{ /*the span will display just on :hover state*/
+    display:block;
+    position:absolute;
+    top:2em; left:-2em; width:10em;
+    border:1px solid rgb(0,68,121);;
+    background-color:white; color:rgb(0,68,121);;
+    padding: 4px;
+    text-align: left}
+
+#btnANCHOR {
+	height: 5px;
+	width: 5px;
+	position: relative;
+	visibility: visible;
+}
+
+#btnANCHOR div {
+	background-color: #e6e6e6;
+	filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+	position: absolute;
+	visibility: visible;
+	z-index: 30;
+	height: 66px;
+	width: 138px;
+	left: 300px;
+	top: 20px;
+}
+
+.pop_race_type {
+	width:465px;
+	background-repeat:no-repeat;
+	background-position:top;
+	z-index:40;
+	position: absolute;
+	color:white;
+	
+}
+
+.pop_race_type_top {
+	width:465px;
+	height:33px;
+	background-image:url(../images/race_type_top.png);
+	background-repeat:no-repeat;
+	background-position:top;
+	z-index:40;
+}
+.pop_race_type_mid {
+	width:465px;
+	height:auto;
+	background-image:url(../images/race_type_mid_repet.png);
+	background-repeat:repeat-y;
+	background-position:top;
+	z-index:40;
+}
+
+.pop_race_type_bot {
+	width:465px;
+	height:30px;
+	background-image:url(../images/race_type_bot.png);
+	background-repeat:no-repeat;
+	background-position:top;
+	z-index:40;
+    margin-top:-8px;
+}
+
+.rm_date_select {
+	width:210px;
+}
+
+.director_row1 {
+	background-color:white;
+}
+.director_row2 {
+	background-color:rgb(244,244,244);
+	
+}
+
+.director_header_row {
+	color:white; 
+	background-color:rgb(20,99,154);
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	
+	
+}
+
+.director_header_row a {
+	color:white; 
+}
+
+.director_search_row_closed {
+	color:white; 
+	background-color:black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	cursor: pointer;
+}
+
+.director_search_row_open {
+	color:white; 
+	background: rgb(255,160,24);
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	cursor: pointer;
+	
+}
+
+.director_summary_row {
+	color:white; 
+	background-color:rgb(154,182,207);
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	
+}
+
+.director_row1 td, .director_row2 td, .director_header_row td, .director_summary_row td, .director_search_row_closed td{
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+div#director_table_holder{
+	margin-top: -3px;
+    margin-right: 12px;
+    margin-left: -23px;
+    
+}
+
+.default {
+	color: #999;
+}
+
+.charcount-limit {
+	color: red;
+}
+
+.charcount-safe {
+	color: green;
+}
+
+.group_div{
+	padding-left:20px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	color: #003366;    
+}
+
+.errorExplanation {
+	
+	font-size: 11px;
+	background-color: #FFFF99;
+	padding: 5px;
+	display: block;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	color: red;
+	font-weight: bold;
+	
+	border:1px solid red;
+}
+
+.errorExplanation li{
+	padding-right: 10px;
+	color: red;
+	
+}
+
+.fieldWithErrors input{
+	border:1px solid red;
+}
+
+.white_link {
+	color:white;
+}
+
+#activity a {
+	color: #3366FF;
+	text-decoration: none;
+}
+#activity a:hover {
+	color: #3399FF;
+	text-decoration: underline;
+}
+
+.cancels, .cancels a {
+    color: red;
+}
+
+.discounts, .discounts a {
+    color: orange;
+}
+

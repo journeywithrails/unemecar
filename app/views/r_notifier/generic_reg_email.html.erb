@@ -1,0 +1,62 @@
+<html>
+ <body>
+
+ <p>Dear <%= @reg.first_name.capitalize %>, </p>
+
+ <p>Thank you for registering for the <%= @event.name %>. 
+ 	<% unless @event.benefiting.blank? %>
+ 		 Your participation in this event directly supports <%= @event.benefiting %>.
+ 	<% end %>
+ 	Below are details for the race: </p>
+<center>
+<div style="border:3px double #1647b2;margin:10px;padding-left:20px;padding-right:20px;margin-left:30px;margin-right:30px;width:550px;">
+	
+<h3><%= @event.name %></h3>	
+<h4>Category: <%= @reg.race.name %></h4>
+<p>
+ <a href="http://www.racemenu.com/event/show_detailed/<%= @event.id %>"><img src="http://racemenu.com/images/pb_racemenu.gif" style="border:0;"></a>
+</p>
+<p>Date: <%= @event.event_date.strftime("%A, %B %d, %Y ")  %></p>
+<p>Race Begins: <%= @event.event_date.strftime("%I:%M%p")  %></p>
+
+<% unless @event.distance.nil? or @event.distance.blank? %>
+<p>Distance: <%= @event.distance %></p>
+<% end %>
+
+<p>
+<% location = [ @event.location , @event.address_info, @event.city, @event.state, @event.zip ].select{ |i| !i.nil? and !i.blank? } %>
+Location: <%= location.join(", " ) %>
+</p>
+
+<%= "<h4>Merchandise Items</h4>" unless @reg.merchandise_orders.empty? %>
+<% @reg.merchandise_orders.each do |order| %>
+	<p>
+	<%= "#{ order.merchandise_item_option.merchandise_item.title } - #{order.merchandise_item_option.title}" %> : 
+	<%= number_to_currency( order.quantity * order.merchandise_item_option.cost ) %> (<%= order.quantity %> X <%= number_to_currency order.merchandise_item_option.cost %>) 
+	</p>
+<% end -%>
+	
+  <p>
+ <a href="http://www.racemenu.com/event/show_detailed/<%= @event.id %>">View event information on RaceMenu</a>
+ </p>
+</div>
+</center>
+<p> If you have any questions about the event, 
+ please contact <%= @event.contact_info_details[:name] if @event.contact_info_details[:name] and !@event.contact_info_details[:name].blank? %>
+ <%= "at #{mail_to @event.contact_info_details[:email], @event.contact_info_details[:email]}" if @event.contact_info_details[:email] and !@event.contact_info_details[:email].blank? %> 
+ <%= "or call #{@event.contact_info_details[:phone]}" if @event.contact_info_details[:phone] and !@event.contact_info_details[:phone].blank? %> 	
+ <%= "or visit #{link_to @event.register_link, @event.valid_url(@event.register_link)}" if  @event.valid_url(@event.register_link) %>
+</p>	
+	
+<% if @card.nil? %>
+    <p><%= "An amount of #{number_to_currency(@reg.payment_gross)} has been charged to #{@reg.payment_notes}; the transaction ID is #{@reg.invoice_code}."%></p>
+<% else  %>
+    <p><%= "An amount of #{number_to_currency(@reg.payment_gross)} has been charged to #{@card.name}'s #{@card.type} #{@card.display_number}; the transaction ID is #{@reg.invoice_code}."%></p>
+<% end %>
+<p>
+ We look forward to seeing you on race day &ndash; <%= @event.event_date.strftime("%B %d, %Y ")  %>
+</p><p>
+ 
+ <a href="http://www.facebook.com/share.php?u=http://www.racemenu.com/event/show_detailed/<%= @event.id %>" target="_blank" class="fb_share_link" style="border:0px;text-decoration:none;"><img src="http://racemenu.com/images/fb.gif" style="border:0px;"></a> <a href="http://www.facebook.com/share.php?u=http://www.racemenu.com/event/show_detailed/<%= @event.id %>" target="_blank" class="fb_share_link">Share on Facebook</a> | <a href="http://twitter.com/home?status=<%= @reg.twitter_feed_text %>">Share on Twitter</a></p>
+
+</html>

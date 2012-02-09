@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- Trent's Changes -->
+<!--html xmlns="http://www.w3.org/1999/xhtml"-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>RaceMenu | Make it your race calendar!</title>
+
+</head>
+
+<body>
+  <table width="100%" align="center">
+  	<tr>
+  		<td align="center"><%= image_tag('RaceMenuHGr400.gif')%></td>
+  	</tr>
+  	<tr>
+  		<td height="30px"></td>
+  	</tr>
+  	<tr>
+  		
+  		<td align="center">
+		  <div style='border: 1px solid #F7941D; background: #FEEFDA; text-align: center; clear: both; height: 175px; position: relative;width:800px'>
+		    <div style='position: absolute; right: 3px; top: 3px; font-family: courier new; font-weight: bold;'></div>
+		    <div style='width: 640px; margin: 0 auto; text-align: left; padding: 0; overflow: hidden; color: black;'>
+		      <div style='width: 75px; float: left;'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-warning.jpg' alt='Warning!'/></div>
+		      <div style='width: 275px; float: left; font-family: Arial, sans-serif;'>
+		        <div style='font-size: 14px; font-weight: bold; margin-top: 12px;'>You are using an outdated browser</div>
+		        <div style='font-size: 12px; margin-top: 6px; line-height: 12px;'>To view <a href='http://www.racemenu.com' target='_blank'>racemenu.com</a>, please upgrade to one of these modern web browsers.</div>
+		        
+		      </div>
+		      <div style='width: 75px; float: left;'><a href='http://www.firefox.com' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-firefox.jpg' style='border: none;' alt='Get Firefox 3.5'/></a></div>
+		      <div style='width: 75px; float: left;'><a href='http://www.browserforthebetter.com/download.html' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-ie8.jpg' style='border: none;' alt='Get Internet Explorer 8'/></a></div>
+		      <div style='width: 73px; float: left;'><a href='http://www.apple.com/safari/download/' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-safari.jpg' style='border: none;' alt='Get Safari 4'/></a></div>
+		      <div style='float: left;'><a href='http://www.google.com/chrome' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-chrome.jpg' style='border: none;' alt='Get Google Chrome'/></a></div>
+		
+		    </div>
+		    <div style='font-size: 14px; font-weight: bold; margin-top: 12px;font-family: Arial, sans-serif;'>If you can not update your browser, contact help@racemenu.com for offline options or click continue below.</div>
+		  </div>
+		 </td>
+				 
+		</tr>
+		<tr>
+			<td align="center" style='font-size: 16px; font-weight: bold;'><%= link_to "continue", session[:browser_return_to] %></td>
+		</tr>	
+	</table>
+	
+	
+  
+
+</body>
+</html>

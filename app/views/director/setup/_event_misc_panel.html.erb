@@ -1,0 +1,39 @@
+<table width="600px" border="0" align="left" cellpadding="5" cellspacing="0">
+		
+  	<tr>
+	    <td align="right">Total Event Entry Limit</td>
+	    <td><%= text_field(:dir_event, :entry_limit, {:id => "event_limit", "size" => "20", :class => "search_form_input"}) %>
+	    	<label for="event_limit" class="default-value">leave blank for no limit</label>
+	    </td>
+	</tr>
+	<tr>
+		<td align="right">Require Contact Information</td>
+		<td><%= check_box :dir_event, :is_contact_mandatory %> </td>
+	</tr>
+	
+	<% nsetting = @dir_event.notification_setting %>
+	<% nsetting = nsetting.nil? ? NotificationSetting.new : nsetting %>
+	<% fields_for "nsetting", nsetting do  |f| %>
+		<tr>
+			<td align="right"> Notification Email
+			<%= hidden_field_tag :nsetting_id, nsetting.id  %>
+			<%= f.hidden_field :event_id, :value => @dir_event.id %>
+			<%= f.hidden_field :_delete, :value => nsetting.new_record? ? 0 : 0  %>
+			</td>
+			<td> <%= f.text_field :notification_email, :value => nsetting.notification_email, :class => 'search_form_input' %> </td>
+		</tr>
+		<tr>
+			<td align="right">Receive Daily Email</td>
+			<td><%= f.check_box :rec_daily_notification %> </td>
+		</tr>
+		<tr>
+			<td align="right">Receive Event/Race Limit Email</td>
+			<td><%= f.check_box :rec_limit_notification %> </td>
+		</tr>
+		<tr>
+			<td align="right"> Receive Registration Notification Email</td> 
+			<td><%= f.check_box :rec_reg_notification %></td>
+		</tr>
+		
+	<% end -%>
+</table>

@@ -1,0 +1,8 @@
+#close the popup
+page["add_#{@event.id}_container"].hide
+#refresh the partial
+page.replace_html "event_#{@event.id}_top_con", :partial => 'events/event_row', :locals => {:event => @event, :mode => "calendar"}
+#highlight the row
+page["row_" + @event.id.to_s].visual_effect :highlight, :duration => 0.4
+
+

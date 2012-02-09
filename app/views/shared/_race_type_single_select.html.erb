@@ -1,0 +1,67 @@
+<% @disciplines = Discipline.find(:all) %>
+<div class="pop_race_type_top"><div class="race_type_text">
+			<table width="100%">
+      			<tr>
+      				<% for discipline in @disciplines %>
+					<% if discipline.event_types.size > 0 %>
+				        <td width="33%">
+				          <%= label_tag :discipline, discipline.name.upcase %>
+				       </td>
+			        <% end %>
+			        <% end %>
+      			</tr>
+      		</table>
+			      			
+      		</div></div>
+      		
+<div class="pop_race_type_mid">
+    <div class="race_type_body_text">
+             
+
+<div id="show_main_types" >
+  <table>
+    <tbody>
+      <tr>
+      
+       
+      </tr>
+      <tr>
+      <% for discipline in @disciplines %>
+		<% if discipline.event_types.size > 0 %>
+			<td valign="top">
+				<% discipline.event_types.each do |event| %>
+				<%= radio_button_tag 'search_request[types][]', "#{event.id}", false, {:onclick => "updateRTCP(this.id)", :class => "race_event_#{discipline.name}", :id => "#{tfield}_rb"}%><%= label_tag :event_type, event.name.capitalize, {:id => "_lbl#{event.id}", :class =>  "race_type_discip_text"} %><br/>
+				<% end %>
+			</td>
+		<% end %>
+      <% end %>
+      </tr>
+      <tr><td style="text-align:center;" colspan="<%=@disciplines.size%>">
+      	<%= link_to_function(ok_button_image, update_page{|page|
+      		#calculate what needs to be shown in the text field
+      		page.call "updateRTextField", tfield
+      		page[container].hide
+  		})%>
+      </td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+                       
+</div>
+<div class="pop_race_type_bot"></div>
+<script type="text/javascript">
+
+  function updateRTextField(tfield_id) {
+  	res = "no good";
+  	var value = null;
+	$$('#' + tfield_id + '_rb').each( function(i) {
+	    if ($F(i)) { res = $F(i); }
+	} );
+	select = res + '_id';
+  	$(tfield_id).value= $('_lbl' + res).innerHTML;
+  	$("event_type_id_hid").value = res;
+  }
+
+ </script>

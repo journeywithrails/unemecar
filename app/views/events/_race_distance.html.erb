@@ -1,0 +1,86 @@
+<div>
+  <table style="padding-right:10px;padding-left:10px">
+    <tbody>
+      <tr>
+      	<td colspan="4"><div class="race_distance_text">
+      		<table>
+      			<tr>
+      				<td width="240">Select race distance</td>
+      				<td><%= link_to_function (close_button_image, update_page{|page| 
+	page << "hideAll(); $('race_distance_text').value= 'Distance';" })%></td>
+      			</tr>
+      		</table>
+      				</div></td></tr>
+      <tr>
+        <td width="60%">events longer than</td>
+        <td width="30"><%= text_field 'search_request', 'min', {:size => 5, :value => "0",  :id => "minDistance"} 
+        	
+        %></td>
+        <td width="30"><%= radio_button_tag "min", "miles", true, {:id => "minMileUnit"} 
+        	
+        %>
+          <%= label_tag "min_miles", "miles" %>
+        </td>
+        <td width="30"><%= radio_button_tag "min", "km", false, {:id => "minKmUnit"} 
+        	
+        %>
+          <%= label_tag "min_km", "km" %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          and shorter than
+        </td>
+        <td>
+          <%= text_field 'search_request', 'max', {:size => 5, :value => "999", :id => "maxDistance"} 
+          %>
+        </td>
+        <td>
+          <%= radio_button_tag "max", "unit", true, {:id => "maxMileUnit"} 
+          %>
+          <%= label_tag "max_miles", "miles" %>
+        </td>
+        <td>
+          <%= radio_button_tag "max", "unit", false, {:id => "maxKmUnit"} 
+          %>
+          <%= label_tag "max_km", "km" %>
+        </td>
+
+      </tr>
+      <tr>
+       
+        <td colspan="4" align="center">
+    	  <%= link_to_function(ok_button_image, update_page{|page|
+    	  	#page << "$('race_distance_text').value= $"
+    	  	page << "updateDistanceBox();"
+    	  	page << "hideAll();"
+	  		})%>
+          
+          <%#*image_tag("../images/img-inner/BTN_signup.png")%>
+
+
+
+</td>
+        <td>
+        </td>
+        <td>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript">
+  function updateDistanceBox(){
+  	  maxunit = "mls";
+  	  if ($('maxKmUnit').checked == true) {
+  	  	maxunit = "km";
+  	  }
+  	  minunit = "mls";
+  	  if ($('minKmUnit').checked == true) {
+  	  	minunit = "km";
+  	  }
+  	  $('race_distance_text').value= $('minDistance').value  + minunit + " - " + $('maxDistance').value + maxunit;
+  }
+  
+  
+</script>

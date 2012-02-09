@@ -1,0 +1,19 @@
+<!-- specify the active tab. if not, then all tabs will be unselected -->
+<!--
+<% if param.nil? %>
+	<a href="<%= url_for(:controller => 'myracemenu')%>"><img src="/images/img-inner/nav1.png" name="nav1" width="166" height="26" border="0" id="nav1" onmouseover="MM_swapImage('nav1','','/images/img-inner/nav1_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a><a href="<%= url_for(:controller => 'events', :action => 'calendar')%>"><img src="/images/img-inner/nav2.png" name="nav1" width="166" height="26" border="0" id="nav2" onmouseover="MM_swapImage('nav2','','/images/img-inner/nav2_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a><img src="/images/img-inner/nav3.png" name="nav3" width="158" height="26" id="nav3" onmouseover="MM_swapImage('nav3','','/images/img-inner/nav3_f2.png',1)" onmouseout="MM_swapImgRestore()" />
+<% elsif param == "myracemenu" %>
+	<img src="/images/img-inner/nav1_f3.png" name="nav2" width="168" height="26" id="nav1" /><a href="<%= url_for(:controller => 'events', :action => 'calendar')%>"><img src="/images/img-inner/nav2.png" name="nav1" width="166" height="26" border="0" id="nav2" onmouseover="MM_swapImage('nav2','','/images/img-inner/nav2_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a><img src="/images/img-inner/nav3.png" name="nav3" width="158" height="26" id="nav3" onmouseover="MM_swapImage('nav3','','/images/img-inner/nav3_f2.png',1)" onmouseout="MM_swapImgRestore()" />
+<% elsif param == "calendar" %>
+	<a href="<%= url_for(:controller => 'myracemenu')%>"><img src="/images/img-inner/nav1.png" name="nav1" width="166" height="26" border="0" id="nav1" onmouseover="MM_swapImage('nav1','','/images/img-inner/nav1_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a><img src="/images/img-inner/nav2_f3.png" name="nav2" width="168" height="26" id="nav2" /><img src="/images/img-inner/nav3.png" name="nav3" width="158" height="26" id="nav3" onmouseover="MM_swapImage('nav3','','/images/img-inner/nav3_f2.png',1)" onmouseout="MM_swapImgRestore()" />
+<% end %>
+-->
+<% if param.nil? %>
+	<a href="/myracemenu"><img src="/images/img-inner/nav1.png" name="nav1" width="166" height="26" border="0" id="nav1" onmouseover="MM_swapImage('nav1','','/images/img-inner/nav1_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a><a href="/calendar"><img src="/images/img-inner/nav2.png" name="nav2" width="168" height="26" border="0" id="nav2" onmouseover="MM_swapImage('nav2','','/images/img-inner/nav2_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a>
+<% elsif param == "myracemenu" %>
+	<img src="/images/img-inner/nav1_f3.png" name="nav2" width="166" height="26" id="nav1" /><a href="/calendar"><img src="/images/img-inner/nav2.png" name="nav2" width="168" height="26" border="0" id="nav2" onmouseover="MM_swapImage('nav2','','/images/img-inner/nav2_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a>
+<% elsif param == "myracemenu_active" %>
+	<a href="<%= url_for(:controller => 'myracemenu')%>"><img src="/images/img-inner/nav1_f3.png" name="nav2" width="166" height="26" id="nav1" border="0"/></a><a href="<%= url_for(:controller => 'events', :action => 'calendar')%>"><img src="/images/img-inner/nav2.png" name="nav2" width="168" height="26" border="0" id="nav2" onmouseover="MM_swapImage('nav2','','/images/img-inner/nav2_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a>
+<% elsif param == "calendar" %>
+	<a href="/myracemenu"><img src="/images/img-inner/nav1.png" name="nav1" width="166" height="26" border="0" id="nav1" onmouseover="MM_swapImage('nav1','','/images/img-inner/nav1_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a><img src="/images/img-inner/nav2_f3.png" name="nav2" width="168" height="26" id="nav2" />
+<% end %>

@@ -1,0 +1,109 @@
+<table width="600px" border="0" align="left" cellpadding="4" cellspacing="0">
+		
+  		<tr>
+	    <td align="right" width="200px">Title (required)</td>
+	    <td><%= text_field(:dir_event, :name, {"size" => "54", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <% if @dir_event.blank? == false and @dir_event.tag_line.blank? == false%>
+	  <tr>
+	    <td align="right">Tagline</td>
+	    <td><%= text_field(:dir_event, :tag_line, {"size" => "54", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <% else %>
+	  <tr id="tagline_holder">
+	    <td align="right"></td>
+	    <td><%= link_to_function('Add a tagline', update_page{|page|
+	    		page["tagline_holder"].remove 	     
+	    	    page["tagline_row"].show 
+	    	    })%></td>
+	  </tr>
+	  <tr id="tagline_row" style="display:none;">
+	    <td align="right">Tagline</td>
+	    <td><%= text_field(:dir_event, :tag_line, {"size" => "54", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <% end %>
+	  <tr>
+	    <td align="right" valign="top" width="160px">Description<br/>(<span id="counter-event_desc"><b>#</b></span> characters)</span></td>
+	    <td><%= text_area(:dir_event, :description, {"rows" => "5", "cols" => "51",  :class => "search_form_input", :id => "event_desc"}) %></td>
+	  </tr>
+	  <% if false 
+	  %>
+	  <% #if false
+	   %>
+	  <tr>
+	    <td align="right">Host</td>
+	    <td><%= text_field(:dir_event, :host, {"size" => "24", :class => "search_form_input", :id => "host_box"}) %>&nbsp;&nbsp;
+	    	<%= select("post", "person_id", facebook_session.user.groups.collect {|p| [ p.name, p.name ] }, {:include_blank => 'Choose Group'}, {:id => "host_select", :class => "search_form_input", :style => "width:168px;", :onchange => 'update_host()'}) %></td>
+	  </tr> 
+	  <% else %>
+	  <tr>
+	    <td align="right">Host</td>
+	    <td><%= text_field(:dir_event, :host, {"size" => "30", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <% end %>
+	  <!--
+	  <tr>
+	    <td align="right">Presented By</td>
+	    <td><%= text_field(:dir_event, :presented_by, {"size" => "54", :class => "search_form_input"}) %></td>
+	  </tr>
+  -->
+	  <tr>
+	    <td align="right">Benefiting</td>
+	    <td><%= text_field(:dir_event, :benefiting, {"size" => "54", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Website</td>
+	    <td><%= text_field(:dir_event, :register_link, {"size" => "54", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Link to Last Year's Results:</td>
+	    <td><%= text_field(:dir_event, :last_year_results, {"size" => "54", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Race Logo</td>
+	    <td id="logo"><%= image_tag @dir_event.image.url(:thumb) unless @dir_event.image.blank? %></td>
+	  </tr>
+	 
+	  <tr>
+	    <td align="right">Change Logo</td>
+	    <td>
+		<%= file_field(:dir_event, :image, { :class => "search_form_input", 
+										:onchange => "upload(#{@dir_event.id}, 'dir_event_image','logo' )"			
+								}) %>
+		
+		<br/>Image will be re-sized to 100px wide x 100px high</td>
+	  </tr>
+	  <tr>
+	    <td align="right">Event Header</td>
+	    <td id="header_image">
+	<%= image_tag @dir_event.header_image.file.url(:thumb) unless @dir_event.header_image.blank? %></td>
+	  </tr>
+	
+	  <tr>
+	    <td align="right">Change Event Header</td>
+	    <td>
+							
+		<%= file_field('', "header_image[]file", {:class => "search_form_input", 
+											:id => 'header_image_file', 
+								:onchange => "upload(#{@dir_event.id}, 'header_image_file', 'header_image' )" 
+											}) %>
+			
+			
+		</td>
+	  </tr>
+	
+	  <% if @dir_event.manage_type == Event::RD %>
+	  <tr>
+		<td align="right"> </td> 
+		<td><%= check_box :dir_event, :is_register_open %> Open Registration?</td>
+	</tr>
+	  <% end %>
+	 
+  
+</table>
+<script type="text/JavaScript">
+	function update_host() {
+		//get the value from the drop down
+		$('host_box').value= $('host_select').value;
+	}
+</script>

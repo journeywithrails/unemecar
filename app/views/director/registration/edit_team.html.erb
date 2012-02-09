@@ -1,0 +1,139 @@
+<% content_for :head_title do %><%= "Editing #{@team.name}" %><% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "3"}%><% end %>
+<% content_for :extra_head do %>
+	<%= calendar_date_select_includes "red"%>
+<% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p><%=  "Editing #{@team.name}"  %></p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableROWS">
+	<% form_tag(:controller => "registration", :action => "edit_team", :id => @team) do%>
+
+	<table width="100%" border="0" align="center" cellpadding="5" cellspacing="0" id="formText" valign="top">
+	  <tr><td></td><td><%= error_messages_for "team", :header_message => nil, :message => nil %></td></tr>
+      <% unless flash[:error].blank? %>
+        <tr><td colspan="2"><%= show_error(flash[:error]) %></td></tr>
+      <% end  %>
+	 <tr>
+	    <td align="right" width="300px">Timestamp, UTC (EST=UTC-5):</td>
+	    <td ><%= @team.created_at.strftime("%Y-%m-%d %I:%M%p %Z") %></td>
+	   </tr>
+       <tr>
+	    <td align="right"></td>
+	    <td><%= check_box(:team, :approved, { :class => 'search_form_input' })%> Display team</td>
+	  </tr>
+        <tr>
+	    <td align="right">Team name:</td>
+	    <td><%= text_field(:team, :name, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+      <tr>
+	    <td align="right">Team Type:</td>
+	    <td><%= select :team, :team_type, ['Women', 'Men', 'Mixed'], {:prompt => "-please select-"},  {:class => "search_form_input"} %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Captain First Name:</td>
+	    <td ><%= text_field(:team, :cpt_first_name, {:size=>"25", :class => "search_form_input"}) %></td>
+	   </tr>
+      <tr>
+	    <td align="right">Captain Last Name:</td>
+	    <td><%= text_field(:team, :cpt_last_name, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Address:</td>
+	    <td><%= text_field(:team, :address, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">City:</td>
+	    <td><%= text_field(:team, :city, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">State:</td>
+	    <td><%= select :team, :state, ['AK',
+			'AL',
+			'AR',
+			'AZ',
+			'CA',
+			'CO',
+			'CT',
+			'DC',
+			'DE',
+			'FL',
+			'GA',
+			'HI',
+			'IA',
+			'ID',
+			'IL',
+			'IN',
+			'KS',
+			'KY',
+			'LA',
+			'MA',
+			'MD',
+			'ME',
+			'MI',
+			'MN',
+			'MO',
+			'MS',
+			'MT',
+			'NC',
+			'ND',
+			'NE',
+			'NH',
+			'NJ',
+			'NM',
+			'NV',
+			'NY',
+			'OH',
+			'OK',
+			'OR',
+			'PA',
+			'RI',
+			'SC',
+			'SD',
+			'TN',
+			'TX',
+			'UT',
+			'VA',
+			'VT',
+			'WA',
+			'WI',
+			'WV',
+			'WY'], 
+			{},  {:class => "search_form_input"} %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Zip:</td>
+	    <td><%= text_field(:team, :zip, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Email:</td>
+	    <td><%= text_field(:team, :email, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+      
+
+
+       <tr><td>&nbsp;</td><td></td></tr>
+	  <tr>
+	    
+	    <td colspan="2" align="center"><%= ok_button_image(true) %><%= link_to cancel_button_image, :action => "index" %></td>
+	  </tr>
+</table>
+	<% end %>
+
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+

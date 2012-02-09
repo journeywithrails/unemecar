@@ -1,0 +1,34 @@
+	
+<%= javascript_include_tag :defaults%>
+<%= fb_connect_javascript_tag %>
+<%= init_fb_connect "XFBML"%>
+
+<% event = @event %>
+<style type="text/css">
+		body{
+			font-family: Verdana, Arial, Helvetica, sans-serif;
+			color: #003366;
+		}
+		
+</style>	
+		
+<table style="font-size:12px;"><tr><td>
+	
+	<!-- description and link-->
+
+	<!--<br>
+	<span style="font-weight:bold;">More info:</span><br/>-->
+	
+	
+	<% unless event.description.blank? %>
+	<br>
+	<% end %>
+	
+</td></tr><tr><td>
+				
+<% if !@event_friends.blank? %>
+<%= render :partial => 'events/show_buddies', :locals => {:friends => @event_friends}  %>
+<% else%>
+<%= render :partial => 'events/show_buddies', :locals => {:friends => @event.order_friends_then_users(@fb_ses) } %>
+<% end %>
+</td></tr></table>

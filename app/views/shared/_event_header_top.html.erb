@@ -1,0 +1,12 @@
+<table width="100%">
+	<tr>
+		<td>
+			<!-- image cell -->
+			<%= image_tag(event.image.url(:thumb), :size => "70x70") %>
+		</td>
+		<td>
+			<span class="pageTITLE"><%= event.name %><br/><%= event.event_date.strftime("%a, %b %d") %></span>
+            <span class="userText"><br/></span>
+		</td>
+	</tr>
+</table>

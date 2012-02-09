@@ -1,0 +1,12 @@
+<td></td>
+<td><%= coupon.code %></td>
+<td>$<%= '%.2f' % coupon.value unless coupon.value.blank? %></td>
+<td><%= coupon.expiration.strftime('%a, %b %d %Y') unless coupon.expiration.blank?%></td>
+<td align="right"><%=link_to email_button_image, :controller => "email", :action => "index", :coupon => coupon.id%>
+	<%= link_to_function(cog_button_image, update_page{|page|
+		page.replace_html "coupon_#{coupon.id}", :partial => 'add_coupon', :locals => {:coupon => coupon}
+		#page.insert_html :after, "coupon_#{coupon.id}", :partial => 'add_coupon', :locals => {:coupon => coupon}
+		}) %>
+	
+	<%= link_to close_button_image, {:action => "delete_coupon", :id => coupon.id}, {:confirm => "Really delete #{coupon.code}?\nThis action cannot be undone!"}%></td>
+<td></td>

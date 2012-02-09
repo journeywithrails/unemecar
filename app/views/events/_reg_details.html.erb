@@ -1,0 +1,19 @@
+<% reg = reg_details %>
+<tr id="reg_details_<%=reg.id%>"><td colspan=3>
+<table id="reg_details_<%=reg.id%>_details" width="100%">
+<tr><td width=100px></td><td width=200px>Name</td><td> <%= "#{reg.first_name} #{reg.last_name}" %></td></tr>
+<tr><td></td><td>Sex</td><td> <%= reg.sex %></td></tr>
+<tr><td></td><td>DOB</td><td> <%= reg.birthday %> </td></tr>
+<tr><td></td><td>Email</td><td> <%= reg.email %> </td></tr>
+<tr><td></td><td>Phone</td><td> <%= reg.phone %> </td></tr>
+<tr><td></td><td valign="top">Address</td><td> <%= reg.address %><br/><%= "#{reg.city} , #{reg.state}, #{reg.zip}, #{reg.country}" %> </td></tr>
+<tr><td></td><td>Club/Team</td><td> <%= reg.club_team %> </td></tr>
+<tr><td></td><td>License</td><td> <%= reg.license_num %> </td></tr>
+<tr><td></td><td valign="top">Emergency Contact</td><td> <%= "#{reg.em_con_relationship} : #{reg.em_con_name}<br/> Phone : #{reg.em_con_phone}" %> </td></tr>
+<tr><td></td><td>Updated on <%= reg.updated_at.strftime("%Y-%m-%d") %></td><td align="right"><%= link_to_remote(edit_button_image, :url => {:controller => :myracemenu, :action => :reg_details, :reg_id => reg.id }, :method => :get) if reg.event.is_registerable? %></td></tr>
+</table>
+<table width="100%">
+<tr><td colspan=3 id="edit_reg_<%= reg.id %>_details"></td></tr>
+<tr><td colspan=3 style="border-top:1px dashed #ccc;height:15px;">&nbsp;</td></tr>
+</table>
+</td></tr>

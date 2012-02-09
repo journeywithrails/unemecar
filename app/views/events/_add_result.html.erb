@@ -1,0 +1,57 @@
+<!-- used for users to manually add events  -->
+<% @req = Result.find_by_event_id_and_rm_user_id(event.id, current_user.id) unless current_user.nil?%>
+<% form_remote_tag :url => {:controller => "events", :action => "add_result_to_mrm", :id => event.id }  do %>
+<div id="add_result_<%=event.id%>" class="add_event_details">
+	<table style="color:white;text-align:center;width:100%;padding-right:20px">
+		<tr>
+			<td style="height:30px;font-weight:bold"><strong>Add Result Information: <%= event.name %></strong></td>
+			<td align="right"><%= link_to_function (close_button_image, update_page{|page|	page["res_#{event.id}_container"].hide })%></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<table width="380px">
+				<tr>
+					
+					<td colspan="8" align="center">Enter your result information below.<br/><br/</td>
+				</tr>
+	       		<tr>
+					<td class="lable">finishing time:</td>
+					<td><%= text_field(:req, :hour, "size" => "2") %></td>
+					<td width="10px">h</td>
+					<td><%= text_field(:req, :minute, "size" => "2") %></td>
+					<td width="10px">m</td>
+					<td><%= text_field(:req, :second, "size" => "2") %></td>
+					<td width="10px">s</td>
+					<td width="250px"></td>
+				</tr>
+				<tr>
+					<td class="lable"></td>
+					<td colspan="7" align="left"><%= check_box(:req, :is_personal_record) %> this is a personal record.</td>
+				</tr>
+				<tr>
+					<td class="lable">pace:</td>
+					<td><%= text_field(:req, :pace_minute, "size" => "2") %></td>
+					<td width="10px">m</td>
+					<td><%= text_field(:req, :pace_second, "size" => "2") %></td>
+					<td width="10px">s</td>
+					<td><%= select( :req, :pace_unit, { "mile" => "0", "km" => "1"}.sort{|a,b| a[1]<=>b[1]}) %></td>
+					<td colspan="2">
+				</tr>
+				<tr>
+					<td class="lable">overall place:</td>
+					<td colspan="7" align="left"><%= text_field(:req, :overall_place) %></td>
+				</tr>
+				<tr>
+					<td class="lable">division place:</td>
+					<td colspan="7" align="left"><%= text_field(:req, :division_place) %></td>
+				</tr>
+				<tr>
+					<td class="lable"></td>
+					<td colspan="7"><%= save_button_image(true) %></td>
+				</tr>
+			</table>
+			</td>
+		</tr>
+	</table>
+</div>
+<% end %>

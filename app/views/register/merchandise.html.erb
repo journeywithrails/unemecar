@@ -1,0 +1,66 @@
+<% content_for :head_title do %>Event Merchandise<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "3"}%><% end %>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Event Merchandise</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableROWS">
+	
+	<% first = true %>
+	
+	<% form_tag(:controller => "register", :action => "merchandise") do%>
+	<table border="0" align="center" cellpadding="5" cellspacing="0" id="formText" width=90%>
+		
+		<% @event.merchandise_items.each_with_index do |merch, index| %>
+			<tr><td colspan=2 height=20></td></tr>
+	    <tr style='background:#ccc;'>
+			<td colspan=2>
+				<div style='float:left;'>
+					<strong style='font-weight:bold;'><%= merch.title %></strong>
+					<p style='padding-left:25px; margin:5px 0;'><%= merch.description %></p>
+				</div>
+				<% if merch.image %>
+					<div style='float:right;'><%= image_tag merch.image.file(:thumb) %></div>
+				<% end %>
+			</td> </tr>
+			<% merch.merchandise_item_options.each do |merch_option| %>
+				<% old_order = merch_option.merchandise_orders.find( :first, :conditions => { :event_registration_id => @event_registration.id } ) %>
+				<tr>  
+					<td style='padding-left:30px;'>
+						<%= check_box_tag "orders[]", merch_option.id, 
+								(checked = true if old_order), 
+								:onclick => "$('quantity_#{merch_option.id}').value = 1;" %> 
+						<%= merch_option.title %> ( Cost: <%= number_to_currency( merch_option.cost ) %>)
+					</td>
+					<td> Quantity: <%= text_field_tag "quantity[#{merch_option.id}]" , 
+						old_order ? old_order.quantity : '' , :style => 'width:30px;'  %> </td>
+					
+				</tr>
+			<% end -%>	
+	  	
+	    <% end %>
+		<tr><td>&nbsp;</td></tr>
+    
+  		<tr>
+    	  
+    	  <td colspan="5" align="center"><%= link_to back_button_image, :action => "athlete_info" %><%= next_button_image(true) %></td>
+  	    </tr>
+
+	</table>
+	<% end %>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

@@ -1,0 +1,33 @@
+<% content_for :head_title do %>MyRaceMenu<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => @top_param}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'myracemenu/mrm_top', :locals => {:param => nil, :show_buddies => false}%><% end %>
+<br/><br/>
+	<table>
+	<% @friends.each_with_index do | friend, index | %>
+		<% if index % 8 == 0 %>
+			<tr>
+        <% end %>
+            		<td valign="bottom" width="105px">
+            			<table cellspacing="0">
+            				<tr>
+            					<td height="100px" valign="bottom" class="buddyInfo">
+            					
+				<%= link_to fb_profile_pic(friend.fb_usid, :size => :normal, :width=>"100", :facebook_logo => true, :linked => false), {:controller => "myracemenu", :action => "index", :racer => friend.fb_usid}, {} %>
+								</td>
+							</tr>
+							<tr width="102px" align="center" class="buddyInfo">
+								<td align="center" width="102px" style="text-align:center;" height="60px"  valign="top">
+										
+				<%= link_to fb_name(friend.fb_usid, :firstnameonly => false, :linked => false), :controller => "myracemenu", :action => "index", :racer => friend.fb_usid %><br>&nbsp;
+								</td>
+							</tr>
+						</table>
+				</td>            	
+            	<% if (index + 1) % 8 == 0 %>
+            		</tr>
+            		
+            	<% end %>
+            	
+			<% end %>
+			
+	</table>

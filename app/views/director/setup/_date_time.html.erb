@@ -1,0 +1,27 @@
+<table border="0" align="center" cellpadding="5" cellspacing="0">
+	  <tr>
+	    <td align="right">Event Start:</td>
+	    <td><%= calendar_date_select_tag "s_date_and_time", @s_date_and_time, :time => true, :popup => "force", :class => "search_form_input", :style => "width:200px", :onchange => "changeDateEndValue($F(this))" %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Event End:</td>
+	    <td><%= calendar_date_select_tag "e_date_and_time", @e_date_and_time, :time => true, :class => "search_form_input", :style => "width:200px", :id => "endDateDB" %></td>
+	  </tr>
+	  <% if show_rec == true%>
+	   <tr>
+	    <td align="right">Event Repeats:</td>
+	    <td><%=radio_button_tag 'search_request[types][]', "1", true %>Weekly <%=radio_button_tag 'search_request[types][]', "2", true %>Every other week <%=radio_button_tag 'search_request[types][]', "3", true %>This event does not repeat</td>
+	  </tr>
+	  <% end %>
+	  <% if section == "rd"%>
+	  <tr>
+	    <td colspan="2" align="center">This date / time information is for the event as a whole.<br/>Start date / time information can be configured seperately for individual races in the <%= link_to "Race Setup", :controller => "setup", :action => "races"%></td>
+	    
+	  </tr>
+	  <% end %>
+</table>
+<script>
+function changeDateEndValue(value){
+	$('endDateDB').value = value
+}
+</script>

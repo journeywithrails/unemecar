@@ -1,0 +1,106 @@
+<table>
+	<tr>
+  <td colspan="2" align="center"></td>
+</tr>
+<tr>
+  <td colspan="2" align="center"><strong>Billing Information:</strong></td>
+</tr>
+<% unless errors.nil? or errors.empty? %>
+	<tr>
+		<td colspan="2">
+			<span class="errorExplanation">
+				<ul>
+					<% errors.each_full do | err |%>
+						<li><%= err.to_s%></li>
+					<% end %>
+				</ul>
+			</span>
+		</td>
+    	
+  	</tr>
+<% end %>
+
+<% unless auth_error.nil?  %>
+	<tr>
+		<td colspan="2">
+			<span class="errorExplanation">
+				<%= auth_error %>
+			</span>
+		</td>
+    	
+  	</tr>
+<% end %>
+	<tr>
+		<td align="right"><%= label :order, :first_name %>:</td>
+    	<td><%= text_field :order, :first_name, :class => "search_form_input" %></td>
+  	</tr>
+  	<tr>
+		<td align="right"><%= label :order, :last_name %>:</td>
+    	<td><%= text_field :order, :last_name, :class => "search_form_input" %></td>
+  	</tr>
+  	<tr>
+		<td align="right">Address:</td>
+    	<td><%= text_field :order, :address, :class => "search_form_input" %></td>
+  	</tr>
+  	<tr>
+		<td align="right">City:</td>
+    	<td><%= text_field :order, :city, {:size => 5, :class => "search_form_input"} %></td>
+  	</tr>
+  	<tr id="free_states" style="display:none;">
+  		<td align="right">Province:</td>
+  		<td><%= text_field(:order, :none_us_state, {"size" => "10", :class => "search_form_input"}) %></td>
+		</tr>
+		<tr id="us_states">
+  		<td align="right">State:</td>
+  		<td><%= select :order, :state, states_collection, {},  {:class => "search_form_input"} %></td>
+		</tr>
+		<tr>
+  		<td align="right" id="zip_label">Zip:</td>
+  		<td><%= text_field(:order, :zip, {:value => @order["zip"], "size" => 4, :class => "search_form_input"}) %></td>
+		</tr>
+  	<tr>
+  	  <td align="right">Country:</td>
+      	<td><%= country_select :order, :country, ['United States'],  {},  {:id => "country_selector", :class => "search_form_input", :onchange => "toggleStateProvince();" } %></td>
+    	</tr>
+		<td align="right">Phone:</td>
+    	<td><%= text_field :order, :phone, :class => "search_form_input" %></td>
+  	</tr>
+  	<tr>
+		<td align="right"><%= label :order, :card_type %>:</td>
+    	<td><%= select :order, :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], {}, :class => "search_form_input" %></td>
+  	</tr>
+  	<tr>
+		<td align="right"><%= label :order, :card_number %>:</td>
+    	<td><%= text_field :order, :card_number, :class => "search_form_input"  %></td>
+  	</tr>
+  	<tr>
+		<td align="right"><%= label :order, :card_verification, "3 or 4-digit CVV" %>:</td>
+    	<td><%= text_field :order, :card_verification, :class => "search_form_input", :size => 2, :maxlength => "4"  %></td>
+  	</tr>
+  	<tr>
+		<td align="right">Expiration:</td>
+   		<td><%= date_select :order, :card_expires_on, {:order => [:month, :year], :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), 
+   				:add_month_numbers => true}, {:class => "search_form_input"} %></td>
+  	</tr>
+</table>
+<script>
+function toggleStateProvince() {
+  value = $F('country_selector');
+  if (value == "United States") {
+    $('free_states').hide();
+		$('us_states').show();
+		$('zip_label').innerHTML = "Zip:";
+  }
+  else {
+    $('free_states').show();
+		$('us_states').hide();
+		$('zip_label').innerHTML = "Postal Code:";
+  }
+  
+  
+}
+
+//set the country
+Form.Element.setValue("country_selector",'<%= @order.country %>');
+toggleStateProvince();
+</script>

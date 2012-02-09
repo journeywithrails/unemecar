@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  event_id: 1
+  race_id: 1
+  expire_at: 2010-04-07
+  used_at: 2010-04-07
+  email: MyString
+  secret: MyString
+
+two:
+  event_id: 1
+  race_id: 1
+  expire_at: 2010-04-07
+  used_at: 2010-04-07
+  email: MyString
+  secret: MyString

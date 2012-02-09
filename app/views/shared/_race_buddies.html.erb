@@ -1,0 +1,15 @@
+<div id="horizontal_carousel">
+  <div class="previous_button"></div>
+  <div class="container">
+    <ul>
+      <% friends.each do | friend | %>
+      	<li><%= link_to fb_profile_pic(friend.fb_usid, :size => :square, :facebook_logo => true, :linked => false), :controller => "myracemenu", :action => "index", :racer => friend.fb_usid %><br/>
+				<%= link_to fb_name(friend.fb_usid, :firstnameonly => true, :linked => false), :controller => "myracemenu", :action => "index", :racer => friend.fb_usid %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="next_button"></div>
+</div>
+<script>
+new UI.Carousel("horizontal_carousel");
+</script>

@@ -1,0 +1,27 @@
+<% 
+if @race.nil?
+	ass_bibs = true
+	reg_open = true
+else
+	ass_bibs = @race.assign_bibs
+	reg_open = @race.registration_open
+end
+%>
+<table>
+	<tr>
+		<td width="100px"><strong><%= @race.name unless @race.nil?%></strong></td>
+		<td><%= text_field(:race, :prizes, {"size" => "10", :class => "search_form_input", :id => "prizes"}) %><label for="prizes" class="default-value">Prizes</label></td>
+		<td><%= text_field(:race, :field_size, {"size" => "10", :class => "search_form_input", :id => "field_size"}) %><label for="field_size" class="default-value">Field Size</label></td>
+		<td><%= text_field(:race, :reserve_entries, {"size" => "20", :class => "search_form_input", :id => "reserve_entries"}) %><label for="reserve_entries" class="default-value">Reserve Entries</label></td>
+	</tr>
+	<tr>
+		<td width="100px"></td>
+		<td colspan="2">Assign Bibs #s:<%= radio_button_tag "bibs", 'assign_auto', ass_bibs %>Automatically<%= radio_button_tag "bibs", 'assign_man', ass_bibs== false %>Manually</td>
+		<td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Registration is:<%= radio_button_tag "reg", 'reg_open', reg_open %>Open<%= radio_button_tag "reg", 'reg_closed', reg_open == false %>Closed</td>
+	</tr>
+    <tr>
+		<td width="100px"></td>
+		<td colspan="2"><%= check_box(:race, :show_on_start_list, { :class => 'search_form_input' })%> Show entries from this category in start list</td>
+		<td align="center"></td>
+	</tr>
+</table>

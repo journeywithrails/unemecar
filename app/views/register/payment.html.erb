@@ -1,0 +1,270 @@
+<% content_for :head_title do %>Review and Purchase Registration<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "9"}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="6">&nbsp;</td>
+            <td width="774" align="center" valign="bottom" class="tableHEAD"><p>Review and Purchase Registration</p></td>
+            <td width="120" class="sidebarHeaderText">Featured Events </td>
+          </tr>
+          <tr>
+            <td width="6">&nbsp;</td>
+            <td width="774" align="center" valign="bottom" id="tableROWS">
+            	<div style="width:100%;margin-left:-23px;padding-top:4px;text-align:center;">
+				<%= header_image(@event) %>
+				</div>
+
+            </td>
+            <td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableROWS">
+            	
+		    
+            	<table width="700" border="0" align="center" cellpadding="5" cellspacing="0" id="formText">
+	          	<tr>
+			      <td align="center">
+			      	
+					 <table>
+					 	<tr><td colspan="2"><%= show_error(flash[:error])%></td></tr>
+
+						<% reg_count = 0 %>
+						<% session[:reg_ids].each do |reg_id| %>
+							<% reg = EventRegistration.find_by_id( reg_id ) %>
+
+							<% if session[:reg_ids].size > 1 %>
+							<tr><td align="right">Registration <%= reg_count += 1%></td>
+								<td align=right><%= link_to edit_button_image, { :action => 'athlete_info', :reg_id => reg.id } %></td></tr>
+							<% end %>
+
+							<% if reg.race.supports_team_creation %>
+								<tr><td align="right"><b>Team Name:</b>&nbsp;&nbsp;</td><td><%= reg.club_team %> </td></tr>
+								<tr><td>&nbsp;</td></tr>
+							<% end %>
+							<tr><td align="right" width="50%"><b>Your Name:</b>&nbsp;&nbsp;</td><td width="50%"><%= reg.first_name %> <%= reg.last_name %></td></tr>
+							<tr><td align="right" ><b>Birth Date:</b>&nbsp;&nbsp;</td><td><%= reg.birthday.strftime("%m/%d/%Y") %></td></tr>
+							<tr><td>&nbsp;</td></tr>
+
+
+							<% if reg.extra_regs.blank? %>
+								<tr><td align="right"><b>Race/Category:</b>&nbsp;&nbsp;</td><td><%= reg.race.name %></td></tr>
+
+							<% else %>
+								<tr><td align="right"><b>Event:</b>&nbsp;&nbsp;</td><td><%= reg.event.name %></td></tr>
+								<tr><td align="right"><b>Race/Category:</b>&nbsp;&nbsp;</td><td><%= reg.race.name %></td></tr>
+								<% @extra_races.each do | race | %>
+									<tr><td align="right"><b>Event:</b>&nbsp;&nbsp;</td><td><%= race.event.name %></td></tr>
+									<tr><td align="right"><b>Race/Category:</b>&nbsp;&nbsp;</td><td><%= race.name %></td></tr>
+								<% end %>
+
+								<tr><td>&nbsp;</td></tr>
+							<% end %>
+							<% if false #if reg_type.supports_teams %>
+							<tr><td align="right"><b>Team:</b>&nbsp;&nbsp;</td><td><%= reg.team.name unless reg.team.blank? %></td></tr>
+							<% end %>
+							
+							<tr><td align="right"><b>Gender:</b>&nbsp;&nbsp;</td><td><%= reg.sex %></td></tr>
+							<tr><td align="right"><b>Email:</b>&nbsp;&nbsp;</td><td><%= reg.email %></td></tr>
+							<tr><td align="right"><b>Phone:</b>&nbsp;&nbsp;</td><td><%= reg.phone %></td></tr>
+							<tr><td align="right" valign="top"><b>Address:</b>&nbsp;&nbsp;</td><td><%= reg.address %>
+							<%= if (!reg.apt.nil? and reg.apt.size>0) then ", Apt "+reg.apt else "" end %><br/><%= reg.city %>, <%= reg.state %> <%= reg.zip %><br/><%= reg.country.humanize.titleize %></td></tr>
+							<tr><td>&nbsp;</td></tr>
+
+							<% reg.event.questions.each do |question| %>
+								<tr><td align="right"><b><%= question.title %></b>&nbsp;&nbsp;</td>
+									<% answers = reg.answers.find( :all, :conditions => { 'question_id' => question.id } ) %>
+									<td> <%= answers.map{ |a| a.value }.join( ', ' ) %></td>
+								</tr>
+							<% end %>
+							
+							<tr><td>&nbsp;</td></tr>
+							
+							<tr><td align="right"><b>Emergency Contact Person:</b>&nbsp;</td><td><%= reg.em_con_name %></td></tr>
+							<tr><td align="right"><b>Relationship to You:</b>&nbsp;</td><td><%= reg.em_con_relationship %></td></tr>
+							<tr><td align="right"><b>Phone:</b>&nbsp;</td><td><%= reg.em_con_phone %></td></tr>
+
+							<tr><td>&nbsp;</td></tr>
+
+							<% unless reg.relay_team.blank? %>
+								<% counter = 0 %>
+								<tr><td align="center" colspan="2"><b>Team Information</b></td></tr>
+								<tr><td align="right"><b>Team Info:</b>&nbsp;</td><td><%= reg.relay_team.name %> <%= "(#{reg.relay_team.division})" if reg.race.event_type.discipline.name.upcase == "MULTISPORT" %></td></tr>
+								<tr><td>&nbsp;</td></tr>
+								<% reg.relay_team.relay_entries.each do | entry | %>
+									<% counter +=1 %>
+									<tr><td align="center" colspan="2"><b>Team Entry #<%=counter%></b></td></tr>
+									<tr><td align="right"><b>Name</b>&nbsp;</td><td><%= entry.first_name %> <%= entry.last_name %> <%= entry.email %></td></tr>
+									<tr><td align="right"><b>Other info:</b>&nbsp;</td><td><%= entry.gender %> <%= entry.date_of_birth %> <%= entry.tshirt unless reg.event.has_tshirt_question? %></td></tr>
+									<tr><td align="right"><b>Emergency Contact:</b>&nbsp;</td><td><%= entry.em_con_name %> <%= entry.em_con_phone %></td></tr>
+									<% if reg.race.event_type.discipline.name.upcase == "MULTISPORT" %>
+									<tr><td align="right"><b>USAT License:</b>&nbsp;</td>
+										<td>
+											<% if entry.license_num == "pending"%>
+												pending
+											<% elsif entry.license_num == "one-day license"%>
+												one day ($10)
+											<% elsif entry.license_num.blank? == false%>
+												<%= entry.license_num %>
+											<% end%>
+										</td>
+										
+									</tr>
+									<% end  %>
+								<% end %>
+							<% end %>
+
+
+							<tr><td align="right"><b>Event Entry Fee:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency reg.entry_fee( true, false ) %></td></tr>
+						<% if @reg.usat_fee and @reg.usat_fee > 0 %>
+							<tr><td align="right"><b>License Fee:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency reg.usat_fee %></td></tr>
+						<% end %>
+						
+
+							<% unless @race.is_relay %>
+							<% end -%>
+							
+							<% if reg.discount > 0 %>
+							<tr><td align="right"><b>Discount:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency reg.discount  %></td></tr>
+							<% end %>
+							<% unless reg.coupon.blank? %>
+							<tr><td align="right"><b>Coupon Savings:</b>&nbsp;&nbsp;</td><td align="left"><%= "#{number_to_currency reg.coupon.value} (#{reg.coupon.code})" %></td></tr>
+							<% end %>
+							<tr><td colspan=2><hr/></td></tr>
+						<% end %>
+						
+						<% if false %>
+						<tr> <td colspan=2 align="right">
+								 <%= link_to "Add Another Person", {:action => :athlete_info, :add => true } unless @race.is_relay %> 
+						</td></tr>
+						<% end %>
+						
+						<% @reg.merchandise_orders.each do |order| %>
+							<tr>	<td align="right" class="padrt10">
+										<b><%= "#{ order.merchandise_item_option.merchandise_item.title } - #{order.merchandise_item_option.title}" %> </b> 
+										<span class="nowrap">(<%= order.quantity %> X <%= number_to_currency order.merchandise_item_option.cost %>):</span></td>
+									<td class="img_valign"><%= number_to_currency( order.quantity * order.merchandise_item_option.cost ) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to edit_button_image, :action => "merchandise" %></td>
+							</tr>
+						<% end -%>
+						<% unless false #@reg.merchandise_orders.empty? 
+							%>
+							<tr><td align="right"><b>Merchandise Service Fee:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency EventRegistration.calculate_service_fee( @reg.total_merchandise_cost, true, @reg.event_id ) %></td></tr>
+						<% end %>
+						<tr><td>&nbsp;</td></tr>
+						
+						<tr><td align="right"><b>Total Event Entry Fee:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency @entry_fee %></td></tr>
+						<!--tr><td align="right"><b>Total Fee:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency @total_entry_fee %></td></tr-->
+						<% if @reg.usat_fee and @reg.usat_fee > 0 %>
+							<tr><td align="right"><b>Total License Fee:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency @usat_fee %></td></tr>
+						<% end %>
+						<tr><td align="right"><b>Service Fee:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency @service_fee %></td></tr>
+						<tr><td align="right"><b>Total Charge:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency @total_cost %></td></tr>
+						
+						<% if true %>
+						<tr><% form_tag(:controller => "register", :action => "apply_coupon") do %>
+							<td align="right" style="font-size:smaller"><b>Coupon Code?:</b>&nbsp;&nbsp;</td>
+							<td align="left"><%= text_field(:coupon, :code, {:size=>"15", :class => "search_form_input"}) %>&nbsp;&nbsp; <%= submit_tag('apply') %></td>
+							<% end %>
+						</tr>
+						<% end %>
+						<tr><td>&nbsp;</td></tr>
+					 
+					<% if false %>
+					 <table width="614" cellspacing="0" cellpadding="4">
+						<tr><td>&nbsp;</td><td></td></tr>
+						<% if false %>
+						<tr style="background-color:white;"><td align="right"><b>Payments processed via Paypal<br>(no account needed)</td><td>
+						
+							<!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr>
+							<tr><td align="center"><a href="#" onclick="javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"><img  src="/images/paypal_cc.gif" border="0" alt="Solution Graphics"></a></td></tr></table><!-- PayPal Logo -->
+							
+							</td></tr>
+							
+						<!--
+						<tr><td align="right"><b>Payments processed via <img src="/images/registration/pay_paypal.png"/> (no account needed) </b>&nbsp;&nbsp;</td><td><input type="radio" checked="true">&nbsp;<img src="/images/registration/pay_paypal.png"></input></td></tr>
+						-->
+						
+						<tr><td>&nbsp;</td><td></td></tr>
+						<% end %>
+					  </table>
+					  
+					<% end%>
+
+			      </td>
+			    </tr>
+			    
+			    <% if @total_cost > 0 %>
+				
+				<% if false %>
+					  <tr><td align="right">Use Existing:</td>
+				            <td>
+
+					<%= collection_select(:data, :reg_id, @cand_regs, :id, :description_for_contact, 
+											{:prompt => "Choose Information from your Past Events"},
+					  						{:id => "con_selector", :style => "width:350px;", :class => "search_form_input",
+					    					:onchange => remote_function(:update => "none_info",
+					      					:url => { :action => :update_order }, :with => "'race=#{@race.id}&id=' + $('con_selector').value")}) %>
+
+					</td></tr>
+				      <tr><td colspan="2"></td></tr>
+				<% end  %>
+				
+					  <% form_tag(:controller => "ppal", :action => "process_cc") do %>
+				    <td id="order_info" colspan=2 align="center">
+						<%= render :partial => 'cc_form', :locals => {:errors => flash[:bad_card], :auth_error => flash[:card_error]} %>
+						</td> </tr>
+						
+					<tr><td>&nbsp;</td><td></td></tr>
+					    <tr>
+					    	<td colspan="2">
+						    	<table>
+					    		<tr>
+					    			<td width="100px"></td>
+					    			<td>
+					    	<!-- (c) 2005, 2009. Authorize.Net is a registered trademark of CyberSource Corporation -->
+					    	<div class="AuthorizeNetSeal">
+					    		<script type="text/javascript" language="javascript">var ANS_customer_id="3fd938e1-9193-423e-9a97-0cb034286a7b";</script> 
+					    		<script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js" ></script>
+					    	</div>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=JpChq1bJfli6DlSrx8O3L4ofO2PMCnITQwcTGnU44JsQzrQOdWo1MBD2YSlD"></script><br/></span>
+								</td>
+								</tr>
+							</table>
+							</td>
+			    		</tr>
+					    <tr>
+					      <td align="center" colspan="2">Click 'Next' to Process Payment.</td>
+					    </tr>
+					    <tr><td>&nbsp;&nbsp;</td><td></td></tr>
+					    <tr>
+				      <td align="center" colspan="2"><%= link_to back_button_image, :action => ( @multi_reg.nil? ?  "disclaimers" : "athlete_info") %><%= next_button_image(true) %></td>
+				    </tr>
+				    
+				 	<% end %>
+				<% else %>
+					<% form_tag(:controller => "register", :action => "do_process_p") do %>
+					<tr>
+					      <td align="center" colspan="2">Click 'Next' to Process Your Registration.</td>
+					    </tr>
+					    <tr>
+				      <td align="center" colspan="2"><%= link_to back_button_image, 
+				:action => ( @multi_reg.nil? ?  "disclaimers" : "athlete_info") %><%= next_button_image(true) %></td>
+				    </tr>
+				    <% end %>
+				
+			    <% end %>
+                
+            </table>
+           
+        			</td>
+            <td></td>
+          </tr>
+           </table>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableBOTTOMshadow">&nbsp;</td>
+            </tr>
+          <%= render :partial => 'shared/footer'%>
+        </table>
+

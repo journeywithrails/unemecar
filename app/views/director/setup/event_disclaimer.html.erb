@@ -1,0 +1,50 @@
+<% content_for :head_title do %>Event Disclaimer<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "2"}%><% end %>
+<% content_for :extra_head do %><%= javascript_include_tag :fckeditor %><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Event Disclaimer</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableROWS">
+	<% form_tag(:controller => "setup", :action => "event_disclaimer") do%>
+	<table width="90%" border="0" align="center" cellpadding="5" cellspacing="0" id="formText">
+		<% if @dir_event.is_tri_event%>
+			<tr>
+	   			 <td colspan="2" align="center"><%= show_error("USA Triathlon standard release is already included with this event’s registration.")%></td>
+	    	</tr>
+			
+		</div>
+		<% end %>
+		<tr>
+	    <td colspan="2" align="center">update your event disclaimer text below.</td>
+	    
+	  </tr>
+	  <tr>
+	    
+	    <td colspan="2"><%= text_area(:dir_event, :disclaimer_text, {"rows" => "15", "cols" => "90",  :class => "search_form_input", :id => "event_desc"}) %></td>
+	  </tr>
+	  
+    
+  
+  <tr>
+    
+    <td align="center" colspan="2"><%= ok_button_image(true) %><%= link_to cancel_button_image, {:action => "details"}, {:confirm => "are you sure? all your changes will be lost!"} %></td>
+  </tr>
+</table>
+	<% end %>
+	
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

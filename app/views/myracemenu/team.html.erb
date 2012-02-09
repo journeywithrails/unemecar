@@ -1,0 +1,57 @@
+<% content_for :head_title do %>Team Management - <%= @team.name %><% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'myracemenu/mrm_top', :locals => {:param => nil, :show_buddies => true}%><% end %>
+
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Team Management - <%= @team.name %></p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<div id="director_table_holder">
+	<table width="100%" cellspacing="0">
+
+		<tr class="director_header_row">
+                <td width="20px"></td>
+				<td><%= show_sort_text("Reg. Date", "created_at") %> <%=show_sort_image("created_at")%></td>
+                <td><%= show_sort_text("Order", "order") %> <%=show_sort_image("order")%></td>
+				<td><%= show_sort_text("First Name", "event_registrations.first_name") %> <%=show_sort_image("event_registrations.first_name")%></td>
+				<td><%= show_sort_text("Last Name", "event_registrations.last_name") %> <%=show_sort_image("event_registrations.last_name")%></td>
+                <td><%= show_sort_text("Approved", "approved") %> <%=show_sort_image("approved")%></td>
+				<td align="right"></td>
+			</tr>
+
+		<% @team_entries.find(:all, :order => "team_order ASC").each do | entry | %>
+        <tr class="<%=cycle('director_row1', 'director_row2') %>">
+              <td width="20px"></td>
+			<td><%= entry.created_at.strftime('%m/%d/%Y') %></td>
+            <td><%= entry.team_order %></td>
+            <td><%= entry.event_registration.first_name %></td>
+            <td><%= entry.event_registration.last_name %></td>
+            <td><%= entry.approved %></td>
+            <td align="right"><%=link_to cog_button_image, :action => "edit_team_entry", :id => entry.id, :team => @team.id%></td>
+        </tr>
+
+		<% end %>
+
+	</table>
+      <div style="padding-right:10px;padding-left:20px;padding-top: 10px;	padding-bottom: 10px;">
+        <%= link_to "change team order", :action => "team_order", :event => @team.event.id %>
+      </div>
+	</div>
+
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+

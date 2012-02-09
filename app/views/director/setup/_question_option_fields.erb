@@ -1,0 +1,6 @@
+<tr>
+<% fields_for "new_question[new_option_attributes][]", QuestionOption.new do |f| %>
+ <td> <%= f.label :title, "Option" %> </td>
+  <td><%= f.text_field :title, :class => 'search_form_input' %> </td>
+<% end -%>
+</tr>

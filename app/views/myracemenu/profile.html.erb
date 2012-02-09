@@ -1,0 +1,82 @@
+<% content_for :head_title do %>Edit Your Profile<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'myracemenu/mrm_top', :locals => {:param => nil, :show_buddies => true}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+			<% form_for :user do |f| -%>
+          <tr>
+            <td width="6">&nbsp;</td>
+            <td width="774" align="center" valign="bottom" class="tableHEAD"><p>Edit Your Profile</p></td>
+            <td width="120" class="sidebarHeaderText">Featured Events </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableROWS">
+            	
+            	<table width="614" border="0" align="center" cellpadding="5" cellspacing="0" id="formText">
+              <tr>
+			    <td colspan="2"><%= error_messages_for :user %></td>
+			  </tr>
+			  <tr>
+			    <td align="right" valign="top"><label align="right">First Name:</label></td>
+			    <td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr>
+			    	<td align="left"><%= f.text_field :first_name, "size" => "10"%></td>
+			    	<td>&nbsp;Last Name:</td>
+			    	<td><%= f.text_field :last_name, "size" => "10"%></td>
+			    	</tr></table></td>
+			  </tr>
+			  			  		  	
+              <tr>
+			    <td width="200" align="right"><label for="username">Team Name:</label></td>
+			    <td align="left"><%= f.text_field :team %></td>
+			  </tr>
+			  <tr>
+			    <td width="200" align="right"><label for="email">Height:</label></td>
+			    <td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr>
+			    	<td><%= f.text_field :h_feet, "size" => "2"%></td>
+			    	<td>&nbsp;<%= f.text_field :h_inches, "size" => "2"%></td>
+			    	<td>&nbsp;&nbsp;&nbsp;Weight:</td>
+			    	<td><%= f.text_field :weight, "size" => "2"%></td>
+			    	</tr></table>
+			    </td>
+			  </tr>
+			  <tr>
+			    <td align="right" valign="top"><label align="right">Strengths:</label></td>
+			    <td align="left"><%= f.text_area :strengths, "rows" => "3" %></td>
+			  </tr>
+			  <tr>
+			    <td align="right" valign="top"><label align="right">My Bike(s):</label></td>
+			    <td align="left"><%= f.text_area :bikes, "rows" => "3" %></td>
+			  </tr>
+			  <tr>
+			    <td align="right" valign="top"><label align="right">My Sneakers:</label></td>
+			    <td align="left"><%= f.text_area :sneakers, "rows" => "3" %></td>
+			  </tr>
+			  <tr>
+			    <td width="200" align="right"><label for="username">My Pre-race Song:</label></td>
+			    <td align="left"><%= f.text_field :pre_race_song %></td>
+			  </tr>
+			  <tr>
+			    <td width="200" align="right"><label for="username">My Pre-race Food:</label></td>
+			    <td align="left"><%= f.text_field :pre_race_food %></td>
+			  </tr>
+			  <tr>
+			    <td>&nbsp;</td>
+			    <td align="left"><%= ok_button_image(true) %> <%= link_to cancel_button_image, :controller => "myracemenu"%></td>
+			  </tr>
+            </table>
+          
+        			</td>
+            <td width="120" rowspan="2" align="left" valign="top" id="ads" style="padding-right:10px;"><%= render :partial => 'shared/ads'%></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableBOTTOMshadow">&nbsp;</td>
+            </tr>
+          <%= render :partial => 'shared/footer'%>
+          <% end -%>
+
+        </table>
+
+
+
+

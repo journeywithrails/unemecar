@@ -1,0 +1,24 @@
+<div class="feature<%=fnum%>"><table width="281" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td id="title"><%= feature.name%> </td>
+  </tr>
+  <tr>
+    <td id="body"><table width="281" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="106"><img src="/images/img-home/spacer.gif" width="16" height="10" /></td>
+        <td width="175"><img src="/images/img-home/spacer.gif" width="175" height="10" /></td>
+      </tr>
+      <tr>
+        <td rowspan="3" align="center" valign="top"><%= link_to image_tag(feature.image(:thumb), :border => 0), feature.link %></td>
+        <td id="time"><%= feature.time.strftime("%a %m/%d %I:%M%p")%> </td>
+      </tr>
+      <tr>
+        <td id="otherinfo"><%= feature.location%></td>
+      </tr>
+      <tr>
+        <td><a href="<%= feature.link%> "><img src="/images/img-home/BTN_more_info.png" name="moreInfo<%=fnum%>" width="120" height="29" border="0" id="moreInfo" onmouseover="MM_swapImage('moreInfo<%=fnum%>','','/images/img-home/BTN_more_info_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</div>

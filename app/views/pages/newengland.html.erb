@@ -1,0 +1,99 @@
+<html>
+
+<head>
+<title>New England Event Calendar</title>
+<base target="_blank">
+</head>
+
+<body bgcolor="white">
+
+
+
+<table width="76%" border="0" align="center" style="font-size:12px;font-family: Arial, Helvetica, sans-serif;">
+  <tr>
+    
+    <td width="100%"><%= link_to image_tag('art/pb_rm_tr_150.png', :border => 0), "http://www.racemenu.com"%></td>
+  </tr>
+	<tr>
+    <!--<td width="49%"><div align="right"><a href="">List An Event In This Calendar</a></div></td>
+    <td width="2%">&nbsp;</td>-->
+    <td width="100%"><a href="http://www.racemenu.com">Setup Online Registration for Your Event</a></td>
+  </tr>
+
+
+<tr><td align="left">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%" style="font-size:12px;font-family: Arial, Helvetica, sans-serif;">
+
+         
+  <tr bgcolor="#FFFFFF"> 
+    <td width="549" colspan="2">&nbsp;</td>
+				  <tr>
+
+		<% time = Time.now
+		Event.find_by_sql("SELECT DISTINCT events.* FROM `events` join event_types_events on event_types_events.event_id=events.id WHERE (event_date > '#{time.strftime("%Y-%m-%d")}' AND (state = 'MA' OR state='VT' OR state='CT' OR state='RI' OR state='NH' OR state='ME' )) ORDER BY events.event_date asc").each do |event| %>		
+      
+        <tr>
+          <td width="100%" valign="top" align="left" colspan="2"><b><%= link_to event.name, "http://racemenu.com/event/#{event.to_param}", {:popup => true} %></b>&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="20%" valign="top" align="right">Date:&nbsp;&nbsp;</td>
+          <td width="70%" valign="top"><%= event.event_date.strftime('%m/%d/%Y') %>&nbsp;<%= event.start_time %></td>
+        </tr>
+        <tr>
+          <td width="20%" valign="top" align="right">Type:&nbsp;&nbsp;</td>
+          <td width="70%" valign="top"><%= Race.find_by_event_id(event.id).event_type.name.capitalize unless Race.find_by_event_id(event.id).nil?%></td>
+        </tr>
+        <tr>
+          <td width="20%" valign="top" align="right">Location:&nbsp;&nbsp;</td>
+          <td width="70%" valign="top"><%= event.city %>, <%= event.state %>
+      &nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="20%" valign="top" align="right">Description:&nbsp;&nbsp;</td>
+          <td width="70%" valign="top"><%= event.description.capitalize unless event.description.blank?%></td>
+        </tr>
+        <tr>
+          <td width="20%" valign="top" align="right">
+	<% unless event.contact_name == "" %>
+	Contact:&nbsp;&nbsp;
+	<% end %></td>
+          <td width="70%" valign="top"><%= event.contact_name %><!--, 617-916-2002<br>kelly@fattmanproductions.com<br>
+          11 Central Terrace<br>
+          Auburndale, MA, 02466--><% unless event.contact_name == "" %><br><% end %>
+
+          <!--<a href="http://www.racemenu.com/event/<%= event.id %>">--><!--
+	<% unless event.register_link == "" %>
+	<%= link_to "Registration Link", event.register_link, :target => "_blank" %>
+	<% end %>-->
+</td>
+        </tr>
+
+       
+	  <tr bgcolor="#FFFFFF"> 
+	    <td width="100%" colspan="2">&nbsp;</td>
+	        </tr>  
+
+<% end %>
+
+
+  
+		
+       
+		
+        <tr>
+          <td width="549" colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="549" colspan="2"></td>
+        </tr>
+      </table>
+      
+      </td></tr>
+       
+</table>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+if params[:id].blank?
+	#page.replace_html "active_q_p", :partial => 'add_coupon', :locals => {:coupon => Coupon.new}
+	page["active_q_p"].hide
+	page["add_q_p"].show
+else
+	coupon =  Coupon.find(params[:id])
+	page.replace_html "coupon_#{coupon.id}", :partial => 'coupon_row', :locals => {:coupon => coupon}
+end

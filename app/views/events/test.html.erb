@@ -1,0 +1,56 @@
+<script type="text/JavaScript">
+
+//onLoad="new Ajax.Request('/events', {asychronous:true, evalScripts:true, parameters:Form.serialize(this)}); return false;"
+
+//onLoad="new Ajax.Request('/events/ajax.js', {asychronous:true, evalScripts:true}); return false;"
+
+function publish(){
+	//this is stupid, but for some reason the FB.Connect call doesn't work if this alert isn't included -- I believe it's because the FB.Connect class is initialized by another onLoad command, and doesn't have time to finish if this alert doesn't slow down the process
+alert('Thank you for registering!');
+
+var message = 'I just added this to my race calendar! Anybody else want to go?'; 
+var attachment = {'name':'Name of Race Goes Here', 
+                  'href':'http://racemenu.com/event/####',  
+                  'caption':'{*actor*} registered for EVENTNAME powered by RaceMenu', 
+                  'description':'a funny looking cat', 
+
+                  'media':
+				  [{'type': 'image',
+				    'src':  'http://www.racemenu.com/images/rm_runner_btm_104x130.gif', 
+				    'href': 'http://racemenu.com/event/####'},
+					{'type': 'image',
+					    'src':  'http://racemenu.com/images/rm_logo2_50.png', 
+					    'href': 'http://racemenu.com/images/rm_logo2_50.png'}]
+					};
+					
+var action_links = [{ "text": "Event Details", "href": "http://racemenu.com/event/####"}, 
+{ "text": "MyRaceMenu", "href": "http://www.racemenu.com/myracemenu?racer=#####"}
+];
+
+FB.Connect.streamPublish(message, attachment, action_links, null, "",
+	function(){
+		//this js renders after they've posted the message
+		FB.Connect.showPermissionDialog("publish_stream", 
+		function(){
+			//alert('action here');
+			}
+		);
+	}
+	
+	,true
+
+);
+};
+
+
+//how prototype deals with onload
+Event.observe(window, 'load', function(){
+	publish();
+	
+});
+
+
+
+
+</script>
+test page <a href="#" onClick="publish();">publsih</a>

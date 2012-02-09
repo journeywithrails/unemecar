@@ -1,0 +1,92 @@
+
+<table border="0" align="center" cellpadding="5" cellspacing="0">
+	  <tr> <td align="right"></td><td style="padding-right:25px" align="center"><%= error_messages_for "contact", :header_message => nil, :message => nil %></td>
+	  	 <td align="right"></td>
+	  </tr>
+	  <tr>
+	    <td align="right"></td>
+	    <td></td>
+	    <td>Show on website?</td>
+	  </tr>
+	  <tr>
+	    <td align="right">Your Name:</td>
+	    <td><%= text_field(:contact, :name, {"size" => "54", :class => "search_form_input"}) %></td>
+	    <td align="center"><%= check_box(:contact, :show_name, {:class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Your Email:</td>
+	    <td><%= text_field(:contact, :email, {"size" => "54", :class => "search_form_input"}) %></td>
+	    <td align="center"><%= check_box(:contact, :show_email, {:class => "search_form_input"}) %></td>
+	  </tr>
+		<tr>
+	    <td align="right">Your Phone:</td>
+	    <td><%= text_field(:contact, :phone, {"size" => "54", :class => "search_form_input"}) %></td>
+	    <td align="center"><%= check_box(:contact, :show_phone, {:class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Your Address:</td>
+	    <td><%= text_field(:contact, :address, {"size" => "54", :class => "search_form_input"}) %></td>
+	    <td align="center"><%= check_box(:contact, :show_address, {:class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">City:</td>
+	    <td><%= text_field(:contact, :city, {"size" => "18", :class => "search_form_input"}) %>&nbsp;&nbsp;State:<%= select :contact, :state, ['AK',
+			'AL',
+			'AR',
+			'AZ',
+			'CA',
+			'CO',
+			'CT',
+			'DC',
+			'DE',
+			'FL',
+			'GA',
+			'HI',
+			'IA',
+			'ID',
+			'IL',
+			'IN',
+			'KS',
+			'KY',
+			'LA',
+			'MA',
+			'MD',
+			'ME',
+			'MI',
+			'MN',
+			'MO',
+			'MS',
+			'MT',
+			'NC',
+			'ND',
+			'NE',
+			'NH',
+			'NJ',
+			'NM',
+			'NV',
+			'NY',
+			'OH',
+			'OK',
+			'OR',
+			'PA',
+			'RI',
+			'SC',
+			'SD',
+			'TN',
+			'TX',
+			'UT',
+			'VA',
+			'VT',
+			'WA',
+			'WI',
+			'WV',
+			'WY'], 
+			{},  {:class => "search_form_input"} %>&nbsp;&nbsp;Zip:<%= text_field(:contact, :zip, {"size" => "5", :class => "search_form_input"}) %></td>
+			<td></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Your Role: </td>
+	    <td><%= check_box("contact_r", "is_rd", { :class => 'search_form_input' })%> Race Director <%= check_box("contact_r", "is_cont", { :class => 'search_form_input' })%> Contact Person</td>
+	    <td></td>
+	  </tr>
+</table>

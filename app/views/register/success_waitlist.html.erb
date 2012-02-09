@@ -1,0 +1,44 @@
+<% content_for :head_title do %>You're on the wait list<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "10"}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="6">&nbsp;</td>
+            <td width="774" align="center" valign="bottom" class="tableHEAD"><p>You're on the wait list</p></td>
+            <td width="120" class="sidebarHeaderText">Featured Events </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableROWS">
+            	<div style="width:100%;margin-left:-18px;padding-top:4px;text-align:center;">
+					<%= header_image(@race.event) %>
+					</div>
+					<div>
+            	<table width="614">
+					<tr><td align="right">&nbsp;</td></tr>
+					<tr><td align="center">You have been added to the wait list for '<strong><%= "#{@race.name}</strong>' in '<strong>#{@race.event.name}"%></strong>'</td></tr>
+					<tr><td align="right">&nbsp;</td></tr>
+
+
+					
+					<tr><td colspan="1" align="center"><div style="margin-left:250px;"><%= link_to view_mrm_image, :controller => "myracemenu" %></div></td></tr>
+					
+				  </table>
+				
+				
+           		<p><a href="http://www.facebook.com/share.php?u=http://www.racemenu.com/event/show_detailed/<%=@race.event.id%>" target="_blank" class="fb_share_link">Share on Facebook</a> 
+           		</p>
+
+
+</div>
+
+        			</td>
+            <td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableBOTTOMshadow">&nbsp;</td>
+            </tr>
+          <%= render :partial => 'shared/footer'%>
+        </table>

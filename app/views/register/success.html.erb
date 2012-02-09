@@ -1,0 +1,112 @@
+<% content_for :head_title do %>You're Registered<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "10"}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="6">&nbsp;</td>
+            <td width="774" align="center" valign="bottom" class="tableHEAD"><p>You're Registered</p></td>
+            <td width="120" class="sidebarHeaderText">Featured Events </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableROWS">
+            	<div style="width:100%;margin-left:-18px;padding-top:4px;text-align:center;">
+					<%= header_image(@event) %>
+					</div>
+					<div>
+            	<table width="614">
+					<tr><td align="right">&nbsp;</td></tr>
+					<tr><td align="right"><b>Transaction Reference Number:</b>&nbsp;</td><td><%= @reg.invoice_code %></td></tr>
+
+
+					<tr><td align="right"><b>Event Entry Fee:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency @total_entry_fee %></td></tr>
+					<% unless @reg.coupon.blank? %>
+					<tr><td align="right"><b>Coupon Savings:</b>&nbsp;&nbsp;</td><td align="left"><%= "#{number_to_currency @reg.coupon.value} (#{@reg.coupon.code})" %></td></tr>
+					<% end %>
+					<% if @usat_fee and @usat_fee > 0 %>
+						<tr><td align="right"><b>License Fee:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency @usat_fee %></td></tr>
+					<% end %>
+					<tr><td align="right"><b>Service Fee:</b>&nbsp;&nbsp;</td><td align="left"><%= number_to_currency @service_fee %></td></tr>
+					<tr><td align="right"><b>Total Charge:</b>&nbsp;&nbsp;</td><td><%= number_to_currency @total_cost %></td></tr>
+
+					<tr><td align="right">&nbsp;</td></tr>
+					
+					<tr><td colspan="2" align="center"><div style="margin-left:250px;"><%= link_to view_mrm_image, :controller => "myracemenu" %></div></td></tr>
+					
+				  </table>
+				
+				
+           		<p><a href="http://www.facebook.com/share.php?u=http://www.racemenu.com/event/show_detailed/<%=@event.id%>" target="_blank" class="fb_share_link">Share on Facebook</a> | <a href="http://twitter.com/home?status=<%= @reg.twitter_feed_text %>" target="_blank" >Share on Twitter</a></p>
+
+
+</div>
+
+        			</td>
+            <td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableBOTTOMshadow">&nbsp;</td>
+            </tr>
+          <%= render :partial => 'shared/footer'%>
+        </table>
+
+
+<script type="text/JavaScript">
+
+function publish(){
+	
+	var message = 'I just registered for this race! Anybody else want to go?'; 
+	var attachment = {'name':"<%= @event.name %>", 
+	                  'href':'http://racemenu.com/event/<%= @event.id %>',  
+	                  'caption':"{*actor*} registered for <%= @event.name %> powered by RaceMenu", 
+	                  'description':'<%= @event.description[0..320] unless @event.description.blank? %>',
+	
+	                  'media':
+				  [
+				<% if @event.image.url(:thumb) != "/images/thumb/missing.png" %>
+				{'type': 'image',
+				'src': "http://racemenu.com<%=@event.image.url(:thumb)%>", 
+								    'href': 'http://racemenu.com/event/<%= @event.id %>'}
+				<% else %>
+				{'type': 'image',
+									    'src':  'http://racemenu.com/images/rm130w.gif', 
+									    'href': 'http://racemenu.com/event/<%= @event.id %>'}
+									<% end %>
+									]
+									};
+	
+	var action_links = [{ "text": "Event Details", "href": "http://racemenu.com/event/<%= @event.id %>"}, 
+		{ "text": "MyRaceMenu", "href": "http://www.racemenu.com/myracemenu?racer=<%= current_user.fb_usid %>"}
+	];
+	
+	FB.Connect.streamPublish(message, attachment, action_links, null, "",
+		function(){
+			//this js renders after they've posted the message
+			FB.Connect.showPermissionDialog("publish_stream", 
+			function(){
+				
+				}
+			);
+		}
+		
+		,false
+	
+	);
+		
+}
+
+
+//how prototype deals with onload
+<% unless facebook_session.nil? %>
+Event.observe(window, 'load', function(){
+	setTimeout("publish()", 1000);
+		
+});
+<% end %>
+
+
+
+
+</script>

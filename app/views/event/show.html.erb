@@ -1,0 +1,57 @@
+<% content_for :head_title do %><%= @event.name %> :: Racemenu.com<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => "calendar"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'events/search_filter', :locals => {:dest => "/events/calendar", :search_state => @state, :search_req => @search_req}%><% end %>
+<meta name="description" content="<%= @event.description %>" />
+<% content_for :meta_keywords do %><%= @event.description %><% end %>
+<% if @event.image.url(:thumb) == "/images/thumb/missing.png" %>
+<link rel="image_src" href="http://www.racemenu.com/images/rm_runner_btm_104x130.gif" />
+<% else %>
+<link rel="image_src" href="http://www.racemenu.com<%= @event.image.url(:thumb) %>" />
+<% end %>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="6">&nbsp;</td>
+    <%= render :partial => 'events/list_header', :locals => {:events => @events, :hide_header => true}%>
+
+
+
+    <td width="120" class="sidebarHeaderText">Featured Events </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    
+
+
+		<td id="tableROWS">
+
+			<div id="event_<%=@event.id%>_top_con">
+			<%= render :partial => 'events/event_row', :locals => {:event => @event, :mode => "single" }%>
+
+			</div>
+
+		<div align="center" style="text-align:center;">
+		<%= #will_paginate(events) 
+		%>
+		</div>
+
+		</td>
+
+
+
+
+
+
+
+    <td align="left" valign="top" id="ads" width="140" style="padding-right:6px;">
+    	<%= render :partial => 'shared/ads'%>
+    	
+	</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td id="tableBOTTOMshadow">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <%= render :partial => 'shared/footer'%>
+</table>

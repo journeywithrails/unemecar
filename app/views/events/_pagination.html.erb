@@ -1,0 +1,22 @@
+<span id="pagination">
+
+<% form_tag ({:controller => :events, :action => :calendar, :search_request => params[:search_request] }) do %>
+
+
+	<% if items.previous_page.nil? %>
+		<%= image_tag("/images/img-inner/ICON_pageLeft.png")%>page
+	<% else %>
+		<%= link_to image_tag('/images/img-inner/ICON_pageLeft.png', :border => 0, :mouseover => '/images/img-inner/ICON_pageLeft_f2.png'), params.merge(:page => items.previous_page) %>page
+	<% end %>
+
+		<input type="text" name="page" id="formfieldPAGE" value="<%=items.current_page%>"/>of <%= items.total_pages%>
+
+	<% if items.next_page.nil? %>
+		<%= image_tag("/images/img-inner/ICON_pageRight.png")%>
+	<% else %>
+		<%= link_to image_tag('/images/img-inner/ICON_pageRight.png', :border => 0, :mouseover => '/images/img-inner/ICON_pageRight_f2.png'), params.merge(:page => items.next_page) %>
+	<% end %>
+	
+<% end %>
+	
+</span>

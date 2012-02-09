@@ -1,0 +1,82 @@
+<% content_for :head_title do %>About RaceMenu<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= image_tag "header500.jpg", :style=>"padding-left:130px;margin-top:16px;" %>
+<!--<table><tr><td style="padding-left:25px;padding-top:30px;" valign="bottom" class="pageTITLE">About RaceMenu: </td></tr></table>-->
+	
+<% end %>
+	
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="6">&nbsp;</td>
+<td width="774" class="tableHEAD"></td>
+    <td width="120" class="sidebarHeaderText">Featured Events </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+<td id="tableROWS">
+
+
+
+<table>
+	<tr>
+		<td >
+<h1 class="text_pages">About RaceMenu</h1>
+<%= Content.find_by_name("about us").item_content %>
+		</td>
+		<td valign=top width=320>
+			
+			<table style="margin-top:8px;margin-right:2px;"><tr><td valign=bottom cellpadding=0 cellspacing=0  style="background-color:white;padding:10px;margin-left:10px;margin-right:12px;">
+				<%= image_tag "rm_logo2_50.png", :style=>"float:right;"%>
+				<h1 class="text_pages">On Facebook...</h1>
+				<p><%= link_to "Visit our Facebook Page", "http://www.facebook.com/apps/application.php?id=72450158359" %></p>
+				<p>&nbsp;</p>
+
+			<h1 class="text_pages">On Twitter...</h1>
+
+		
+				
+				<% for i in 0..3 do %>
+				<p><%= add_links_to_tweet(@twitter_feed[:items][i][:title][10..@twitter_feed[:items][i][:title].length]) %>
+				<br><%= link_to @twitter_feed[:items][i][:pubDate][0..(@twitter_feed[:items][i][:pubDate].length-15)], @twitter_feed[:items][i][:link], :target=>"blank", :class=>"twitter_link" %></p>
+				
+				<% end %>
+			
+			<p>&nbsp;</p>
+			<p>
+				<%= link_to "Follow RaceMenu on Twitter", "http://twitter.com/racemenu" %>
+			</p>
+	
+			</td></tr>
+			<tr><td height=15 >
+			<%= image_tag "twitter_triangle.png", :style=>"float:right;margin-right:65px;margin-top:-5px;position:relative;"%>
+			</td></tr>
+			</table>
+			
+		</td>
+		<td>
+			&nbsp;	&nbsp;
+			&nbsp;	&nbsp;
+			&nbsp;	&nbsp;
+			&nbsp;	&nbsp;
+			&nbsp;	&nbsp;
+			&nbsp;	&nbsp;
+		</td>
+	</tr>
+</table>
+
+<%= image_tag "twitter_bird.png", :style=>"float:right;margin-right:40px;margin-bottom:-10px;position:relative;"%>
+
+</td>
+    <td align="left" valign="top" id="ads" width="120">
+    	<%= render :partial => 'shared/ads'%>
+    	
+	</td>
+	<td style="padding-right:10px;"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td id="tableBOTTOMshadow">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <%= render :partial => 'shared/footer'%>
+</table>

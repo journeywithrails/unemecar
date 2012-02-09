@@ -1,0 +1,28 @@
+<% if logged_in? %>
+	
+	<span style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; color:#FFFFFF;vertical-align:top">
+	<% if (!current_user.display_name.nil? && current_user.display_name.size>0) %>
+	  <% if facebook_session.nil? == false %>
+	  	Hi, <%= current_user.display_name%>.
+	  <% else %>
+	  	Hi <%= current_user.display_name%>.
+	  <% end %>
+	<% end %>
+	</span>
+	<% if facebook_session.nil? == false %>
+	<a href="#" onclick='FB.Connect.logoutAndRedirect("/logout")'><img src="/images/img-inner/BTN_logout.png" alt="Btn_logout" name="logout" width="83" height="25" border="0" style="vertical-align:top" align="absmiddle" id="logout" onmouseover="MM_swapImage('logout','','/images/img-inner/BTN_logout_f2.png',1)" onmouseout="MM_swapImgRestore()"/></a>
+	<% else %>
+	<a href="/logout"><img src="/images/img-inner/BTN_logout.png" alt="Btn_logout" name="logout" width="83" height="25" border="0" style="vertical-align:top" align="absmiddle" id="logout" onmouseover="MM_swapImage('logout','','/images/img-inner/BTN_logout_f2.png',1)" onmouseout="MM_swapImgRestore()"/></a>
+	<% end %>
+
+<% else %>
+
+	<img src="/images/img-inner/BTN_login_signup.png" name="loginSignup" width="120" height="25" id="loginSignup" onclick='window.location="/login";' onmouseover="MM_swapImage('loginSignup','','/images/img-inner/BTN_login_signup_f2.png',1)" onmouseout="MM_swapImgRestore()" border="0"/>
+
+	<a href="#" onclick="FB.Connect.requireSession(function() { window.location='/sessions/link_user_accounts'; }); return false;">
+		<img id="fb_login_image" name="fb_login_image" src="/images/img-inner/BTN_fb_connect.png" border="0" alt="Connect" onmouseover="MM_swapImage('fb_login_image','','/images/img-inner/BTN_fb_connect_f2.png',1)" onmouseout="MM_swapImgRestore()"/>
+	</a>
+
+<% end %>
+
+&nbsp;

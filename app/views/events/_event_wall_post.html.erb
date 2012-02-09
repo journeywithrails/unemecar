@@ -1,0 +1,47 @@
+<script type="text/JavaScript">
+
+function publish_<%= event.id %>(){
+
+
+var message = 'I just added this to my race calendar! Anybody else want to go?'; 
+var attachment = {'name':'<%= event.name[0..100] unless event.name.blank? %>', 
+                  'href':'http://racemenu.com/event/<%= event.id %>',  
+                  'caption':'This event is now on {*actor*}\'s MyRaceMenu Calendar!', 
+                  'description':'<%= event.description[0..320] unless event.description.blank? %>', 
+
+                  'media':
+				  [
+<% if event.image.url(:thumb) != "/images/thumb/missing.png" %>
+{'type': 'image',
+'src': "http://racemenu.com" + event.image.url(:thumb), 
+				    'href': 'http://racemenu.com/event/<%= event.id %>'},
+					{'type': 'image',
+										    'src':  'http://racemenu.com/images/rm130w.gif', 
+										    'href': 'http://racemenu.com/calendar'}
+<% else %>
+{'type': 'image',
+					    'src':  'http://racemenu.com/images/rm130w.gif', 
+					    'href': 'http://racemenu.com/event/<%= event.id %>'}
+					<% end %>
+					]
+					};
+					
+var action_links = [{ "text": "Event Details", "href": "http://racemenu.com/event/<%= event.id %>"}, 
+{ "text": "MyRaceMenu", "href": "http://www.racemenu.com/myracemenu?racer=<%= current_user.fb_usid %>"}
+];
+
+FB.Connect.streamPublish(message, attachment, action_links, null, "",
+	function(){
+		//this js renders after they've posted the message
+		FB.Connect.showPermissionDialog("publish_stream", 
+		function(){
+			//alert('action here');
+			}
+		);
+	}
+	
+	,false
+
+);
+};
+</script>

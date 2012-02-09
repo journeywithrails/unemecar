@@ -1,0 +1,858 @@
+@charset "utf-8";
+/* CSS Document */
+
+body
+	{
+		margin:0px;
+		padding:0px;
+		background-color:#2b343c;
+		background-image:url(../images/sub_back.gif);
+		background-repeat:repeat-x;
+		background-position:top;
+	}
+h1,h2,h3,h4,h5,h6,span
+	{
+		margin:0px;
+		padding:0px;
+	}
+
+#wrapper_h {
+	width:940px;
+	margin:auto;
+	z-index:1;
+}
+
+#header_h {
+	width:940px;
+	height:107px;
+	margin:auto;
+	float:left;
+	/*margin-top:6px;*/
+	z-index:1;
+}
+
+#header_sub {
+	width:940px;
+	height:107px;
+	margin:auto;
+	float:left;
+	/*margin-top:6px;*/
+	z-index:1;
+}
+#header_left {
+	width:20px;
+	height:107px;
+	margin:auto;
+	float:left;
+	background-image:url(../images/header_topleft_back.png);
+	background-repeat:no-repeat;
+	z-index:1;
+}
+
+#header_mid {
+	width:900px;
+	height:107px;
+	margin:auto;
+	float:left;
+	background-image:url(../images/header_top_mid.png);
+	background-repeat:repeat-x;
+	z-index:1;
+    /*
+    font-family:Arial, Helvetica, sans-serif;
+	color:#165086;
+	font-size:12px;
+    */
+}
+#header_midright{
+	width:519px;
+	height:107px;
+	float:right;
+}
+.header_midright_text{
+    font-family:Arial, Helvetica, sans-serif;
+	color:#165086;
+	font-size:12px;
+    padding-left:10px;
+}
+#header_right {
+	width:20px;
+	height:107px;
+	margin:auto;
+	float:left;
+	background-image:url(../images/header_topright_back.png);
+	background-repeat:no-repeat;
+	z-index:1;
+}
+
+#logo_h{
+	width:420px;
+	height:107px;
+	background-image:url(../images/home_logo.png);
+	background-repeat:no-repeat;
+	margin-left:30px;
+	float:left;
+}
+#logo{
+	width:321px;
+	height:54px;
+	background-image:url(../images/logo.png);
+	background-repeat:no-repeat;
+	margin:49px 0 0 30px;
+	float:left;
+}
+/*
+#login{
+	width:120px;
+	height:38px;
+	background-image:url(../images/login.png);
+	background-repeat:no-repeat;
+	float:left;
+	margin:43px 0 0 125px;
+}
+
+
+#facebook{
+	width:190px;
+	height:38px;
+	background-image:url(../images/face_book.png);
+	background-repeat:no-repeat;
+	float:left;
+	margin:43px 0 0 0;
+}*/
+#mid_h{
+	width:940px;
+	height:330px;
+	background-image:url(../images/white_shadow-back.png);
+	background-repeat:repeat-y;
+	margin:auto;
+	float:left;
+
+}
+#mid_blue{
+	width:940px;
+	height:121px;
+	background-image:url(../images/white_shadow-back.png);
+	background-repeat:repeat-y;
+	margin:auto;
+	float:left;
+}
+
+ #mid_blue_repet{
+	width:900px;
+	height:121px;
+	background-image:url(../images/mid_blue_repet.gif);
+	background-repeat:repeat-x;
+	background-position:center;
+	margin:auto;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#93b1cb;
+	font-size:12px;
+    text-align:left;
+}
+ .login_font{
+	width:900px;
+	height:121px;
+	background-image:url(../images/mid_blue_repet.gif);
+	background-repeat:repeat-x;
+	background-position:center;
+	margin:auto;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#93b1cb;
+	font-size:12px;
+}
+
+#content_mid{
+	width:940px;
+	margin:auto;
+	background-image:url(../images/content_back2.png);
+	background-repeat:repeat-y;
+	float:left;
+	z-index:1;
+}
+#sub_footer{
+	width:940px;
+	height:31px;
+	background-image:url(../images/content_footer.png);
+	background-repeat:no-repeat;
+	float:left;
+	
+}
+
+#mid_image1{
+	width:940px;
+	height:330px;
+	background-image:url(../images/mid_image_running.png);
+	background-position:center;
+	background-repeat:no-repeat;
+}
+
+#home_mid_left{
+	float:left;
+	width:460px;
+	height:330px;
+	background-image:url(../images/mid_text_left.png);
+	background-position:left;
+	background-repeat:no-repeat;
+	margin-left:20px;
+}
+
+#home_mid_right{
+	float:right;
+	width:317px;
+	height:330px;
+	background-image:url(../images/mid_text_right.png);
+	background-position:right;
+	background-repeat:no-repeat;
+	margin-right:20px;
+}
+
+#footer_h {
+	width:940px;
+	height:143px;
+	margin:auto;
+	
+	margin-top:6px;
+	z-index:1;
+}
+#footer_h_left {
+	width:20px;
+	height:143px;
+	margin:auto;
+	float:left;
+	background-image:url(../images/footer_left.png);
+	background-repeat:no-repeat;
+	z-index:1;
+}
+
+#footer_h_mid {
+	width:900px;
+	height:143px;
+	margin:auto;
+	float:left;
+	background-image:url(../images/footer_mid.png);
+	background-repeat:repeat-x;
+	z-index:1;
+}
+#footer_h_right {
+	width:20px;
+	height:143px;
+	margin:auto;
+	float:left;
+	background-image:url(../images/footer_right.png);
+	background-repeat:no-repeat;
+	z-index:1;
+}
+#footer_content{
+	width:900px;
+	height:126px;
+	margin:-6px 0 0 0;
+	position:absolute;
+}
+
+.footer_frame{
+	height:126px;
+	width:281px;
+	background-image:url(../images/bottom_box.png);
+	background-repeat:no-repeat;
+	background-position:center;
+	float:left;
+	margin:0 5px 0 12px;
+}
+.heading_text{
+	text-align:left;
+	font-family:Arial;
+	font-size:16px;
+	font-weight:bold;
+	padding:2px 0 0 10px;
+	color:#000000;
+}
+.footer_frame_image{
+	height:60px;
+	width:84px;
+	float:left;
+	background-color:#0000FF;
+	margin:15px 0 0 10px;
+	
+}
+/*<<<<<<<<<<<<<<<<<<<<< Table Design >>>>>>>>>>>>>>>>>>>>>>>*/
+#table{
+	width:738px;
+	margin-top:-23px;
+	margin-left:37px;
+}
+
+.table_top{
+	width:760px;
+	height:22px;
+	float:left;
+	background-image:url(../images/content_head_02.png);
+	background-repeat:no-repeat;
+	background-position:center;
+}
+.table_mid{
+	width:720px;
+	color:#999999;
+	float:left;
+	background-color:#e6e6e6;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	display:block;
+	color:#000;
+	padding:20px;
+}
+
+.table_mid2{
+	width:738px;
+	color:#999999;
+	float:left;
+	background-color:#e6e6e6;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	display:block;
+	color:#000;
+	
+}
+
+.table_head_text{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:12px;
+	display:block;
+	text-align:left;
+	color:#003366;
+	padding-left:20px;
+	margin-top:3px;
+	
+}
+.text1{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	display:inline;
+	text-align:right;
+	color:#003366;
+	padding-left:10px;
+	margin-top:10px;
+}
+.text2{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	color:#FFFFFF;
+	display:inline;
+	text-align:right;
+	padding-left:5px;
+
+}
+
+.text3{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	color:#FFFFFF;
+	display:inline;
+	text-align:center;
+	padding-left:5px;
+
+}
+
+#featured_events{
+	width:120px;
+	height:300px;
+	float:right;
+	margin-top:-23px;
+	margin-right:20px;
+}
+#featured_events_top{
+	width:120px;
+	height:16px;
+	float:right;
+	text-align:left;
+}
+
+.featured_event{
+	width:120px;
+	height:60px;
+	float:right;
+	background-image: url(../images/add_back.png);
+    background-repeat:no-repeat;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	color:#FFFFFF;
+	display:inline;
+	text-align:center;
+	
+	margin:1px;
+}
+
+#hor-zebra {
+border-collapse:collapse;
+font-family:"Lucida Sans Unicode","Lucida Grande",Sans-Serif;
+font-size:12px;
+margin:20px;
+text-align:left;
+width:680px;
+}
+
+#hor-zebra th {
+color:#e6e6e6;
+font-size:14px;
+font-weight:normal;
+padding:2px 8px;
+}
+
+#hor-zebra .odd {
+background:#eef0f1 none repeat scroll 0 0;
+}
+
+#hor-zebra td {
+color:#000;
+padding:8px;
+background-color:#e6e6e6;
+}
+
+
+
+
+
+
+
+
+
+/* Menu styles 
+
+
+#menu {
+	
+	height:26px;
+	
+	float:left;
+	z-index:1;
+    margin-top: 21px;
+
+}
+
+
+#navlist {
+font-size:12px;
+font-weight:bold;
+height:25px;
+margin:0;
+padding:0;
+margin-right:20px;
+margin-left:20px;
+
+}
+
+#navlist li {
+display:inline;
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+margin:0;
+
+}
+#navlist li a {
+background:transparent url(../images/tab2.png) no-repeat scroll right top;
+color:#fff;
+float:left;
+height:25px;
+width:154px;
+text-align:center;
+text-decoration:none;
+padding-right:5px;
+padding-top:5px;
+font-family:Arial;
+font-size:17px;
+
+
+}
+#navlist li a:link, #navlist li a:visited {
+color:#fff;
+}
+
+#navlist li a:hover {
+background:transparent url(../images/tab1.png)  no-repeat scroll center top;
+color:#FFFFFF;
+}
+#navlist li a#current, #navlist li a#current:hover {
+background:transparent url(../images/tab1.png)  no-repeat scroll center top;
+color:#fff;
+}
+
+.menu_style {
+	background:transparent url(../images/tab2.png) no-repeat scroll center top;
+	text-align:center;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	color:#FFFFFF;
+	float:right;
+	width:154px;
+	height:25px;
+	text-decoration:none;
+	margin-right:10px;
+}
+.menu_style :hover {
+    background:transparent url(../images/tab1.png)  no-repeat scroll center top;
+    color:#FFFFFF;
+}
+
+*/
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+#race{
+	height: 25px;
+	width: 164px;
+	overflow: hidden;
+	background:url(../images/bluecall_03.png);
+	display: block;
+	float:left;
+	margin-left:3px;
+}
+
+#race:hover{
+	background-position: bottom left;
+}
+#cale{
+	height: 25px;
+	width: 164px;
+	overflow: hidden;
+	background:url(../images/bluecall_05.png);
+	display: block;
+	float:left;
+	margin-left:3px;
+}
+#cale:hover{
+	background-position: bottom left;
+}
+
+#resu{
+	height: 25px;
+	width: 164px;
+	overflow: hidden;
+	background:url(../images/bluecall_07.png);
+	display: block;
+	float:left;
+	margin-left:3px;
+}
+#resu:hover{
+	background-position: bottom left;
+}
+#menu_dam
+{	height: 26px;
+	width: 502px;
+	float:left;
+	margin-top:22px
+}
+
+#race_selected{
+	height: 25px;
+	width: 164px;
+	overflow: hidden;
+	background:url(../images/bluecall_03.png);
+	display: block;
+	float:left;
+	margin-left:3px;
+    background-position: bottom left;
+}
+
+#cale_selected{
+	height: 25px;
+	width: 164px;
+	overflow: hidden;
+	background:url(../images/bluecall_05.png);
+	display: block;
+	float:left;
+	margin-left:3px;
+    background-position: bottom left;
+}
+
+/* Table stylesheet */
+.tablemain
+{	border:#999999 solid 1px;
+}
+.bg_one
+{	background-color:#e9eaee;
+}
+.bg_two
+{	background-color:#f2f3f5;
+}
+.head
+{	font-family:Arial, Helvetica, sans-serif;
+	font-size:15px;
+	color:#000066;
+	text-align:left;
+	font-style:normal;
+	font-weight:bold;
+}
+.blue
+{	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#000099;
+	text-align:left;
+	font-style:normal;
+}
+.blue a
+{	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#000099;
+	text-align:left;
+	font-style:normal;
+	text-decoration:none;
+}
+.blue a:hover
+{	text-decoration:underline;
+	color:#6699FF;
+}
+.blue_small
+{	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#003366;
+	text-align:left;
+	font-style:normal;
+}
+
+.find_race_text{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	font-size:28px;
+	text-align:left;
+	display:block;
+	color:#FFFFFF;
+	padding:0 0 0 30px;
+}
+.find_race_text2{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	font-size:23px;
+	text-align:left;
+	display:block;
+	color:#FFFFFF;
+	padding:15px 0 0 0;
+    width:145px;
+}
+.fbconnect_login_button{  
+  background-repeat:no-repeat;
+}
+
+#logo{
+ width:321px;
+ height:54px;
+ background-image:url(../images/logo.png);
+ background-repeat:no-repeat;
+ margin:49px 0 0 30px;
+}
+
+#race_distance {
+	width:278px;
+	height:179px;	
+	z-index:1;
+	position:absolute;
+	background-image:url(../images/img-inner/popBKG_distance.png);
+	background-repeat:no-repeat;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;
+	text-align:left;
+	font-weight:bold;
+}
+
+#race_distance_top {
+	
+	background-repeat:no-repeat;
+	background-position:top;
+	z-index:1;
+	
+}
+#race_distance_mid {
+	width:465px;
+	height:auto;
+	
+	background-repeat:repeat-y;
+	background-position:top;
+	z-index:1;
+}
+ 
+#race_type {
+	width:465px;
+	z-index:1;
+	
+}
+#race_type_top {
+	width:465px;
+	height:33px;
+	background-image:url(../images/race_type_top.png);
+	background-repeat:no-repeat;
+	background-position:top;
+	z-index:1;
+}
+#race_type_mid {
+	width:465px;
+	height:auto;
+	background-image:url(../images/race_type_mid_repet.png);
+	background-repeat:repeat-y;
+	background-position:top;
+	z-index:1;
+}
+.find_race_text3{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	font-size:22px;
+	text-align:left;
+	display:block;
+	color:#FFFFFF;
+	padding:15px 0 0 10px;
+    width:245px;
+}
+
+.fb_login{
+  background-image:url(../images/img-home-runners/facebook_back.gif);
+  background-repeat:repeat-x;
+  width:169px;
+  height:21px;
+}
+
+
+#race_type_bot {
+	width:465px;
+	height:30px;
+	background-image:url(../images/race_type_bot.png);
+	background-repeat:no-repeat;
+	background-position:top;
+	z-index:1;
+    margin-top:-8px;
+}
+
+.race_distance_text{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	color:#FFFFFF;
+	text-align:left;
+	font-weight:bold;
+	padding:0 0 0 50px;
+}
+
+.race_type_text{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	color:#FFFFFF;
+	text-align:left;
+	font-weight:bold;
+	padding:9px 0 0 50px;
+}
+
+.race_type_discip_text{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;
+	text-align:left;
+	font-weight:bold;
+	
+}
+
+.race_type_body_text{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;
+	text-align:left;
+	padding:9px 0 0 50px;
+    background-repeat:repeat-y;
+}
+.blue_line{
+	color:#537ca2;
+	width:395px;
+}
+
+
+/*  -------------------------------------------------------------   */
+#event_name {
+    font-size:11px;
+    font-family:Arial, Helvetica, sans-serif;
+    height:12px;
+    margin-top:17px;
+}
+
+.search_button {
+    background-image:url('../images/img-inner/BTN_search.png');
+    background-repeat:no-repeat;
+    width:113px;
+    height:59px;
+    margin-left:31px;
+    margin-top:14px;
+}
+
+#region_region_id {
+    width:225px;
+}
+
+#city {
+    width:61px;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+    text-align:center;
+    height:12px;
+}
+
+#state {
+    width:40px;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+    text-align:center;
+    height:12px;
+}
+
+#zip {
+    width:33px;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+    text-align:center;
+    height:12px;
+}
+
+#radius_radius {
+    width:66px;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+    text-align:center;
+    height:18px;
+}
+
+#race_distance_text {
+    
+    
+}
+
+#txtFromDate {
+    
+    
+}
+
+#txtToDate {
+    
+}
+
+.date_range_txt {
+    
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+}
+#discipline_text{
+   
+}
+#type_search_fields{
+    float:left;
+}
+.form_field1{
+    float:left;
+}
+
+.type_distance_txt {
+    margin-left:-12px;
+}
+.date_range_txt{
+   margin-left:-12px;
+}
+.search_button_align{
+    margin-left:31px;
+}

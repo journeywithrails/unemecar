@@ -1,0 +1,79 @@
+.DIVrealtiveANCHOR {
+	height: 1700px;
+	width: 750px;
+	position: relative;
+	top: -42px;
+	z-index: 100;
+}
+.DIVrealtiveANCHOR .finger {
+	position: absolute;
+	left: 431px;
+	top: 0px;
+}
+.DIVrealtiveANCHOR .hero {
+	background-color: #69C;
+	position: absolute;
+	height: 153px;
+	width: 750px;
+	top: 30px;
+}
+.DIVrealtiveANCHOR .hero .titleText {
+	font-family: Verdana, Helvetica, Arial;
+	font-size: 22px;
+	font-weight:bold;
+	line-height: 30px;
+	color: orange;
+	position: absolute;
+	z-index: 100;
+	height: 74px;
+	width: 193px;
+	left: 16px;
+	top: 30px;
+	text-align: right;
+}
+.DIVrealtiveANCHOR .hero .titleText span {
+	font-family: Verdana, Helvetica, Arial;
+	font-size: 17px;
+	margin-top: -5px;
+	position: relative;
+	top: -7px;
+	text-align: right;
+	width: 20px;
+}
+.DIVrealtiveANCHOR .RDcontent {
+	background-color: #FFF;
+	position: relative;
+	top: 183px;
+}
+.DIVrealtiveANCHOR .RDcontent ul {
+	margin-left: 0px;
+	padding-left: 0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.DIVrealtiveANCHOR .RDcontent li {
+	list-style-position: outside;
+	list-style-image: url(/images/img/rd_bullet.gif);
+	list-style-type: square;
+	margin-left: 50px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.DIVrealtiveANCHOR .RDcontent td {
+	text-align: left;
+	vertical-align: top;
+}
+.stepsBTNS {
+	padding-top: 0px;
+	padding-left: 30px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+.StepText {
+	padding-top: 15px;
+	padding-right: 5px;
+	padding-bottom: 10px;
+	padding-left: 55px;
+}

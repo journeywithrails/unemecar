@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+	
+	
+	<%= javascript_include_tag :defaults %>
+	<%= javascript_include_tag "race_menu_calender"	%>
+	<%= javascript_include_tag "carousel" %>
+	<%= javascript_include_tag "accordion" %>
+	<%= javascript_include_tag "ajaxupload"%>
+	<%= calendar_date_select_includes %>
+	<script type="text/javascript" src="/javascripts/window.js"> </script>
+	<script type="text/javascript">
+		var addthis_pub = "racemenu";
+	</script>
+	  
+    <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js"></script>
+    
+    <%= stylesheet_link_tag "race_menu_calender"%>
+    <%= stylesheet_link_tag "application"%>
+    <%= stylesheet_link_tag "race-director"%>
+    <%= stylesheet_link_tag "home_styles"%>
+    <%= stylesheet_link_tag "classic"%>
+    <%= stylesheet_link_tag "accordion"%>
+    <%= yield :extra_head %>
+    
+	
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
+<title><%= yield :head_title %></title>
+<link href="/stylesheets/CSS-inner.css" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/event_list.css" rel="stylesheet" type="text/css" />
+<meta name="keywords" content="<%= yield :keywords %>" />
+<meta name="description" content="<%= yield :description %>" />
+<script type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+function MM_showHideLayers() { //v6.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+
+function P7_hideDiv(evt) { //v1.3 by PVII
+ var b,relT,mT=false; 
+ if(document.layers){b=evt.target;if(b.p7aHide){
+  b.visibility="hidden";}else{routeEvent(evt);}
+ }else if(document.all&&!window.opera){b=event.srcElement;
+  while(b!=null){if(b.tagName=="DIV" && b.p7ahD){mT=true;break;}b=b.parentElement;}
+  if(!b.contains(event.toElement)){b.style.visibility="hidden";}
+ }else if(document.getElementById){b=evt.currentTarget;relT=evt.relatedTarget;
+  while(relT!=null){if(b==relT){mT=true;break;}
+  relT=relT.parentNode;}if(!mT){b.style.visibility="hidden";}}
+}
+
+function P7_autoHide() { //v1.3 by PVII
+ var i,g,args=P7_autoHide.arguments;
+ for(i=0;i<args.length;i++){if((g=MM_findObj(args[i]))!=null){
+  g.p7aHide=true;if(document.layers){
+  g.captureEvents(Event.MOUSEOUT);}g.onmouseout=P7_hideDiv;g.p7ahD=true;}}
+}
+//-->
+</script>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+var tl_loc0=(window.location.protocol == "https:")? "https://secure.comodo.net/trustlogo/javascript/trustlogo.js" :
+"http://www.trustlogo.com/trustlogo/javascript/trustlogo.js";
+document.writeln('<scr' + 'ipt language="JavaScript" src="'+tl_loc0+'" type="text\/javascript">' + '<\/scr' + 'ipt>');
+//]]>
+</script>
+</head>
+
+<body onload="MM_preloadImages('/images/img-inner/ICON_pageLeft.png','/images/img-inner/ICON_pageRight_f2.png','/images/img-inner/ICON_web_f2.png','/images/img-inner/ICON_add_f2.png','/images/img-inner/ICON_alert_f2.png','/images/img-inner/ICON_registered_f2.png','/images/img-inner/ICON_goto_f2.png','/images/img-inner/ICON_share_f2.png','/images/img-inner/BTN_search_f2.png','/images/img-inner/nav3_f2.png','/images/img-inner/nav1_f2.png','/images/img-inner/BTN_fb_connect_f2.png','/images/img-inner/BTN_login_signup_f2.png','/images/img-inner/BTN_fb_square_f2.png','/images/img-inner/BTN_login_f2.png','/images/img-inner/BTN_signup_f2.png');P7_autoHide('login');P7_autoHide('feedback')"
+
+>
+<script src="https://ssl.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+<%= init_fb_connect "XFBML"%>
+<!-- ===========================  this first table is the table containing EVERYTING.  It is critical because it provides all the containers for the other tables and for the drop shadows on all sides of the page-->
+<table width="935" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="/images/img-inner/shadow_pageTOP.png" width="935" height="35" border="0" /></td>
+  </tr>
+  <tr>
+    <td background="/images/img-inner/shadow_pageREPEAT.png">
+<!-- ===========================   this next table is the table containing all of the logo bar, the main nav and the login buttons-->
+	<table width="935" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="17" align="right">
+        	<table width="935" border="0" cellpadding="0" cellspacing="0">
+        		<tr>
+        			<td width="17" align="right" valign="top">
+        				<img src="/images/img-inner/spacer.gif" width="17" height="32" /></td>
+        			<td width="375" align="left" valign="top" background="/images/img-inner/BG_header.png">
+        				<a href="/"><img src="/images/img-inner/logo2.png" alt="Logo" width="375" height="64" border="0" /></a></td>
+        			<td width="10" align="left" background="/images/img-inner/BG_header.png">
+        				<img src="/images/img-inner/spacer.gif" width="3" height="1"/>
+        				<div id="anchor"><%= render :partial => 'shared/login'%></div>
+        			
+    				</td><td width="515" align="right" valign="top" background="/images/img-inner/BG_header.png"><table border="0" cellspacing="0" cellpadding="0"><tr>
+                  <td align="right" valign="top"><%= render :partial => 'shared/top_buttons'%><%= link_to_function (feedback_button_image, update_page{|page| page["feed_con"].toggle})%><div id="feed_con" style="display:none;position: relative;"><%= render :partial => 'shared/feedback'%></div</td>
+                  <td rowspan="2" align="right"><img src="/images/img-inner/spacer.gif" width="14" height="64" border="0" /></td>
+            </tr><tr><td align="right" valign="bottom"><%= yield :top_nav %></td>
+              </tr></table>
+              </td>
+            <td width="18" align="right" valign="bottom"><img src="/images/img-inner/spacer.gif" width="16" height="32" border="0" /></td></tr></table>
+</td>
+  </tr>
+  <tr>
+    <td background="/images/img-inner/shadow_pageREPEAT.png"><table width="935" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="17" align="right"><img src="/images/img-inner/spacer.gif" width="17" height="95" /></td>
+        <td width="900" align="left" valign="top" background="/images/img-inner/BG-blue.png"><%= yield :top_area %></td>
+		<!-- ===========================   this next table is the table containing all elements in the dark blue bar under the logo, i.e. the Find Events search area, the personal information area in the "my race menu" page. This table can not exeed 95 pixels high. This table was complex enough that if I had coded every element of it in CSS the style sheet would have become VERY complex and I wanted to keep the style sheet primarily for styles that are universal on all pages.  This table is on all the calendar pages, but not the MyRaceMenu page so it's not universal and it's hard coded here with invisible spacer gifs.  It's an older code technique, but it's still very effective and faster than fussing with so many divs. I didn't want to delay you any further..-->
+		
+        <td width="18" align="right"><img src="/images/img-inner/spacer.gif" width="18" height="30" /></td>
+      </tr>
+      <tr>
+        <td width="17" align="right"><img src="/images/img-inner/spacer.gif" width="17" height="468" /></td>
+        <td align="left" valign="top" class="BGpage">
+<!-- ===========================   this next table is the table containing the main content for each page, i.e. the calendar data, or the registration fields, or the set up fields, or the race pages, etc. It also contains the column for the "Featured Event advertisments which will be 120 pixels by 60 pixels high -->
+			<%= yield  %>
+		</td>
+        <td width="17" align="right">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td><img src="/images/img-inner/shadow_pageBOTTOM.png" width="935" height="42" /></td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try{
+var pageTracker = _gat._getTracker("UA-8441222-1");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+</body>
+</html>

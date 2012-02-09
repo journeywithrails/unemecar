@@ -1,0 +1,21 @@
+<table border="0" align="center" cellpadding="5" cellspacing="0">
+	  <tr>
+	    <td align="right">Address:</td>
+	    <td><%= text_field(:dir_event, :address_info, {"size" => "54", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Location:</td>
+	    <td><%= text_field(:dir_event, :location, {"size" => "54", :class => "search_form_input", :id => "location"}) %><label for="location" class="default-value">enter description or landmark</label></td>
+	  </tr>
+	  <tr>
+	    <td align="right">City:</td>
+	    <td><%= text_field(:dir_event, :city, {"size" => "18", :class => "search_form_input"}) %>&nbsp;&nbsp;State:<%= select :dir_event, :state, states_collection, 
+			{},  {:class => "search_form_input"} %>&nbsp;&nbsp;Zip:<%= text_field(:dir_event, :zip, {"size" => "5", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <!--
+      <tr>
+	    <td align="right">Map:</td>
+	    <td><%= link_to "preview map", "/director/setup/preview_map", :rel => 'gb_page_fs[]' %></td>
+	  </tr>
+  	  -->
+</table>

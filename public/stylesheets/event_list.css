@@ -1,0 +1,51 @@
+/* 
+    Document   : event_list
+    Created on : Jun 10, 2009, 2:04:37 PM
+    Author     : sithum
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+table.sortable thead {
+    background-color:#fff;
+    color:#000;
+    font-weight: bold;
+    cursor: default;
+}
+
+#select_race_type_container{
+    z-index:20;
+    width: 400px;
+    position:absolute;
+}
+
+.find_race_text{
+ font-family:Verdana, Arial, Helvetica, sans-serif;
+ font-weight:normal;
+ font-size:28px;
+ text-align:left;
+ display:block;
+ color:#FFFFFF;
+ padding:15px 0 0 30px;
+ 
+  
+}
+
+.find_race_text1{
+ font-family:Verdana, Arial, Helvetica, sans-serif;
+ font-weight:normal;
+ font-size:13px;
+ text-align:left;
+ display:block;
+ color:#FFFFFF;
+ 
+  
+}
+
+#race_distance {
+	z-index:1;
+}

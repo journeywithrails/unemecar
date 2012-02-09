@@ -1,0 +1,42 @@
+<h1>Listing simple_events</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Host</th>
+    <th>Discipline</th>
+    <th>Event type</th>
+    <th>Description</th>
+    <th>Location</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Contact name</th>
+    <th>Contact email</th>
+    <th>Website</th>
+  </tr>
+
+<% @simple_events.each do |simple_event| %>
+  <tr>
+    <td><%=h simple_event.title %></td>
+    <td><%=h simple_event.date %></td>
+    <td><%=h simple_event.host %></td>
+    <td><%=h simple_event.discipline %></td>
+    <td><%=h simple_event.event_type %></td>
+    <td><%=h simple_event.description %></td>
+    <td><%=h simple_event.location %></td>
+    <td><%=h simple_event.city %></td>
+    <td><%=h simple_event.state %></td>
+    <td><%=h simple_event.contact_name %></td>
+    <td><%=h simple_event.contact_email %></td>
+    <td><%=h simple_event.website %></td>
+    <td><%= link_to 'Show', simple_event %></td>
+    <td><%= link_to 'Edit', edit_simple_event_path(simple_event) %></td>
+    <td><%= link_to 'Destroy', simple_event, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New simple_event', new_simple_event_path %>

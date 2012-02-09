@@ -1,0 +1,91 @@
+<% content_for :head_title do %><%= @race_title %><% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "2"}%><% end %>
+<% content_for :extra_head do %>
+	<%= calendar_date_select_includes "red"%>
+	<%= javascript_include_tag "default-values" %>
+<% end %>
+
+<script>
+	function showToCalendar(tid) {
+  	 new PNSCalender().callRaceMenuCalender('to_calender_btn','to_calender','change_date', 'to_calender_holder');
+  }
+ 
+	function validate_date(element){
+		d =  Date.parse(element.value);
+		now = new Date();
+		if(d < now) { alert("Please select the future date."); element.value = null;}
+	}
+</script>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="left" valign="bottom" class="tableHEAD"><p><%= @race_title %></p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<% form_tag({:controller => "setup", :action => "race", :id => @race, :group => params[:group]}, {}) do%>
+	<table width="100%">
+		<tr><td style="padding-right:25px"><%= error_messages_for "race", :header_message => nil, :message => nil %></td></tr>
+		<tr>
+			<td>
+				<div id="test-accordion" class="accordion">      
+					<div class="accordion-toggle">Race Name, Type, Distance, Start Time</div>      
+				    <div class="accordion-content">
+				    	<div>
+					    	<div id="spanel_con">
+					    		<% if @race.nil? %>
+									<%= render :partial => 'add_event/sport_panel',:locals => {:race => @race, :first => true, :visible => true, :tid => Time.now.to_i, :multi => false} %>
+								<% else %>
+									<%= render :partial => 'add_event/sport_panel',:locals => {:race => @race, :first => true, :visible => true, :tid => Time.now.to_i, :multi => false} %>
+								<% end %>
+							</div>
+						</div>
+				    </div>      
+				    <div class="accordion-toggle">Prizes, Field Limits, Reserve Entries, Bibs, Registration</div>      
+				    <div class="accordion-content">
+				    	<div id="ppanel_con">
+							<%= render :partial => 'extra_race_dtls_panel',:locals => {:first => true} %>
+						</div>
+				    </div>      
+				    <div class="accordion-toggle">Fees</div>      
+				    <div class="accordion-content">
+				    	<div id="fpanel_con">
+						  <%= render :partial => 'fee_panel' %>
+						</div>
+				    </div>
+				    <div class="accordion-toggle">Team Information</div>      
+				    <div class="accordion-content">
+				    	<%= render :partial => 'team_panel' %>
+					</div>
+				   
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td align="center"><%= ok_button_image(true) %><%= link_to cancel_button_image, {:action => "races"}, {:confirm => "are you sure? all your changes will be lost!"} %>
+			</td>
+		</tr>   
+	</table>
+	<% end %>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+<script>
+function showRaceType(suffix){
+		
+    $('select_race_type_container' + suffix).style.display="block";
+	$('race_type' + suffix).style.display="block";
+
+  }
+</script>

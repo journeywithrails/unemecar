@@ -1,0 +1,53 @@
+<table width="900" border="0" cellspacing="0" cellpadding="0" id="userinfo">
+          <tr>
+            <td width="34"><img src="/images/img-inner/spacer.gif" width="34" height="8" /></td>
+            <td width="90"><img src="/images/img-inner/spacer.gif" width="90" height="8" /></td>
+            <td width="323"><img src="/images/img-inner/spacer.gif" width="263" height="8" /></td>
+            <td width="120"><img src="/images/img-inner/spacer.gif" width="120" height="8" /></td>
+            <td width="333"><img src="/images/img-inner/spacer.gif" width="333" height="8" /></td>
+            </tr>
+          <tr>
+            <td><img src="/images/img-inner/spacer.gif" width="34" height="80" /></td>
+			<!-- ===========================   this next cell contains the style for the title text for each page, so when you modify this table to create the tables for the other sections be sure to apply this style as a class to this cell in this position. This Page Title style is only a text style and does not apply to the sized or padding or any other attributes of the cell-->
+            <td align="left" valign="bottom" class="pageTITLE" style="padding-right:5px;">
+
+<% if @active_user.fb_usid != nil %>
+<div style="height:80px;max-width:140px;overflow:hidden;">
+<%= fb_profile_pic(@active_user.fb_usid, :size => :normal, :facebook_logo => true, :height => "80")%>
+</div>
+<% else %>
+<%= image_tag "fb_gray.gif", :height=>80 %>
+<% end %>
+
+</td>
+            <td align="left" valign="middle" style="padding-left:3px"><span class="pageTITLE"><%= fb_name(@active_user.fb_usid, :linked=>false, :useyou=>false) %> </span><br />
+              <span class="userText"><%= link_to "Home", :controller=>"myracemenu" %> |
+              	<%= link_to "Profile", :controller=>"profile", :racer => @active_user.fb_usid %> |
+                <% if  current_user.managed_events.size > 0 %>
+                  <%= link_to "My Managed Events", :action =>"managed"%> |
+                <% end  %>  <%= link_to "Series List",:controller => "director/series",:action => "index" ,:evid => current_user %> |
+				<% if params[:racer] == nil %>
+				<a href="http://apps.facebook.com/racemenu/" TARGET="_blank">Facebook</a>
+				<% else %>
+				<a href="http://apps.facebook.com/racemenu/?racer=<%= @active_user.fb_usid %>" TARGET="_blank">Facebook</a>
+				<% end %>
+	 			</span>
+	 			</span>
+	 			<% unless params[:saved].nil? %><br/><br/><span style="color:yellow;">your settings have been saved.</span><% end %>
+ 			</td>
+            <td align="center" valign="middle" class="userText">
+            	<% if is_facebook_session and show_buddies == true %>
+            		
+            	<span class="userRaceBuddiesTitle">Race Buddies</span><br />
+				<% if params[:racer] == nil%>
+              	<%= link_to "View All", :controller => "myracemenu", :action => "buddies" %>
+				<% else %>
+				<%= link_to "View All", :controller => "myracemenu", :action => "buddies", :racer => @active_user.fb_usid %>
+				<% end %>
+
+</td>
+            <td align="left" valign="middle"><%= render :partial => 'myracemenu/race_buddies_short', :locals => {:friends => @friends} %>
+                <% end %>
+            </td>
+            </tr>
+    </table>

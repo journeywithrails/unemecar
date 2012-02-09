@@ -1,0 +1,46 @@
+<% content_for :head_title do %>Event Discounts<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "2"}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" valign="bottom" class="tableHEAD"><p>Event Discounts</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<% form_tag(:controller => "setup", :action => "discounts") do%>
+	<div id="director_table_holder">
+	<table width="100%" cellspacing="0">
+		<tr class="director_header_row">
+			<td width="20px"></td>
+			<td width="50%">Event-wide discount</td>
+			<td width="50%">Group-specific discounts</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><%= render :partial => 'discount_panel',:locals => {:group => nil}%></td>
+			<td>
+				<% @dir_event.race_groups.each do | grp | %>
+					<%= render :partial => 'discount_panel',:locals => {:group => grp}%>
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+			<td align="center" colspan="3"><%= ok_button_image(true) %><%= link_to cancel_button_image, {:action => "discounts"}, {:confirm => "are you sure? all your changes will be lost!"} %>
+			</td>
+		</tr>  
+	</table>
+	</div>
+	<% end %>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

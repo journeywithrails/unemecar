@@ -1,0 +1,15 @@
+<tr class="<%= style %>">
+	<td width="20px"></td>
+	<td style="padding:10px 0;"><%= merch.title %></td>
+	
+	<td align="right" style="padding-right:5px;"><%= link_to email_button_image, :controller => "email", :action => "index", :rec => merch.id%>
+		<%= link_to_function( cog_button_image, update_page { |page|
+							page.replace_html 'active_q_p', :partial => 'add_merch_row',
+							:locals => {:merchandise_item => merch }
+							page["active_q_p"].show
+							page["add_q_p"].hide
+			
+			}) %>
+			
+		<%= link_to close_button_image, :controller => "setup", :action => "delete_merch", :id => merch.id%></td>
+</tr>

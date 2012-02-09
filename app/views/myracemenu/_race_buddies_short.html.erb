@@ -1,0 +1,13 @@
+<table>
+	<tr>
+		<% if !friends.nil? %>
+		<% friends.each do |friend|%>
+			<td valign="top">
+				<%= link_to fb_profile_pic(friend.fb_usid, :size => :square, :facebook_logo => true, :linked => false), :controller => "myracemenu", :action => "index", :racer => friend.fb_usid %><br/>
+				<%= link_to fb_name(friend.fb_usid, :firstnameonly => true, :linked => false), :controller => "myracemenu", :action => "index", :racer => friend.fb_usid %>
+			</td>
+		<% end %>
+		<% end %>
+		
+	</tr>
+</table>

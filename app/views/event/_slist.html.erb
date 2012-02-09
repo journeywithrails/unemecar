@@ -1,0 +1,36 @@
+<table width="100%" cellspacing="0">
+		<tr class="director_header_row">
+				
+				<td><%= show_sort_text("Category", "race_id") %> <%=show_sort_image("race_id")%></td>
+				<td><%= show_sort_text("First Name", "first_name") %> <%=show_sort_image("first_name")%></td>
+				<td><%= show_sort_text("Last Name", "last_name") %> <%=show_sort_image("last_name")%></td>
+				<td><%= show_sort_text("Gender", "sex") %> <%=show_sort_image("sex")%></td>
+				<td><%= show_sort_text("Age Group", "birthday") %> <%=show_sort_image("birthday")%></td>
+				<td><%= show_sort_text("Club/Team", "club_team") %> <%=show_sort_image("club_team")%></td>
+				
+				
+			</tr>
+		<tr class="director_row1">
+			<td></td>
+			<td colspan="7"><%= will_paginate(@regs, :params => {:sort => params[:sort]}) %></td>
+		</tr>
+		<% @regs.each do | er | %>
+
+            <tr class="<%=cycle('director_row1', 'director_row2')%>">
+
+				<td><%= er.race.name.length > 20 ? "#{er.race.name[0..20]}..." : er.race.name %></td>
+				<td><%= er.first_name %></td>
+				<td><%= er.last_name %></td>
+				<td><%= er.sex %></td>
+				<td><%= show_age_group(age(er.birthday, er.event.event_date)) unless er.birthday.nil? %></td>
+				<td><%= er.club_team %></td>
+
+
+			</tr>
+		<% end %>
+		<tr class="director_row1">
+			<td></td>
+			<td colspan="7"><%= will_paginate(@regs, :params => {:sort => params[:sort]}) %></td>
+		</tr>
+
+</table>

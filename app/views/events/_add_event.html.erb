@@ -1,0 +1,32 @@
+<!-- used to add an event to MRM. not the same as actually registering for an event -->
+<% @add_req = EventSignup.find_by_event_id_and_rm_user_id(event.id, current_user.id) unless current_user.nil?%>
+<% form_remote_tag :url => {:controller => "events", :action => "add_race_to_mrm", :id => event.id }  do %>
+<div id="add_event_<%=event.id%>" class="add_event_details">
+	<table style="color:white;text-align:center;width:100%;padding-right:20px">
+		<tr>
+			<td style="height:30px;font-weight:bold"><strong>Add Event: <%= event.name %></strong></td>
+			<td align="right"><%= link_to_function (close_button_image, update_page{|page|	page["add_#{event.id}_container"].hide })%></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<p/><br>
+	        <% if @add_reg.nil? %>
+	        I am <%= select( "add_req", "reg_type", EventSignup::DATA_STR.sort{|a,b| b[1]<=>a[1]}) %> the race.
+	        <% else %>
+	        I am <%= select( "add_req", "reg_type", EventSignup::DATA_STR.sort{|a,b| b[1]<=>a[1]}, {:selected => EventSignup::DATA_STR[@add_req.reg_type]}) %> the race.
+	        <% end %>
+	        <br/><br/>
+	        <!--Please add this event to my MyRaceMenu calendar.<br/><br/><br/>-->
+			<% if current_user != nil %>
+	        <%= addmrm_button_image(true, "publish_" + event.id.to_s + "();") %>
+			<% else %>
+			<%= addmrm_button_image(true, "alert('Woops! You must log in if you want to add events to your custom race calendar.'); return false;") %>
+			<% end %>
+			<br/>
+			<!--<br/>			
+	        <%= check_box("adds_req", "add") %> post this event to my wall.-->
+			</td>
+		</tr>
+	</table>
+</div>
+<% end %>

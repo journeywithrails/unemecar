@@ -1,0 +1,88 @@
+<% content_for :head_title do %>Create a New Event - Sport Details<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'add_event/top_nav', :locals => {:event => @dir_event, :step => "6"}%><% end %>
+<% content_for :extra_head do %>
+	<%= calendar_date_select_includes "red"%>
+	<%= javascript_include_tag "default-values" %>
+<% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Sport Details</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<% form_tag(:controller => "add_event", :action => "sport_details") do%>
+	<table align="center" width="100%" border="0" align="center" cellpadding="5" cellspacing="0" >
+		<tr><td style="padding-right:40px"><%= show_error(flash[:error]) %></td></tr>
+		<tr>    
+    		<td align="center">Choose one or more sport types below</td>
+  		</tr>
+		<tr><td align="center">
+			<% #show the checkboxes for all available sport types %>
+			<% @disciplines = Discipline.find(:all) %>
+			<div></div>
+			<div >
+    			<div >
+             		<div id="show_main_types" >
+					<table>
+						<tbody>
+					    	<tr>
+					      	<% for discipline in @disciplines %>
+								<% if discipline.event_types.size > 0 %>
+						        	<td>
+						          		<div>
+						                	<%= label_tag :discipline, discipline.name.upcase %>
+						          		</div>
+						        	</td>
+					        	<% end %>
+					      	<% end %>
+					      	</tr>
+					       	<tr>
+					       		<td colspan="<%=@disciplines.size%>"><hr/></td>
+					       		
+				       		</tr>
+					      	<tr>
+					      	<% for discipline in @disciplines %>
+								<% if discipline.event_types.size > 0 %>
+								<td valign="top">
+									<% discipline.event_types.each do |event| %>
+										<%=check_box_tag 'search_request[types][]', "#{event.id}", @add_event.event_types.include?(event), {:onclick => "updateRTCP(this.id)", :class => "race_event_#{discipline.name}", :id => "cbevent_#{event.id}"}%><%= label_tag :event_type, event.name.capitalize, {:id => "lbl_cbevent_#{event.id}"} %><br/>
+									<% end %>
+								</td>
+								<% end %>
+					      	<% end %>
+					      	</tr>
+					    </tbody>
+					</table>
+				</div>
+			</div>
+        </div>			
+		</td></tr>    
+  
+  <tr>
+    
+    <td align="center"><%= link_to back_button_image, :action => "event_details" %><%= next_button_image(true) %></td>
+  </tr>
+</table>
+	<% end %>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+<script>
+function showRaceType(suffix){
+		
+    $('select_race_type_container' + suffix).style.display="block";
+	$('race_type' + suffix).style.display="block";
+
+  }
+</script>

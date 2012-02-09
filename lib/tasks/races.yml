@@ -1,0 +1,22 @@
+race1:
+  id: 999991
+  name: 5k open
+  event_type_id: 1
+  
+  
+  t.integer  "event_id"
+    t.integer  "discipline_id"
+    t.integer  "event_type_id"
+    t.float    "distance"
+    t.datetime "start_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "race_group_id"
+    t.integer  "race_group_order"
+    t.string   "name"
+    t.integer  "field_size"
+    t.string   "prizes"
+    t.boolean  "assign_bibs"
+    t.boolean  "registration_open"
+    t.float    "initial_fee"
+    t.integer  "distance_unit"

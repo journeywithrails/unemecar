@@ -1,0 +1,163 @@
+<% content_for :head_title do %>Event Summary<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "1"}%><% end %>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Event Summary </p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<div id="director_table_holder">
+	<table width="100%" cellspacing="0">
+        <tr class="director_row1">
+				<td width="20px"></td>
+				<td colspan="2">Your URL: <a href="<%= "http://www.racemenu.com/event/show_detailed/#{@dir_event.id}"%>"><%= "http://www.racemenu.com/event/show_detailed/#{@dir_event.id}"%></a></td>
+				<td colspan="3" align="right" id="activity"><b><%= show_activity_selector_all(params[:activity]) %> | <%= show_activity_selector_day(params[:activity]) %> |
+                  <%= show_activity_selector_week(params[:activity]) %> |<%= show_activity_selector_month(params[:activity]) %></b>
+                  
+                </td>
+				
+			</tr>
+		<tr class="director_header_row">
+			<td width="20px"></td>
+			<td>Race/Category</td>
+			<td align="center">Fees</td>
+			<td align="center">Registrations</td>
+			<td align="right">
+                <%= #select( "search_req", "min_price", EventRegistration::PAST_STR.sort{|a,b| a[1].to_i <=>b[1].to_i}, {:selected => @val, :include_blank => "recent activity"}, {:class => "search_form_input"})
+				%>
+			</td>
+			<td></td>
+		</tr>
+		
+		<% @dir_event.races.each do | race | %>
+			<% style =  cycle('director_row1', 'director_row2')%>
+			<tr class="<%= style%>">
+				<td></td>
+				<td colspan="3"><strong><%= "#{race.name} (#{race.event_type.name})"%></strong></td>
+				<td></td>
+				
+				<td align="center" rowspan="4"><%=link_to email_button_image, :controller => "email", :action => "index", :rec => race.id%>
+					<%=link_to cog_button_image, :controller => "setup", :action => "race", :id => race.id%>
+				</td>
+				
+			</tr>
+			<tr class="<%= style%>">
+				<td></td>
+				<td><%= "online entries"%></td>
+				<td align="center"><%= number_to_currency race.online_registrations.sum('cost', :conditions => @reg_conds)%></td>
+				<td align="center"><%= race.online_registrations.find(:all, :conditions => @reg_conds).size%></td>
+				<td></td>
+				
+			</tr>
+			<tr class="<%= style%>">
+				<td></td>
+				<td style="border-bottom:1px solid black"><%= "manual entries"%></td>
+				<td align="center" style="border-bottom:1px solid black"><%= number_to_currency race.manual_registrations.sum('cost', :conditions => @reg_conds)%></td>
+				<td align="center" style="border-bottom:1px solid black"><%= race.manual_registrations.find(:all, :conditions => @reg_conds).size%></td>
+				<td></td>
+				
+			</tr>
+			<tr class="<%= style%>">
+				<td></td>
+				<td><%= %></td>
+				<td align="center"><%= number_to_currency race.event_registrations.sum('cost', :conditions => @reg_conds)%></td>
+				<td align="center"><%= race.event_registrations.find(:all, :conditions => @reg_conds).size%></td>
+				<td></td>
+				
+			</tr>
+			
+		<% end %>
+		<tr class="director_summary_row">
+			<td></td>
+			<td>Registration Sub-Total</td>
+			<td align="center"><%=  number_to_currency reg_money = ('%.2f' % @dir_event.event_registrations.sum('cost', :conditions => @reg_conds))%></td>
+			<td align="center"><%= regs = @dir_event.event_registrations.find(:all, :conditions => @reg_conds).size%></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr class="director_summary_row">
+			<td></td>
+			<td>Non-refunded Revenue From Cancellations</td>
+			<td align="center"><%= number_to_currency @cancel_net%></td>
+			<td align="center"></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr class="<%= cycle('director_row1', 'director_row2')%>">
+			<td></td>
+			<td></td>
+			<td align="center"></td>
+			<td align="center"></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr class="director_summary_row">
+			<td></td>
+			<td>Merchandise Sub-Total</td>
+			<td align="center"><%= number_to_currency @dir_event.orders_value(@orders)%></td>
+			<td align="center"><%= @dir_event.orders_count(@orders)%></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr class="director_header_row">
+			<td></td>
+			<td align="right">TOTAL</td>
+			<td align="center"><%= number_to_currency reg_money.to_f + @dir_event.orders_value(@orders) + @cancel_net  %></td>
+			<td align="center"><%= regs  %></td>
+			<td></td>
+			<td></td>
+		</tr>
+        <tr class="director_row1"><td width="20px"></td><td></td><td align="center"></td><td colspan="3"></td></tr>
+        <tr class="director_row1 discounts">
+			<td></td>
+            <td><%= link_to "Discounts", :controller => "registration", :action => "discounts" %></td>
+			<td align="center"><%=  number_to_currency @disc_val %></td>
+			<td align="center"><%=  @num_discounts %></td>
+			<td></td>
+			<td></td>
+		</tr>
+        <tr class="director_row1 cancels">
+			<td></td>
+            <td><%= link_to "Cancellations", :controller => "registration", :action => "cancellations" %></td>
+			<td align="center"><%=  number_to_currency '%.2f' % @cancel_refunds %></td>
+			<td align="center"><%=  @dir_event.event_registrations.find(:all, :conditions => @cancel_conds).size %></td>
+			<td></td>
+			<td></td>
+		</tr>
+         <tr class="director_row1"><td width="20px"></td><td></td><td align="center"></td><td colspan="3"></td></tr>
+        <tr class="director_summary_row">
+			<td></td>
+			<td>Payments</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+        <% @dir_event.event_payments.find(:all, :conditions => @pay_conds, :order => "date DESC").each do | pay | %>
+          <tr class="<%= cycle('director_row1', 'director_row2')%>">
+			<td></td>
+			<td><%=  number_to_currency pay.amount %></td>
+			<td align="center"><%=  pay.date.strftime('%m/%d/%Y')%></td>
+			<td align="center"><%=  "check #: #{pay.check_number}"%></td>
+			<td></td>
+			<td></td>
+		</tr>
+        <% end  %>
+	</table>
+	</div>
+	
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

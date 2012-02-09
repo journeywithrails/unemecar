@@ -1,0 +1,19 @@
+<div id="ufeedback" style="color:white;text-align:center;padding-left:30px;padding-right:20px;width:100%;font-weight:bold;">
+	<% form_remote_tag :url => '/pages/feedback' do -%>
+	<table width="240px" border="0" cellspacing="0" cellpadding="0" >
+	  <tr>
+			<td style="text-align:right;padding-top:5px;"><a href="#" onclick="$('feed_con').hide();return false;"><%= close_button_image %></a></td>
+		</tr>
+	  <tr>
+	    <td align="left">Please tell us what you think</td>
+	  </tr>
+	  <tr>
+	    <td align="left"><%= text_area(:feedback, :content, :rows => 10, :cols => 30, :class => "search_form_input", :value => "Please include an email address.", :onclick=>"select();") %></td>
+	  </tr>
+	  <tr>
+	    <td align="center"><%= sub_suggestion_button_image(true) %></td>
+	  </tr>
+	</table>
+<% end %>
+
+</div>

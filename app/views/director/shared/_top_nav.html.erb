@@ -1,0 +1,24 @@
+<table width="764" border="0" cellspacing="0" cellpadding="0" >
+  <tr>
+    <td width="34"><img src="/images/img-inner/spacer.gif" width="34" height="8" /></td>
+    <td width="586"><img src="/images/img-inner/spacer.gif" width="586" height="8" /></td>
+    <td width="144"><img src="/images/img-inner/spacer.gif" width="144" height="8" /></td>
+    </tr>
+  <tr>
+    <td><img src="/images/img-inner/spacer.gif" width="34" height="80" /></td>
+	<!-- ===========================   this next cell contains the style for the title text for each page, so when you modify this table to create the tables for the other sections be sure to apply this style as a class to this cell in this postion. This Page Title style is only a text style and does not apply to the sized or padding or any other atributes of the cell-->
+    <td align="left" valign="middle" colspan="2">
+    	<table width="100%">
+			<tr>
+				
+				<td>
+					<span class="pageTITLE"><%= @dir_event.name %></span><br/><br />
+		            <%= render :partial => 'director/shared/menu', :locals => {:step => step}%>
+				</td>
+			</tr>
+		</table>
+    	
+    </td>
+   
+    </tr>
+</table>

@@ -1,0 +1,58 @@
+<html>
+ <body>
+	
+	<div style="border:3px double #1647b2;margin:10px;padding-left:20px;padding-right:20px;margin-left:30px;margin-right:30px;width:550px;">
+	
+	<h2> RaceMenu Daily Activity Report – <%= Date.today %> </h2> 
+	<p>
+		<h2> <%= @event.name %> </h2>
+		<strong> Event Registration </strong> : <%= @event.register_link %>
+		<strong> Event Management </strong>   : <%= @event.register_link %>
+ 	</p>
+	
+	<h3> Today's Activity : </h3>
+	<% registrations_today = @event.registrations_by_time( 1.day.ago, Time.now ) %>
+	<% orders_today = @event.orders_by_time( 1.day.ago, Time.now ) %>
+	<p>
+		Today's Registration: <%= registrations_today.size %> entries, <%= number_to_currency @event.registrations_value( registrations_today ) %><br />
+		<br/>
+		
+		<% @event.races.each do |race| %>
+			<% race_registrations_today = race.registrations_by_time( 1.day.ago, Time.now ) %>
+		 <%= race.name %>: <%= race_registrations_today.size %> entries, <%= number_to_currency @event.registrations_value( race_registrations_today ) %> <br />
+		<% end -%>
+		<br />
+
+		Today's Sales: <%= orders_today.size %> sold, <%= number_to_currency @event.orders_value( orders_today ) %><br />
+	
+		<% orders_today.each do |item| %>
+			<%= item.title %> : <%= @event.orders_count( orders_today ) %> sold, <%= number_to_currency (item.item_count.to_i * item.cost.to_i) %><br />
+		<% end -%>
+	</p>
+	
+	<h3> Total Event Activity : </h3>
+	<% registrations_all = @event.event_registrations.processed %>
+	<% orders_all = @event.orders_by_time %>
+	<p>
+		Total Registrations: <%= registrations_all.size %> entries, <%= number_to_currency @event.registrations_value( registrations_all ) %><br />
+		<br />
+		
+		<% @event.races.each do |race| %>
+			<% race_registrations_all = race.processed_registrations %>
+			<%= race.name %>: <%= race_registrations_all.size %> entries, <%= number_to_currency @event.registrations_value( race_registrations_all ) %> <br />
+		<% end -%>
+		<br/>
+		
+		<h3> Total Sales </h3>
+		Total Sales: <%= @event.orders_count( orders_all ) %> sold, <%= number_to_currency @event.orders_value( orders_all ) %><br />
+		<br/>
+	
+		<% orders_all.each do |item| %>
+			<%= item.title %> : <%= item.item_count %> sold, <%= number_to_currency( item.item_count.to_i * item.cost.to_i ) %><br />
+		<% end -%>
+	</p>
+	
+	</div>
+
+ </body>
+</html>

@@ -1,0 +1,90 @@
+
+<% content_for :head_title do %>Join the wait list for <%= @race.name%><% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "1"}%><% end %>
+<% content_for :extra_head do %>
+	<%= javascript_include_tag "default-values" %>	
+<% end %>
+<script text="text/javascript">
+	function validate(){
+		if($('waitlist_name').value == "") { alert("Please enter name."); return false }
+		if($('waitlist_email').value == "") { alert("Please enter email."); return false; }
+		if($('waitlist_birthday').value == "") {alert("Please enter birthday.");return false; }
+		if($('waitlist_gender').value == "")  {alert("Please select gender."); return false; }
+		if($('waitlist_phone').value == "")  { alert("Please enter phone."); return false; }
+		return true;
+	}
+</script>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+	<td width="6">&nbsp;</td>
+	<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Join the wait list for <%= @race.name%></p></td>
+	<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="content_bg">
+		<div style="width:100%;margin-left:-18px;padding-top:4px;text-align:center;">
+			<%= header_image(@event) %>
+		</div>
+		<div>
+			<% form_tag({:controller => "register", :action => "waitlist"}, :onSubmit => 'return validate()') do %>
+			<table width="700px" border="0" align="left" cellpadding="5" cellspacing="0" id="formText" valign="top">
+			<tr><td colspan="2">
+				<%= hidden_field :waitlist, :race_id, :value => @race.id %>
+				<%= hidden_field_tag :race, @race.id %>
+				<%= hidden_field_tag :event, @event.id %>
+				<%= hidden_field :waitlist, :event_id, :value => @event.id %>
+				<%= hidden_field :waitlist, :rm_user_id, :value => current_user.id %>
+				
+				</td>
+			</tr> 
+			<tr>
+				<td align="right">Name*:</td>
+				<td><%= text_field :waitlist, :name, {:class => 'search_form_input' }%> </td>
+			</tr>
+			<tr>
+				<td align="right">Email*:</td>
+				<td><%= text_field :waitlist, :email, {:class => 'search_form_input'}%> </td>
+			</tr>
+			
+			<tr>
+				<td align="right">Birthday*:</td>
+				<td>
+				<%= calendar_date_select_tag "waitlist_birthday", '', {:size => 20, :name => "waitlist[birthday]", :class => "search_form_input rm_date_select" }%> </td>
+			</tr><tr>	
+				<td align="right">Gender*:</td>
+				<td><%= select :waitlist, :gender, ['','Male', 'Female'], {},
+							{:class => 'search_form_input' }%> </td>
+				</tr>
+			
+			<tr>
+				<td align="right">Phone*:</td>
+				<td><%= text_field :waitlist, :phone, {:class => 'search_form_input'}%> </td>
+			</tr>
+			<tr>
+				<td> </td>
+			    <td>
+					<%= ok_button_image(true)%>
+					<%= link_to back_button_image, {:action => "register_type", :event => @event.id} %>
+				</td>
+			 </tr>
+			
+			
+			</table>
+			<% end -%>
+		</div>
+	</td>
+	<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+	<td style="padding-right:10px;"></td>
+	</tr>
+	<tr>
+	<td>&nbsp;</td>
+	<td id="tableBOTTOMshadow">&nbsp;</td>
+	</tr>
+	<%= render :partial => 'shared/footer'%>
+	
+</tr>
+
+</table>
+

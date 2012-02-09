@@ -1,0 +1,135 @@
+<% @add_req = EventSignup.find_by_event_id_and_rm_user_id(event.id, current_user.id) unless current_user.nil? 
+   @e_reg = event.event_registrations.processed.find_by_rm_user_id(current_user.id ) unless current_user.nil?
+%>
+<div id="row_<%=event.id%>" class="<%= cycle('row1', 'row2')%>" <% if mode == "single" %>style="background-color:#FFF5CE;" <% end %> >
+	<div id="col1"><%= event.event_date.strftime("%d-%b") unless event.event_date.blank?%></div>
+	<div id="col2"><%= "#{event.city}, #{event.state}"%></div>
+	<div id="col3"><% if event.name.blank? == false and event.name.size > 30 %>
+		<% evname = event.name[0,30] + "..." %>
+	<% else %>
+		<% evname = event.name %>
+	<% end %>
+	<%= link_to_function(evname, update_page{|page|
+		
+		  #check if the row is active.
+		  page << "if ($('data_" + event.id.to_s + "').visible()){"
+		  	  #page["row_" + event.id.to_s].visual_effect :highlight, :duration => 0.4
+			  #set the row to be yellow (selected)
+			  #page["row_" + event.id.to_s].addClassName('active')
+			  page["data_#{event.id}"].visual_effect :blind_up, :duration => 0.2
+			  #page["data_#{event.id}"].hide
+			  page.call 'Element.removeClassName', "row_#{event.id}", 'ractive'
+			  
+		  #if not, show it
+	  	  page << "} else {"
+			  #page["row_" + event.id.to_s].visual_effect :highlight, :duration => 0.4
+			  #set the row to be yellow (selected)
+			  #page["row_" + event.id.to_s].addClassName('active')
+			  page.replace_html "data_#{event.id}", :partial => 'events/details', :locals => {:event => event}
+			  page["data_#{event.id}"].visual_effect :blind_down, :duration => 0.2
+			  page["row_" + event.id.to_s].addClassName('ractive')
+		  page << "}"
+		  
+		}) %>
+	</div>
+	<!-- 
+	<div id="col4"><%= event.discipline.name unless event.discipline.blank?%></div> -->
+	<div id="col5"><%= show_event_type_info(event)%></div>
+	<div id="col6">
+		<!-- default to calendar -->
+		<% if mode.blank? or mode == "calendar" or mode == "single" %> 
+			<% unless event.register_link.blank? %>
+                          <%= link_to web_button_image, event.valid_url(event.register_link), :popup => true %>
+			<% end %>
+			<% if @add_req.nil? %>
+				<!-- user did not add event to mrm, so show the add_to_mrm button -->
+				<%= link_to_function(add_button_image, update_page{|page|
+					#close all the other event dialogs
+					page.select('div.add_ev_container').each{|p| p.hide}
+					#page.select('event_details_popup').each{|p| p.hide}
+					page["add_#{event.id}_container"].show  
+				  	#page.replace_html "data_#{event.id}", :partial => 'events/add_event', :locals => {:event => event}
+				  	#page << "Dialog.alert({url: 'info_panel.html', options: {method: 'get'}}, {className: 'alphacube', width:540, okLabel: 'Close'});"
+				})%>
+				<div id="add_<%=event.id%>_container" style="display:none" class="add_ev_container">
+				    <div id="add_<%=event.id%>" class="event_details_popup">
+				        <%= render :partial => 'events/add_event', :locals => {:event => event} -%>
+				    </div>
+				</div>
+			<% else %>
+				<!-- user added event to mrm, so show the goto-mrm link -->
+				<%= link_to goto_button_image, :controller => "myracemenu" %>
+			<% end %>
+			<% if event.manage_type == 1 or event.manage_type == 2%>
+			<a name="fb_share" type="button_count" share_url="http://www.racemenu.com/event/show_detailed/<%= event.id %>'" href="http://www.facebook.com/sharer.php">Share</a>
+			<% else %>
+			<a name="fb_share" type="button_count" share_url="http://racemenu.com/event/<%= event.to_param %>'" href="http://www.facebook.com/sharer.php">Share</a>
+			<% end %>
+			<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+			<!--<a href="http://www.addthis.com/bookmark.php" 
+		    onclick="return addthis_open(this, '', 'http://racemenu.com/event/<%= event.to_param %>', '<%= event.name.gsub(/[^a-z1-9]+/i, ' ') unless event.name.blank? %>');"><img 
+		    src="/images/img-inner/ICON_share.png" border="0" alt="Share" /></a>-->
+		<% elsif mode == "mrm" %>
+			<!-- if this is in the past, show the results info -->
+			<% if @e_reg.nil? == false %>
+				<%= registered_button_image %>
+			<% end %>
+            <% #check if the user is a team owner for this event %>
+            <% team = Team.find_by_event_id_and_race_director_id(event.id, current_user.id) %>
+            <% unless team.blank? %>
+              <%= link_to cog_button_image, :action => "team", :event => event.id%>
+            <% end  %>
+			<% if @add_req.nil? == false and @add_req.event.event_date.to_i < Time.now.to_i %>
+			
+				<%= link_to_function(results_button_image, update_page{|page|
+					#close all the other event dialogs
+					page.select('div.add_ev_container').each{|p| p.hide}
+					page["res_#{event.id}_container"].show  
+					
+				})%>
+					<div id="res_<%=event.id%>_container" style="display:none" class="add_ev_container">
+					    <div id="res_<%=event.id%>" class="result_details_popup">
+					        <%= render :partial => 'events/add_result', :locals => {:event => event} -%>
+					    </div>
+					</div>
+			<% end %>
+			<% if event.manage_type == 1 or event.manage_type == 2%>
+			<a name="fb_share" type="button_count" share_url="http://www.racemenu.com/event/show_detailed/<%= event.id %>'" href="http://www.facebook.com/sharer.php">Share</a>
+			<% else %>
+			<a name="fb_share" type="button_count" share_url="http://racemenu.com/event/<%= event.to_param %>'" href="http://www.facebook.com/sharer.php">Share</a>
+			<% end %>
+			<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+			<!--
+			<a href="http://www.addthis.com/bookmark.php" title="Share this event"
+		    onclick="return addthis_open(this, '', 'http://racemenu.com/event/<%= event.to_param %>', '<%= event.name.gsub(/[^a-z1-9]+/i, ' ')  unless event.name.blank?%>');"><img src="/images/img-inner/ICON_share.png" border="0" title="Share this event" /></a>-->
+		    <%= link_to_remote remove_from_mrm_button_image,
+		    	:url => {:controller => "events", :action => "remove_event", :id => event.id },
+           		:confirm => "Are you sure you want to remove this event from MyRaceMenu?" 
+		      %>
+		<% elsif mode == "manage" %>
+			<!-- show the edit button for now -->
+			<% if event.manage_type == Event::BASIC %>
+				<%= link_to cog_button_image, :controller => "add_event", :action => "continue", :id => event.id %>
+			<% elsif event.manage_type == Event::RD %>
+				<%= link_to cog_button_image, "/director/#{event.id}/summary" %>
+			<% end %>
+		<% end %>    
+	</div>
+	
+</div>
+
+
+<% unless current_user == nil %>
+<%= render :partial => 'events/event_wall_post', :locals => {:event => event} %>
+
+<% end %>
+
+
+<!-- for individual view (racemenu.com/event/####) or not -->
+<% if mode == "single" %> 
+	<div id="data_<%=event.id%>" class="ev_details">
+		<%= render :partial => 'events/details_old', :locals => {:event => event} %></table>
+	</div>
+<% else %>
+	<div id="data_<%=event.id%>" class="ev_details" style="display:none;"></div>
+<% end %>

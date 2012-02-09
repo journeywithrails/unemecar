@@ -1,0 +1,72 @@
+<% content_for :head_title do %>Merchandise<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "2"}%><% end %>
+<script type="text/javascript">
+
+  function updateRTextField(tfield_id, container) {
+  	res = "no good";
+  	var value = null;
+	var evs = 0;
+	$$('.' + tfield_id + '_rb').each(function(i) {
+	    if (i.checked ) {  evs +=1; }
+	} );
+	
+	value = evs + " Races"
+  	$(tfield_id).value = value;
+  	$(container).hide();
+  }
+
+ </script>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" valign="bottom" class="tableHEAD"><p>Merchandise</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<div id="director_table_holder">
+	<table width="100%">
+		<tr>
+			<td>
+				<table width="98%" cellspacing="0">
+					<% @dir_event.merchandise_items.each do | merch | %>
+						<%= render :partial => 'merch_row',:locals => {:style => cycle('director_row1', 'director_row2'), :merch => merch }%>
+						
+					<% end %>
+					<tr id="active_q_p" style="display:none;"></tr>
+					<tr id="add_q_p" class="<%= cycle( 'director_row1', 'director_row2' ) %>">
+						<td></td>
+						<td style="padding:10px 0;">Add a Merchandise Item</td>
+						<td align="right" style="padding-right:5px;">
+						<%= link_to_function( add_button_image, update_page{|page|
+										page.replace_html 'active_q_p', :partial => 'add_merch_row', 
+										:locals => {:merchandise_item => MerchandiseItem.new(:event =>@dir_event )}
+										page["active_q_p"].show
+										page["add_q_p"].hide
+							}) %></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	</div>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+<script>
+function showRaceType(suffix){
+	$('select_race_container' + suffix).style.display="block";
+	$('race_' + suffix).style.display="block";
+}
+</script>
+

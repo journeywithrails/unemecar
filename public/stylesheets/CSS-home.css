@@ -1,0 +1,219 @@
+body {
+	background-color: rgb(81,98,113);;
+	
+	background-image: url(/images/img-home/BG-bodyTag.png);
+	background-repeat: repeat-x;
+	margin-top: 0px;
+	margin-left: 0px;
+	padding-top: 0px;
+	padding-left: 0px;
+}
+#anchor {
+	position: relative;
+	visibility: visible;
+	z-index: 1;
+	height: 3px;
+	width: 3px;
+}
+#anchor #features {
+	position: absolute;
+	visibility: visible;
+	z-index: 50;
+	height: 115px;
+	width: 900px;
+	left: -449px;
+	top: -59px;
+	text-align: left;
+	padding-left: 17px;
+}
+#anchor #features .feature1 {
+	height: 117px;
+	width: 281px;
+	position: absolute;
+	visibility: visible;
+	z-index: 100;
+	left: 22px;
+}
+#anchor #features .feature2 {
+	height: 117px;
+	width: 281px;
+	position: absolute;
+	visibility: visible;
+	z-index: 100;
+	left: 310px;
+}
+#anchor #features .feature3 {
+	height: 117px;
+	width: 281px;
+	position: absolute;
+	visibility: visible;
+	z-index: 100;
+	left: 597px;
+}
+#anchor #features #title {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #000000;
+	background-image: url(/images/img-home/feature_BG-TOP.png);
+	background-repeat: no-repeat;
+	height: 27px;
+	padding-left: 10px;
+}
+#anchor #features #time {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #003366;
+	height: 18px;
+}
+#anchor #features #body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #003366;
+	line-height: 16px;
+	background-image: url(/images/img-home/feature_BG.jpg);
+	background-repeat: repeat-x;
+	height: 88px;
+}
+
+#anchor #features #otherinfo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	color: #003366;
+	padding-bottom: 3px;
+}
+#anchor #features #otherinfo a {
+	color: #0000FF;
+	text-decoration: none;
+}
+
+#anchor #features #otherinfo a:hover {
+	text-decoration: underline;
+	color: #0066FF;
+}
+	
+
+
+
+
+#anchor #RDtextLayer {
+	position: absolute;
+	visibility: visible;
+	z-index: 500;
+	height: 132px;
+	width: 187px;
+	left: 257px;
+	top: -242px;
+}
+
+#anchor #calendar {
+	position: absolute;
+	visibility: visible;
+	z-index: 800;
+	width: 246px;
+	height: 97px;
+	left: -428px;
+	top: -262px;
+}
+#anchor #AddEventLayer {
+	position: absolute;
+	visibility: visible;
+	z-index: 600;
+	left: 245px;
+	top: -172px;
+	width: 151px;
+	height: 75px;
+}
+#anchor #headline {
+	height: 91px;
+	width: 308px;
+	position: absolute;
+	visibility: visible;
+	z-index: 500;
+	left: -423px;
+	top: -357px;
+}
+#anchor #bullets {
+	height: 116px;
+	width: 247px;
+	position: absolute;
+	visibility: visible;
+	z-index: 600;
+	left: -417px;
+	top: -179px;
+}
+
+
+#anchor #login {
+	height: 255px;
+	width: 297px;
+	overflow: hidden;
+	position: absolute;
+	visibility: hidden;
+	z-index: 1000;
+	left: 121px;
+	top: -423px;
+	background-image: url(/images/img-inner/popBKG_login.png);
+	padding-top: 20px;
+	padding-left: 30px;
+	background-repeat: no-repeat;
+	text-align: left;
+}
+
+#anchor #login a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+
+#anchor #login a:hover {
+	text-decoration: underline;
+	color: #FFFFFF;
+}
+
+#anchor #login td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+}
+#anchor #login #username {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	background-color: #889DB0;
+	height: 16px;
+	width: 220px;
+}
+#anchor #login #password {
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	background-color: #889DB0;
+	height: 16px;
+	width: 220px;
+}
+#anchor #helmet {
+	position: absolute;
+	visibility: visible;
+	z-index: 300;
+	left: 168px;
+	top: -406px;
+}
+
+
+#footer {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #9cb3bf;
+}
+#footer a {
+	color: #b9cfdd;
+	text-decoration: none;
+}
+#footer a:hover {
+	color: #9cb3bf;
+	text-decoration: underline;
+}

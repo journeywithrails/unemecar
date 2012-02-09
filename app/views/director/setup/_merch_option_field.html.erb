@@ -1,0 +1,18 @@
+<tr id="merch_option_#{merch_option_field.id}">
+	
+	<% if merch_option_field.new_record? %>
+		<% fields_for "mi_attrs[new_records][]", merch_option_field do |option_form|   %>
+			<td colspan=2> Item Options: <%= option_form.text_field :title ,:class => 'search_form_input',:size => 20, :style => 'width:150px;' %>
+				&nbsp;&nbsp;Cost :  <%= option_form.text_field :cost, :class => 'search_form_input' , :size => 5, :style => 'width:35px;' %>
+			<% end -%>
+	<% else %>
+		<% fields_for "mi_attrs[]", merch_option_field do |option_form| %>
+			<td colspan=2> Item Options: <%= option_form.text_field :title ,:class => 'search_form_input', :size => 20, :style => 'width:150px;' %>
+			&nbsp;&nbsp;Cost :  <%= option_form.text_field :cost, :class => 'search_form_input', :size => 5, :style => 'width:35px;' %>
+		<% end -%>
+	<% end -%>
+	&nbsp; &nbsp;
+	<%= link_to(close_button_image, {:action => 'delete_merch_option', :id => merch_option_field.id}) unless merch_option_field.id.nil? %>
+	</td>
+	
+</tr>

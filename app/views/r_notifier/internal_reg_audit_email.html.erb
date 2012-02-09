@@ -1,0 +1,200 @@
+<html>
+ <body>
+	<table>
+		<tr>
+			<td align="right" width="150px">Name:</td>
+			<td><%= "#{@reg.first_name} #{@reg.last_name}" %> </td>
+		</tr>
+		<tr>
+			<td align="right">Event / Race:</td>
+			<td><%= "#{@reg.event.name} - #{@reg.race.name}" %> </td>
+		</tr>
+		<tr>
+			<td align="right">Age:</td>
+			<td><%= "#{EventRegistration.race_age(@reg.birthday, @reg.event.event_date)} (#{@reg.birthday.strftime("%Y-%m-%d")})" %> </td>
+		</tr>
+		<tr>
+			<td align="right" width="150px">Sex:</td>
+			<td><%= @reg.sex %> </td>
+		</tr>
+		<tr>
+			<td align="right">Email:</td>
+			<td><%= @reg.email %></td>
+		</tr>
+		<tr>
+			<td align="right">Phone:</td>
+			<td><%= @reg.phone %></td>
+		</tr>
+		<tr>
+			<td align="right">Address:</td>
+			<td><%= "#{@reg.address} #{@reg.apt}, #{@reg.city}, #{@reg.state} #{@reg.zip}, #{@reg.country.humanize.titleize}" %></td>
+		</tr>
+		<tr>
+			<td align="right">Emergency Contact:</td>
+			<td><%= "Name: #{@reg.em_con_name}  Phone: #{@reg.em_con_phone}  Relationship: #{@reg.em_con_relationship}" %></td>
+		</tr>
+
+		<tr>
+			<td align="right">License Number:</td>
+			<td><%= @reg.license_num %></td>
+		</tr>
+		<tr>
+			<td align="right">Club/Team:</td>
+			<td><%= @reg.club_team %></td>
+		</tr>
+		<tr>
+			<td align="right">Team Type:</td>
+			<td><%= @reg.team_type %></td>
+		</tr>
+		<tr>
+			<td align="right">Referral:</td>
+			<td><%= @reg.refered_by %></td>
+		</tr>
+		<% if @reg.team %>
+		<tr>
+			<td align="right">Team:</td>
+			<td><%= @reg.team.name %></td>
+		</tr>
+		<% end %>
+		<% if (@reg.race.nil? == false and @reg.race.is_relay and @reg.relay_team.nil? == false) %>
+	  <!-- show the relay team -->
+	  <tr>
+	    <td align="right">Relay Team:</td>
+	    <td><%= "#{@reg.relay_team.name} (#{@reg.relay_team.division}), #{@reg.relay_team.relay_entries.size} entries" %></td>
+	  </tr>
+	  	  <% counter = 0%>
+		  <% @reg.relay_team.relay_entries.each do | entry | %>
+			  <% counter += 1 %>
+			  <tr style="padding-left:10px">
+			    <td align="right">Relay Entry #<%= counter %>:</td>
+			    <td><%= "#{entry.first_name} #{entry.last_name} (#{entry.email})" %></td>
+			  </tr>
+		  	  <tr style="padding-left:10px">
+			    <td align="right">Info:</td>
+			    <td><%= "#{entry.gender}, age #{EventRegistration.race_age(entry.date_of_birth, @reg.event.event_date)}" %></td>
+			  </tr>
+			  <tr style="padding-left:10px">
+			    <td align="right">Emergency Contact:</td>
+			    <td><%= "#{entry.em_con_name} #{entry.em_con_phone}" %></td>
+			  </tr>
+		  <% end %>
+	  <tr height="20px"><td>&nbsp;</td><td></td></tr>
+	  <% end %>
+		<tr><td>&nbsp;</td></tr>
+
+		<% @reg.event.questions.each do |question| %>
+			<tr><td align="right"><%= question.title %></td>
+				<% answers = @reg.answers.find( :all, :conditions => { 'question_id' => question.id } ) %>
+				<td> <%= answers.map{ |a| a.value }.join( ', ' ) unless answers.blank?%></td>
+			</tr>
+		<% end %>
+
+		<tr><td>&nbsp;</td></tr>
+
+		<tr>
+			<td align="right">Invoice:</td>
+			<td><%= @reg.invoice_code %>
+				<% unless @card.blank? %>
+					<%= "#{number_to_currency(@reg.payment_gross)} charged to #{@card.name}'s #{@card.type} #{@card.display_number}" %>
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">Entry Fee:</td>
+			<td><%= number_to_currency @reg.cost %></td>
+		</tr>
+
+		<tr><td>&nbsp;</td></tr>
+
+		<% @reg.merchandise_orders.each do |order| %>
+			<tr>	<td align="right">
+						<%= "#{ order.merchandise_item_option.merchandise_item.title } - #{order.merchandise_item_option.title}" %>
+						(<%= order.quantity %> X <%= number_to_currency order.merchandise_item_option.cost %>):</td>
+					<td><%= number_to_currency( order.quantity * order.merchandise_item_option.cost ) %></td>
+			</tr>
+		<% end -%>
+
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="right">Total Cost:</td>
+			<td><%= number_to_currency @reg.total_cost(false) %></td>
+		</tr>
+		<tr>
+			<td align="right">Service Fee:</td>
+			<td><%= number_to_currency @reg.service_fee %></td>
+		</tr>
+		<tr>
+			<td align="right">Total Charge:</td>
+			<td><%= number_to_currency @reg.total_cost_with_service_fee(false) %></td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+
+		<tr>
+			<td align="right">IP Address:</td>
+			<td><%= @reg.ip_address %></td>
+		</tr>
+		<tr>
+			<td align="right">Timestamp:</td>
+			<td><%= @reg.updated_at.strftime("%Y-%m-%d %I:%M%p %Z")  %></td>
+		</tr>
+		<tr>
+			<td align="right">Click-through Agreement:</td>
+			<td>This checkmark indicates that I am 13 or older and have read and agree to all terms &amp; conditions of these waivers.</td>
+		</tr>
+		<tr>
+			<td align="right" valign="top">RaceMenu Disclaimer:</td>
+			<td>RACEMENU LIABILITY WAIVER (the "Waiver")
+
+					1. Authority to Register and/or to Act as Agent
+					You represent and warrant to RaceMenu, Inc. ("RaceMenu") that you have full legal authority to complete this event registration on behalf of yourself and/or any party you are registering (the "Registered Parties"), including full authority to make use of the credit or debit card to which registration fees will be charged. As used in this Waiver, RaceMenu refers to RaceMenu, Inc. and any and all subsidiaries, affiliated entities, or entities that control or are controlled by RaceMenu singly or together and its officers, employees, contractors, subcontractors and agents. If you are registering a child under the age of 18 or an incapacitated adult you represent and warrant that you are the parent or legal guardian of that party and have the legal authority to enter into this agreement on their behalf and by proceeding with this event registration, you agree that the terms of this Waiver shall apply equally to all Registered Parties. By registering a child under 13, you agree and consent to the collection of that child's information which you provide for the purposes of registration.
+
+					2. Waiver
+					YOU UNDERSTAND THAT PARTICIPATION IN THE EVENT IS POTENTIALLY HAZARDOUS, AND THAT A REGISTERED PARTY SHOULD NOT PARTICIPATE UNLESS THEY ARE MEDICALLY ABLE AND PROPERLY TRAINED. YOU UNDERSTAND THAT EVENTS MAY BE HELD OVER PUBLIC ROADS AND FACILITES OPEN TO THE PUBLIC DURING THE EVENT AND UPON WHICH HAZARDS ARE TO BE EXPECTED. PARTICIPATION CARRIES WITH IT CERTAIN INHERENT RISKS THAT CANNOT BE ELIMINATED COMPLETELY RANGING FROM MINOR INJURIES TO CATASTROPHIC INJURIES INCLUDING DEATH. YOU UNDERSTAND AND AGREE THAT IN CONSIDERATION OF BEING PERMITTED TO PARTICIPATE IN THE EVENT, YOU AND ANY REGISTERED PARTY, THE HEIRS, PERSONAL REPRESENTATIVES OR ASSIGNS OF YOU OR THE REGISTERED PARTY DO HEREBY RELEASE, WAIVE, DISCHARGE AND CONVENANT NOT TO SUE RACEMENU FOR ANY AND ALL LIABILITY FROM ANY AND ALL CLAIMS ARISING FROM PARTICIPATION IN THE EVENT BY YOU OR ANY REGISTERED PARTY.
+
+					3. Limitation of Liability; Disclaimer of Warranties
+					RACEMENU SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES, RESULTING FROM (A) THE USE OR THE INABILITY TO USE RACEMENU OR (B) FOR THE COST OF PROCUREMENT OF SUBSTITUTE GOODS AND SERVICES OR (C) RESULTING FROM ANY GOODS OR SERVICES PURCHASED OR OBTAINED OR TRANSACTIONS ENTERED INTO THROUGH RACEMENU OR (D) RESULTING FROM UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR TRANSMISSIONS OR DATA, INCLUDING BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, USE, DATA OR OTHER INTANGIBLE, EVEN IF RACEMENU HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. YOU EXPRESSLY AGREE THAT USE OF RACEMENU IS AT YOUR SOLE RISK. RACEMENU IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. RACEMENU EXPRESSLY DISCLAIMS ALL WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT.
+
+					RaceMenu makes no warranty that the RaceMenu sites' services will be uninterrupted, secure or error free. RaceMenu does not guarantee the accuracy or completeness of any information in, or provided in connection with, the RaceMenu sites. RaceMenu is not responsible for any errors or omissions, or for the results obtained from the use of such information. You understand and agree that any material and/or data downloaded or otherwise obtained through the use of the RaceMenu sites is at your own discretion and risk and that you will be solely responsible for any damage to your own computer system or loss of data that results from the download of such material and/or data.
+
+					4. Indemnification
+					You agree to indemnify and hold each of RaceMenu harmless from and against any and all damages, costs, claims or demands, including reasonable attorneys' fees, made by any third party due to or arising from or relating to your use of RaceMenu or the violation of any term of this Waiver as well as the Terms of Service located on our website by you.
+
+					5. Applicable Law; Consent to Jurisdiction
+					The RaceMenu sites (excluding linked sites) are controlled by RaceMenu from its offices within the Commonwealth of Massachusetts, United States of America. By completing this event registration, both you and RaceMenu agree that the statutes and laws of the Commonwealth of Massachusetts, without regard to the conflict of laws principles thereof, will apply to all matters relating to this event registration, this Waiver, the Terms of Use or other use of the RaceMenu sites. You agree that exclusive jurisdiction for any dispute with RaceMenu resides in the courts of the Commonwealth of Massachusetts and you further agree and expressly consent to the exercise of personal jurisdiction in the courts of the Commonwealth of Massachusetts in connection with any dispute including any claim involving RaceMenu or its affiliates, subsidiaries, employees, contractors, officers, directors, telecommunication providers and content providers.
+
+					6. Severability
+					You further expressly agree that this Waiver is intended to be as broad and inclusive as is permitted by the law of the Commonwealth of Massachusetts and that if any provision of this Waiver shall be found to be unlawful, void, or for any reason unenforceable, then that provision shall be deemed severable from this Waiver and shall not affect the validity and enforceability of any remaining provisions.
+
+					BY INDICATING YOUR ACCEPTANCE OF THIS AGREEEMENT AND WAIVER, YOU ARE AFFIRMING THAT YOU HAVE READ AND UNDERSTAND THIS WAIVER AND FULLY UNDERSTAND ITS TERMS. YOU UNDERSTAND THAT YOU ARE GIVING UP SUBSTANTIAL RIGHTS, INCLUDING THE RIGHT TO SUE. YOU ACKNOWLEDGE THAT YOU ARE SIGNING THE WAIVER FREELY AND VOLUNTARILY, AND INTEND BY YOUR ACCEPTANCE TO BE A COMPLETE AND UNCONDITIONAL RELEASE OF ALL LIABILITY TO THE GREATEST EXTENT ALLOWED BY LAW.</textarea></td>
+            </td>
+		</tr>
+		<tr>
+			<td align="right" valign="top">Event Disclaimer:</td>
+			<td><%= @reg.event.disclaimer_text%></td>
+		</tr>
+		<% if @reg.race.needs_tri_disc %>
+			<tr>
+			<td align="right" valign="top">USAT Disclaimer:</td>
+			<td>WARNING: READ CAREFULLY. THIS AGREEMENT INCLUDES A RELEASE OF LIABILITY AND WAIVER OF LEGAL RIGHTS AND DEPRIVES YOU OF THE RIGHT TO SUE USA TRIATHLON AND OTHER PARTIES. DO NOT SIGN THIS AGREEMENT UNLESS YOU HAVE READ IT IN ITS ENTIRETY. SEEK THE ADVICE OF LEGAL COUNSEL IF YOU ARE UNSURE OF ITS EFFECT.
+
+WAIVER AND RELEASE OF LIABILITY,
+ASSUMPTION OF RISK AND INDEMNITY AGREEMENT
+
+IN CONSIDERATION of USA Triathlon ("USAT") allowing me to participate in any USAT sanctioned event (the "Event" or "Events") as either a member of USAT or through the issuance of a single event license or permit; I, for myself, and on behalf of my spouse, children, parents, guardians, heirs and next of kin, and any legal and personal representatives, executors, administrators, successors and assigns, hereby agree to and make the following contractual representations pursuant to this Waiver and Release of Liability, Assumption of Risk and Indemnity Agreement (the "Agreement");
+
+1.I hereby represent that (i) I am in good health and in proper physical condition to participate in the Event; and (ii) I am not under the influence of alcohol or any illicit or prescription drugs which would in any way impair my ability to safely participate in the Event. I agree that it is my sole responsibility to determine whether I am sufficiently fit and healthy enough to participate in the Event.
+
+2.I understand and acknowledge the physical and mental rigors associated with triathlon, duathlon, or other multi-sport events, and realize that running, bicycling, swimming and other portions of such Events are inherently dangerous and represent an extreme test of a person's physical and mental limits. I understand that participation involves risks and dangers which include, without limitation, the potential for serious bodily injury, permanent disability, paralysis and death; loss or damage to property; exposure to extreme conditions and circumstances; accidents, illness, contact or collision with other participants, spectators, vehicles or other natural or manmade objects; dangers arising from adverse weather conditions; imperfect course conditions; water, road and surface hazards; equipment failure; inadequate safety measures; participants of varying skill levels; situations beyond the immediate control of the Event Organizers; and other undefined harm or damage which may not be readily foreseeable, and other presently unknown risks and dangers ("Risks"). I understand that these Risks may be caused in whole or in part by my own actions or inactions, the actions or inactions of others participating in the Event, or the acts, inaction or negligence of the Released Parties defined below, and I hereby expressly assume all such Risks and responsibility for any damages, liabilities, losses or expenses which I incur as a result of my participation in the Event.
+
+3.I agree to be familiar with and abide by the Rules and Regulations established for the Event, including but not limited to the Competitive Rules adopted by USAT and the Guide to Prohibited Substances and Prohibited Methods of Doping adopted by the United States Anti-Doping Agency. I also accept sole responsibility for my own conduct and actions while participating in the Event, and the condition and adequacy of my equipment.
+
+4.I hereby Release, Waive and Covenant Not to Sue, and further agree to Indemnify, Defend and Hold Harmless the following parties: USAT, the Event Organizers and Promoters, Race Directors, Sponsors, Advertisers, Host Cities, Local Organizing Committees, Venues and Property Owners upon which the Event takes place, Law Enforcement Agencies and other Public Entities providing support for the Event, and each of their respective parent, subsidiary and affiliated companies, officers, directors, partners, shareholders, members, agents, employees and volunteers (Individually and Collectively, the "Released Parties" or "Event Organizers"), with respect to any liability, claim(s), demand(s), cause(s) of action, damage(s), loss or expense (including court costs and reasonable attorneys fees) of any kind or nature ("Liability") which may arise out of, result from, or relate to my participation in the Event, including claims for Liability caused in whole or in part by the negligence of the Released Parties. I further agree that if, despite this Agreement, I, or anyone on my behalf, makes a claim for Liability against any of the Released Parties, I will indemnify, defend and hold harmless each of the Released Parties from any such Liability which any may be incurred as the result of such claim.
+
+I hereby warrant that I have read this Agreement carefully, understand its terms and conditions, acknowledge that I will be giving up substantial legal rights by signing it (including the rights of the minor, my spouse, children, parents, guardians, heirs and next of kin, and any legal and personal representatives, executors, administrators, successors and assigns), acknowledge that I have signed this Agreement freely and voluntarily, without any inducement, assurance or guarantee, and intend for my signature to serve as confirmation of my complete and unconditional acceptance of the terms, conditions and provisions of this Agreement. This Agreement represents the complete understanding between the parties regarding these issues and no oral representations, statements or inducements have been made apart from this Agreement. If any provision of this Agreement is held to be unlawful, void, or for any reason unenforceable, then that provision shall be deemed severable from this Agreement and shall not affect the validity and enforceability of any remaining provisions.</td>
+		</tr>
+		<% end %>    	    
+	    <tr>
+	    	<td colspan="2" align="center"> <img src="http://racemenu.com/images/pb_racemenu.gif" style="border:0;"></td>
+	    </tr>
+	</body>
+</html>

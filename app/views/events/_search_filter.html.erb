@@ -1,0 +1,311 @@
+<% @search_request = search_req
+#in case the search req hash is nill, we'll populate it with defaults
+if @search_request.nil?
+	@search_request = Hash.new
+	@search_request["city"] = "City"
+	@search_request["from"] = "From:"
+	@search_request["to"] = "To:"
+	@search_request["rad_state"] = "State"
+	@search_request["name"] = "Race Name"
+	@search_request["zipcode"] = "Zip"
+	@search_request["radius"] = "radius"
+	@search_request["distance_display"] = "Distance"
+end
+@sreq = search_req%>
+<table width="900" border="0" cellspacing="0" cellpadding="0" class="active_scaffold">
+	<% form_tag dest do%>
+          <tr>
+            <td width="34"><img src="/images/img-inner/spacer.gif" width="34" height="8" /></td>
+            <td width="150"><img src="/images/img-inner/spacer.gif" width="150" height="8" /></td>
+            <td width="243"><img src="/images/img-inner/spacer.gif" width="243" height="8" /></td>
+            <td width="116"><img src="/images/img-inner/spacer.gif" width="116" height="8" /></td>
+            <td width="80"><img src="/images/img-inner/spacer.gif" width="80" height="8" /></td>
+            <td width="128"><img src="/images/img-inner/spacer.gif" width="128" height="8" /></td>
+            <td width="129"><img src="/images/img-inner/spacer.gif" width="129" height="8" /></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+			<!-- ===========================   this next cell contains the style for the title text for each page, so when you modify this table to create the tables for the other sections be sure to apply this style as a class to this cell in this postion. This Page Title style is only a text style and does not apply to the sized or padding or any other atributes of the cell-->
+            <td rowspan="2" align="left" valign="bottom" class="pageTITLE">Find Events: </td>
+            <td class="searchColumnTitles" style="text-align:left;">Location</td>
+            <td class="searchColumnTitles" style="text-align:left;">Sport / Distance </td>
+            <td class="searchColumnTitles">Date (s) </td>
+            <td class="searchColumnTitles" style="padding-left:-20px;">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><%= select(:search_request, :state, [
+    				    ['Select a Region/State', 'All'],
+						[' ', 'None'],
+						['Mid-Atlantic', 'Mid-Atlantic'],
+						['--------', 'None'],
+						['Delaware', 'DE'],
+						['District Of Columbia', 'DC'],
+						['Maryland', 'MD'],
+						['New Jersey', 'NJ'],
+						['New York', 'NY'],
+						['Pennsylvania', 'PA'],
+						[' ', 'None'],
+						[' ', 'None'],
+						['Midwest', 'Midwest'],
+						['--------', 'None'],
+						['Illinois', 'IL'],
+						['Indiana', 'IN'],
+						['Iowa', 'IA'],
+						['Kansas', 'KS'],
+						['Michigan', 'MI'],
+						['Minnesota', 'MN'],
+						['Missouri', 'MO'],
+						['Nebraska', 'NE'],
+						['North Dakota', 'ND'],
+						['Ohio', 'OH'],
+						['South Dakota', 'SD'],
+						['Wisconsin', 'WI'],
+						[' ', 'None'],
+						[' ', 'None'],
+						['New England', 'New England'],
+						['--------', 'None'],
+						['Connecticut', 'CT'],
+						['Maine', 'ME'],
+						['Massachusetts', 'MA'],
+						['New Hampshire', 'NH'],
+						['Rhode Island', 'RI'],
+						['Vermont', 'VT'],
+						[' ', 'None'],
+						[' ', 'None'],
+						['The South', 'The South'],
+						['--------', 'None'],
+						[' Alabama', 'AL'],
+						['Arkansas', 'AR'],
+						['Florida', 'FL'],
+						['Georgia', 'GA'],
+						['Kentucky', 'KY'],
+						['Louisiana', 'LA'],
+						['Mississippi', 'MS'],
+						['North Carolina', 'NC'],
+						['South Carolina', 'SC'],
+						['Tennessee', 'TN'],
+						['Virginia', 'VA'],
+						['West Virginia', 'WV'],
+						[' ', 'None'],
+						[' ', 'None'],
+						['The Southwest', 'The Southwest'],
+						['--------', 'None'],
+						['Arizona', 'AZ'],
+						['New Mexico', 'NM'],
+						['Oklahoma', 'OK'],
+						['Texas', 'TX'],
+						[' ', 'None'],
+						[' ', 'None'],
+						['The West', 'The West'],
+						['--------', 'None'],
+						['Alaska', 'AK'],
+						['California', 'CA'],
+						['Colorado', 'CO'],
+						['Hawaii', 'HI'],
+						['Idaho', 'ID'],
+						['Montana', 'MT'],
+						['Nevada', 'NV'],
+						['Oregon', 'OR'],
+						['Utah', 'UT'],
+						['Washington', 'WA'],
+						['Wyoming', 'WY']],{:selected => search_state},{:class => "search_form_input location_select"}) %></td>
+            <td><div><%= text_field_tag("event_discipline", "", :value => show_event_type_search_as_string(@search_req), :id => "discipline_text", :size => 10, :onclick => "showRaceType()", :class => "search_form_input") %>
+                  <div id="select_race_type_container" style="display:none">
+                    <div id="race_type">
+                       <%= render :partial => 'events/race_type', :locals => {:mode => "multi"} -%>
+                    </div>
+
+
+                  </div></div></td>
+            <td><%= text_field(:search_request, :from, :id => "txtFromDate", :size => "6", :readonly=>'true',  :class => "search_form_input", :onclick => "showFromCalendar()") %>
+                  <div id='from_calender_btn' class='calender_btn'
+                       onclick="showFromCalendar()"></div>
+
+                  <div id='from_calender' class="calender_controller">
+                    <div class="calender_header">
+                      <div class='select_date'>
+                      	<table style="width:100%;text-align:center;">
+                      		<tr>
+                      			<td>Select a Date</td>
+                      			<td style="padding-right:5px;"><%= link_to_function (close_button_image, update_page{|page| page << "hideAll();" })%></td>
+                      		</tr>
+                      	</table>
+                  	</div>
+                    </div>
+                    <div class="calender_middle">
+                      <div id='from_calender_holder' class='calender_holder'></div>
+                    </div>
+                    <div class="calender_footer"></div>
+                  </div></td>
+            <td align="left"><%= text_field(:search_request, :name, "size" => "16", :class => "search_form_input", :onclick=>"select();") %></td>
+            <td rowspan="2" align="center"><%= search_button_image(true)%></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>
+
+          <%= link_to_function (suggest_events_button_image,
+                            update_page{|page| page["sug_con"].toggle})%>
+
+              <div id="sug_con" style="display:none;position:relative;">
+              <%= render :partial => 'events/suggest' -%></div></td>
+            <td valign="middle" style="text-align:left">
+            	<table align="left">
+            		<tr>
+            <td><%= text_field(:search_request, :city, "size" => "6", :class => "search_form_input", :onclick=>"select();") %></td>
+            <td><%= select :search_request, :rad_state, ['State','AK',
+						'AL',
+						'AR',
+						'AZ',
+						'CA',
+						'CO',
+						'CT',
+						'DC',
+						'DE',
+						'FL',
+						'GA',
+						'HI',
+						'IA',
+						'ID',
+						'IL',
+						'IN',
+						'KS',
+						'KY',
+						'LA',
+						'MA',
+						'MD',
+						'ME',
+						'MI',
+						'MN',
+						'MO',
+						'MS',
+						'MT',
+						'NC',
+						'ND',
+						'NE',
+						'NH',
+						'NJ',
+						'NM',
+						'NV',
+						'NY',
+						'OH',
+						'OK',
+						'OR',
+						'PA',
+						'RI',
+						'SC',
+						'SD',
+						'TN',
+						'TX',
+						'UT',
+						'VA',
+						'VT',
+						'WA',
+						'WI',
+						'WV',
+						'WY'], 
+						{},  {:class => "search_form_input"} %></td>
+            			<td><%= text_field(:search_request, :zipcode, "size" => "3", :class => "search_form_input", :onclick=>"select();") %></td>
+            			<!--<td><%= select(:search_request, :radius, [
+			    				    ['Radius', 'radius'],
+									['5 miles', '5'],
+									['25 miles', '25'],
+									['100 miles', '100'],
+									['250 miles', '250']
+									],{:selected => search_state},{:class => "search_form_input"}) %></td>-->
+					</tr>
+				</table>            			
+            </td>
+            <td valign="middle"><%= text_field(:search_request, :distance_display, :id => "race_distance_text", :readonly=>'true', :size => "10", :onclick=>"showDistance()" , :class => "search_form_input") %>
+                  <%#= link_to_function "Distance", "showDistance()" %>
+                  <div id="race_distance_fields" style="display:none;position:absolute;">
+                    <div id="race_distance">
+                      
+                        <%= render :partial => 'events/race_distance' -%>
+
+                    </div>
+
+
+                  </div></td>
+            <td><%= text_field(:search_request, :to, :id => "txtToDate", :size => "6", :readonly=>'true', :class => "search_form_input", :onclick => "showToCalendar()") %>
+                  <div id='to_calender_btn' class='calender_btn'
+                       onclick="showToCalendar()"></div>
+
+                  <div id='to_calender' class="calender_controller">
+                    <div class="calender_header">
+                      <div class='select_date'>
+                      	<table style="width:100%;text-align:center;">
+                      		<tr>
+                      			<td>Select a Date</td>
+                      			<td style="padding-right:5px;"><%= link_to_function (close_button_image, update_page{|page| page << "hideAll();" })%></td>
+                      		</tr>
+                      	</table>
+                      </div>
+                    </div>
+                    <div class="calender_middle">
+                      <div id='to_calender_holder' class='calender_holder'></div>
+                    </div>
+                    <div class="calender_footer"></div>
+                  </div></td>
+            </tr>
+        </table>
+        <% end %>
+        
+
+
+<% if @search_request.nil? %>
+	<script type="text/javascript">
+		$('show_all_race_cb').checked = true;
+		toggleMainCheckBoxes();
+	</script>
+<% end%>
+<script type="text/javascript">
+  function hideAll() {
+  	hideRaceType();
+  	hideDistance();
+  	$('to_calender').style.display="none";
+  	$('from_calender').style.display="none";
+  	$('to_calender_holder').innerHTML = '';	
+	$('from_calender_holder').innerHTML = '';
+  }
+  function showRaceType(){
+	
+	//this is so that everything is checked and unactive when first opened
+	if ($('discipline_text').value == "Sport"){
+		toggleMainCheckBoxes();
+	}
+	
+  	hideAll();
+    $('select_race_type_container').style.display="block";
+	$('race_type').style.display="block";
+<%#*$('select_race_type_container').onmouseout.display="none";%>
+  }
+  function hideRaceType(){
+    $('select_race_type_container').style.display = "none";
+  }
+  function showDistance(){
+  	hideAll();
+    $('race_distance_fields').style.display="block";
+  }
+  function hideDistance(){
+    $('race_distance_fields').style.display="none";
+  }
+  
+
+
+	
+
+  function showToCalendar() {
+  	hideAll();
+  	
+  	new PNSCalender().callRaceMenuCalender('to_calender_btn','to_calender','txtToDate', 'to_calender_holder');
+  }
+  
+  function showFromCalendar() {
+  	hideAll();
+  	
+  	new PNSCalender().callRaceMenuCalender('from_calender_btn','from_calender','txtFromDate', 'from_calender_holder')
+  }
+</script>

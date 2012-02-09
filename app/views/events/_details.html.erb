@@ -1,0 +1,60 @@
+<!-- used to display an event details in a table -->
+<table width="100%" style="background-color:white;">
+	<tr>
+		<td width="100px" valign="top">
+			<%= image_tag event.image.url(:thumb) %>
+		</td>
+
+		<td colspan=2>
+		
+		<div style="float:right;width:300px;">
+			<table valign="top">
+				<tr>
+					<td class="details_head">Start Time:</td>
+					<td class="details_data">
+						<% if event.start_time.blank? %>
+							<%= "#{event.event_date.strftime('%I:%M %p %a, %b %d')}" unless event.event_date.blank?%>
+						<% else %>
+							<%= "#{event.start_time} #{event.event_date.strftime('%a, %b %d')}"%>
+						<% end %>
+						
+					</td>
+				</tr>
+				<tr>
+					<td class="details_head">Address:</td>
+					<td class="details_data">
+                      <%= "#{event.location}<br/>" unless event.location.blank?%>
+                      <%= "#{event.address_info} #{event.city}, #{event.state}"%>
+                    </td>
+				</tr>
+				<tr>
+					<td class="details_head">Contact:</td>
+					<td class="details_data"><%= "#{event.short_contact_string}"%></td>
+				</tr>
+			</table>
+		</div>
+		<div style="float:left;">
+			<% if false %>
+				<% if !@event_friends.blank? %>
+					<%= render :partial => 'events/show_buddies', :locals => {:friends => @event_friends}  %>
+				<% else%>
+					<%= render :partial => 'events/show_buddies', :locals => {:friends => event.order_friends_then_users(@fb_ses) } %>
+				<% end %>
+			<% else %>
+				<%= render :partial => 'events/iframe', :locals => {:event_id => event.id } %>
+			<% end %>	
+		</div>
+
+		</td>
+	</tr>
+
+	<% if current_user %>
+		<% regs = current_user.event_registrations.processed.find(:all, :conditions => {:event_id => event.id}) %>
+		<% unless regs.empty? %>
+			<tr><td colspan=3 style="padding-left:15px;">You are registred for this event. Registration Details -</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<%= render :partial => 'events/reg_details', :collection => regs %>
+		<% end %>
+	<% end -%>
+</table>
+

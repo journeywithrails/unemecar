@@ -1,0 +1,17 @@
+#get the value of the selected reg
+
+reg = EventRegistration.find(params[:id]) unless params[:id].blank?
+if reg.nil?
+	reg = EventRegistration.new
+end
+
+@race = Race.find(params[:race])
+
+
+session[:e_reg] = reg.id  
+logger.debug "now e_reg => #{reg.id}"
+
+
+#update the partial
+
+page.replace_html "con_info", :partial => 'contact_info', :locals => {:event_registration => reg}

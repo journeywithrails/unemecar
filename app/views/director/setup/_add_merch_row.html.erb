@@ -1,0 +1,70 @@
+<td colspan="4" width="96%">
+	<% form_for merchandise_item, :html => {:name => "#{merchandise_item.id}_form", :multipart => true}, :url => { :action => 'merchandise', :id => merchandise_item.id} do |f| -%>
+	<%= hidden_field_tag "merch_id", merchandise_item.id %>
+	<%= f.hidden_field :event_id, {:value => @dir_event.id}%>
+	<table width="100%">
+		<tr class="director_header_row"><td colspan="3" style="padding-left:20px;"><%= merchandise_item.id ? 'Edit' : 'Add' %> Merchandise Item</td></tr>
+					<tr>
+						<td> Item Title: </td>
+						<td> <%= f.text_field(:title, {:value => merchandise_item.title, :size => "30", :class => "search_form_input", :style => 'width:310px;'}) %></td>
+						<td rowspan='4' valign="top" style='padding-left:20px;'>
+							Description<br/>
+							<%= f.text_area(:description, {:value => merchandise_item.description, :size => "25", :class => "search_form_input"}) %><br/><br/>
+							
+							<% upload_image = merchandise_item.image.nil? ? Image.new : merchandise_item.image %>
+							<%= image_tag upload_image.file.url(:small) unless upload_image.new_record? %> <br />
+							Upload Image item: 
+							  <% f.fields_for :image, upload_image do |im_form| %> 
+							    <%= im_form.file_field :file, :size => 14 %>
+							  <% end -%>
+							  
+						</td>
+					</tr>
+					<tr>
+						<td> Available For: </td> <td>  
+						    <% tid = merchandise_item.id.nil? ? 'new' : merchandise_item.id  %>
+					      	<%= text_field_tag :something, merchandise_item.races.count.to_s + " Races" ,
+					 									{:class => 'search_form_input', 
+					                          	:id => "select_races_#{tid}", 
+												:onclick => "showRaceType('#{tid}')"} %>
+					       
+						  <div id="select_race_container<%= tid %>" style="display:none">
+				                    <div id="race_<%= tid %>" class="pop_race_type">
+				                       <%= render :partial => 'director/shared/races', 
+				                       		:locals => {:tfield => "select_races_#{tid}", 
+				                       		:container => "race_#{tid}", 
+											:event => merchandise_item.event,
+				                       		:merch => merchandise_item
+			                        		} -%>
+				                    </div>                   
+					         </div>        
+					</tr>
+					<tr>                          
+						<td> Type: </td> <td> <%= f.select( :is_donation,[['Donation',1], ['Not Donation', 2]]) %></td>
+					</tr>	
+
+
+		
+		<tr>
+			<td colspan=2><table>
+			<% options = merchandise_item.merchandise_item_options.empty? ? 
+					[merchandise_item.merchandise_item_options.build] : 
+						merchandise_item.merchandise_item_options %>
+			
+			<%= render :partial => 'merch_option_field', :collection => options, :locals => {:merch => merchandise_item} %>
+			<tr id="merch_option_new"><td colspan=2>Add new Item <%= link_to_remote(add_button_image, :url => {:action => 'add_merch_option' })  %></td></tr>
+			</tr></table></tr>
+		</tr>
+
+		<tr>
+			<td align="center" colspan="3">
+				<%= ok_button_image(true) %> 
+				<%= link_to cancel_button_image, {:action => "merchandise"}, {:onclick => "if( confirm( 'are you sure? all your changes will be lost!' ) ){ $('active_q_p').hide().innerHTML = ''; $('add_q_p').show(); } return false;" } %>
+			</td> 
+		</tr>
+		
+	</table>
+	<% end %>
+</td>
+
+

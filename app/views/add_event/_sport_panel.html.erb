@@ -1,0 +1,92 @@
+<% if race.nil? or race.event_type.nil? 
+   svalue = "Select Race Classification"
+   time = @s_date_and_time
+   @race = Race.new
+   @race.minimum_age = 13
+   else
+   svalue = race.event_type.name 
+   time = race.start_time
+   end %>
+<% if visible %>
+	<div id="panel_<%=tid%>">
+<% else %>
+	<div id="panel_<%=tid%>" style="display:none;">
+<% end %>
+	
+	<table width="100%" align="center">
+		<tr>
+			<td align="left">
+				<table border="0" align="left" cellpadding="5" cellspacing="0">
+					<tr>
+						<td align="right">Sport</td>
+						<td>
+							<div><%= text_field_tag("event_discipline", "", :value => svalue, :id => "discipline_text_#{tid}", :size => "30", :onclick => "showRaceType(#{tid})", :class => "search_form_input") %>
+                  				<div id="select_race_type_container<%=tid%>" style="display:none">
+				                    <div id="race_type<%=tid%>" class="pop_race_type">
+				                       <%= render :partial => 'shared/race_type_single_select', 
+				                       :locals => {:tfield => "discipline_text_#{tid}", 
+				                       :container => "select_race_type_container#{tid}"} -%>
+				                    </div>
+								</div>
+							</div>
+						</td>
+						<td align="right">Race/Category</td>
+						<td><%= text_field(:race, :name, :size => "28", :id => "race_name_#{tid}", :class => "search_form_input") %><label for="<%="race_name_#{tid}"%>" class="default-value">Enter Race Name</label></td>
+						
+						
+					</tr>
+					<tr>
+						<td align="right">Distance</td>
+						<td colspan="2" align="left">
+							<%= text_field(:race, :distance, :id => "rdist", :size => "4", :class => "search_form_input") %>
+							<%= select(:race, :distance_unit, {"km" => 0, "miles" => 1}, {}, {:class => 'search_form_input'}) %>
+						</td>
+						<td></td>
+						
+					</tr>
+					<tr>
+						<td align="right">Start Time</td>
+						<td><%= calendar_date_select_tag "e_date_and_time", time, :time => true, :class => "search_form_input rm_date_select" %></td>
+						<td><%= check_box(:race, :license_req, { :class => 'search_form_input' })%> Lic. Required</td>
+						<td><%= check_box(:race, :has_waiting_list, { :class => 'search_form_input' })%> Waiting List? </td>
+						
+					</tr>
+					
+					<tr>
+						<td><%= check_box(:race, :is_series, { :class => 'search_form_input' })%> Series:</td>
+						<td><%= text_field(:race, :series_name, :size => "34", :id => "race_ser_#{tid}", :class => "search_form_input") %><label for="<%="race_ser_#{tid}"%>" class="default-value">ie, Race #5 in New England Grand Prix</label> 
+						<td><%= check_box(race, "is_kids_race", { :class => 'search_form_input' })%> Kids race </td>
+						<td><%= check_box(:race, :is_women_race, { :class => 'search_form_input' })%> Women only</td>
+					</tr>
+					<tr>
+						<td><%= check_box(:race, :is_sanctioned, { :class => 'search_form_input' })%> Sanctioned? </td>
+						<td><%=text_field(:race, :sanctioned_by, :size => "34", :id => "race_sct_#{tid}", :class => "search_form_input") %><label for="<%="race_sct_#{tid}"%>" class="default-value">ie, USACycling, RRCA, USATF, etc</label></td>
+						<td><%= check_box(:race, :has_minimum_age, { :class => 'search_form_input' })%> Min. Age</td>
+						<td><%=text_field(:race, :minimum_age, :size => "1", :id => "race_sct_#{tid}", :class => "search_form_input") %><label for="<%="race_sct_#{tid}"%>" class="default-value">ie, 13</label></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan="3"><%= hidden_field(:race, :event_type_id, {:id => "event_type_id_hid"})%></td>
+					</tr>
+				</table>
+			</td>
+			<td></td>
+			<td align="center">
+				<% unless multi == false %>
+					<% if first == false %>
+						<%= link_to_function(close_button_image, update_page{|page| page.remove "panel_#{tid}"})%><br/><br/>
+					<% end %>
+					<%= link_to_remote add_button_image, :url => { :action => "add_another_panel" } %>
+				<% end %>
+				
+				<br/>
+			</td>
+		</tr>
+		
+	</table>
+	
+	<% unless multi == false %>
+		<hr/>
+	<% end %>
+</div>
+<br/>

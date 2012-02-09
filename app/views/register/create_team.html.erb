@@ -1,0 +1,78 @@
+<% content_for :head_title do %>Event Registration - Create a Team<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "4"}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Create a Team</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableROWS">
+	<% if @result %>
+	<table width="614" border="0" align="center" cellpadding="5" cellspacing="0" id="formText" valign="top">
+		  <tr>
+			    <td align="center">
+			    	<h3>Thank you for creating your team!</h3>
+			    	<br/>
+			    	You will receive an email when the team name has been approved.<br/>
+			    	Upon approval your team name will be an option in the registration form.<br/>
+			    	<br/>
+			    	<%= link_to "return to MyRaceMenu", :controller => "myracemenu" %>
+			    </td>
+		  </tr>
+	</table>
+	<% else %>
+		<% form_tag(:controller => "register", :action => "create_team") do%>
+		<table width="614" border="0" align="center" cellpadding="5" cellspacing="0" id="formText" valign="top">
+		  <tr>
+			    <td colspan="2"><%= error_messages_for :team %></td>
+			  </tr>
+		  <tr>
+		    <td width="167" align="right">Team name:</td>
+		    <td width="447"><%= text_field(:team, :name) %></td>
+		    </tr>
+		  <tr>
+		  <tr>
+		    <td width="167" align="right"></td>
+		    <td width="447" align="lefy"><i>Team names must be approved by the Race Director</i></td>
+		    </tr>
+		  <tr>
+		    <td align="right">Company Name:</td>
+		    <td><%= text_field(:team, :company_name) %></td>
+		  </tr>
+		  <tr>
+		    <td align="right">Team Captain Name:</td>
+		    <td><%= text_field(:team, :captain_name) %></td>
+		  </tr>
+		  <tr>
+		    <td align="right">Email:</td>
+		    <td><%= text_field(:team, :email, "size" => "25") %>&nbsp;&nbsp;&nbsp;Phone: <%= text_field(:team, :phone, "size" => "15") %></td>
+		  </tr>
+		  <tr>
+		    <td align="right">Address:</td>
+		    <td><%= text_field(:team, :address, "size" => "38") %>&nbsp;&nbsp;&nbsp;Apt: <%= text_field(:team, :apt, "size" => "5") %></td>
+		  </tr>
+		  <tr>
+		    <td align="right">City:</td>
+		    <td><%= text_field(:team, :city, "size" => "28") %>&nbsp;&nbsp;State:<%= text_field(:team, :state, "size" => "1") %>&nbsp;Zip:<%= text_field(:team, :zip, "size" => "2") %></td>
+		  </tr>
+		  
+		  <tr>
+		    <td align="right">&nbsp;</td>
+		    <td><%= link_to back_button_image, :action => "athlete_info" %><%= ok_button_image(true) %></td>
+		  </tr>
+		</table>
+		<% end %>
+	<% end %>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

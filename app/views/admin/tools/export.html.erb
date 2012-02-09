@@ -1,0 +1,74 @@
+<% form_tag(:controller => "tools", :action => "export") do%>
+	<table width="500px" border="0" align="center" cellpadding="5" cellspacing="0" >
+ 	  <tr>
+		<td align="center" colspan="2">Export Email Addresses</td>
+	  </tr>
+  	  <tr>
+	    <td width="130px">City</td>
+	    <td width="370px"><%= text_field( "export_e", "city", :class => "search_form_input") %></td>
+	  </tr>
+	  <tr>
+	    <td width="130px">State</td>
+	    <td width="370px"><%= select "export_e", "state", ['AK',
+			'AL',
+			'AR',
+			'AZ',
+			'CA',
+			'CO',
+			'CT',
+			'DC',
+			'DE',
+			'FL',
+			'GA',
+			'HI',
+			'IA',
+			'ID',
+			'IL',
+			'IN',
+			'KS',
+			'KY',
+			'LA',
+			'MA',
+			'MD',
+			'ME',
+			'MI',
+			'MN',
+			'MO',
+			'MS',
+			'MT',
+			'NC',
+			'ND',
+			'NE',
+			'NH',
+			'NJ',
+			'NM',
+			'NV',
+			'NY',
+			'OH',
+			'OK',
+			'OR',
+			'PA',
+			'RI',
+			'SC',
+			'SD',
+			'TN',
+			'TX',
+			'UT',
+			'VA',
+			'VT',
+			'WA',
+			'WI',
+			'WV',
+			'WY'], 
+			{:prompt => "- select state -"},  {:class => "search_form_input"} %></td>
+	  </tr>
+	  <tr>
+	    <td width="130px">Zip</td>
+	    <td width="370px"><%= text_field( "export_e", "zip", :class => "search_form_input") %></td>
+	  </tr>
+	  <tr>
+			<td align="center" colspan="2"><%= download_button_image(true) %>
+			</td>
+		</tr>  
+	</table>
+	<% end %>

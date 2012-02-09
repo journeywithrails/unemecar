@@ -1,0 +1,90 @@
+
+<% form_remote_for :event_registration, :url => {:controller => :myracemenu, :action => 'reg_details', :reg_id => object.id } do %>
+	<table width="600px" border="0" align="left" cellpadding="5" cellspacing="0">
+	
+	<% fields_for :reg, object do |f| %>
+			<tr> 
+				<td align="right">Email: </td> <td> 
+				<%= f.text_field :email, {"size" => "25", :class => "search_form_input"} %> </td>
+			</tr>
+			<tr> <td align="right">Phone:</td> <td> 
+				 <%= f.text_field :phone,{"size" => "25", :class => "search_form_input"} %></td></tr>
+	  <tr>
+	    <td align="right">Address:</td>
+	    <td><%= f.text_field( :address, {"size" => "38", :class => "search_form_input"}) %>&nbsp;&nbsp;&nbsp;Apt: <%= f.text_field(:apt, {"size" => "5", :class => "search_form_input"}) %></td>
+	  </tr>
+	    <td align="right">City:</td>
+	    <td><%= f.text_field( :city, {"size" => "28", :class => "search_form_input"}) %>&nbsp;&nbsp;State:<%= f.select :state, [' ','AK',
+			'AL',
+			'AR',
+			'AZ',
+			'CA',
+			'CO',
+			'CT',
+			'DC',
+			'DE',
+			'FL',
+			'GA',
+			'HI',
+			'IA',
+			'ID',
+			'IL',
+			'IN',
+			'KS',
+			'KY',
+			'LA',
+			'MA',
+			'MD',
+			'ME',
+			'MI',
+			'MN',
+			'MO',
+			'MS',
+			'MT',
+			'NC',
+			'ND',
+			'NE',
+			'NH',
+			'NJ',
+			'NM',
+			'NV',
+			'NY',
+			'OH',
+			'OK',
+			'OR',
+			'PA',
+			'RI',
+			'SC',
+			'SD',
+			'TN',
+			'TX',
+			'UT',
+			'VA',
+			'VT',
+			'WA',
+			'WI',
+			'WV',
+			'WY'], 
+			{},  {:class => "search_form_input"} %>&nbsp;&nbsp;Zip:<%= f.text_field( :zip, {"size" => "5", :class => "search_form_input"}) %></td>
+	  </tr>
+			<tr>
+    	  <td align="right">Country:</td>
+        	<td><%= country_select :event_registration, :country, ['United States'],  {},  {:class => "search_form_input" } %></td>
+      	</tr>
+			<tr> <td align="right">Club/Team:</td> <td> 
+				 <%= f.text_field  :club_team, {"size" => "25", :class => "search_form_input"} %></td></tr>
+			<tr> <td align="right">License: </td> <td> 
+				<%= f.text_field  :license_num,{"size" => "25", :class => "search_form_input"} %></td>
+			</tr>
+		
+		<% end -%>
+		
+		<tr> 
+		<td align="right"> &nbsp; </td>
+		<td>	<%= ok_button_image(true) %>
+			<%= link_to_function cancel_button_image,"$('edit_reg_#{object.id}_details').hide();$('reg_details_#{object.id}_details').show();" %>
+		</td></tr>
+	</table>
+	
+	<% end -%>
+	

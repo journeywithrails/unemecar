@@ -1,0 +1,69 @@
+<% content_for :extra_head do %>
+	<%= stylesheet_link_tag "anylinkcssmenu"%>
+	<%= javascript_include_tag "anylinkcssmenu"%>
+	<script type="text/javascript">anylinkcssmenu.init("anchorclass")</script>
+<% end %>
+<% @infos = %w( dummy dummy dummy dummy dummy dummy) %>
+<% stp = step.to_i %>
+<% @infos[stp - 1] = "activeanchor" %>
+<div style="width:100%;color:white;">
+<a href="/director/<%=@dir_event.id%>/summary/" class="anchorclass <%=@infos[0]%>" rel="submenu1">Summary</a><a href="/director/<%=@dir_event.id%>/setup/preview" class="anchorclass <%=@infos[1]%>" rel="submenu4">Event Setup</a><a href="/director/<%=@dir_event.id%>/registration" class="anchorclass <%=@infos[2]%>" rel="submenu5">Registration Data</a><a href="/director/<%=@dir_event.id%>/payments" class="anchorclass <%=@infos[3]%>" rel="submenu2">Payments</a><a href="/director/<%=@dir_event.id%>/email" class="anchorclass <%=@infos[4]%>" rel="submenu3">Email Registrants</a><a href="/director/<%=@dir_event.id%>/marketing" class="anchorclass <%=@infos[5]%>" rel="submenu6">Marketing</a>
+<!--<a href="/director/<%=@dir_event.id%>/analytics" class="anchorclass <%=@infos[6]%>" rel="submenu6">Analytics</a>-->
+<div id="submenu1" class="anylinkcss"></div>
+<div id="submenu2" class="anylinkcss"></div>
+<div id="submenu3" class="anylinkcss"></div>
+
+<div id="submenu4" class="anylinkcss">
+	<ul>
+	<li><a href="/director/<%=@dir_event.id%>/setup/preview">Event Preview</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/setup/details">Event Details</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/setup/races">Races / Categories</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/setup/registration_text">Registration Text</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/setup/custom_questions">Custom Questions</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/setup/merchandise">Merchandise</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/setup/event_disclaimer">Waiver</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/setup/discounts">Discounts</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/setup/coupons">Coupon Codes</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/setup/start_list">Start List</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/setup/series">Event Series Management</a></li>
+	</ul>
+</div>
+<div id="submenu5" class="anylinkcss">
+	<ul>
+	<li><a href="/director/<%=@dir_event.id%>/registration">Registrations</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/registration/edit?mode=new">Add Registration Manually</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/registration/wait_list">Waiting List</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/registration/invite_users">Invitations</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/registration/cancellations">Cancellations</a>
+      <li><a href="/director/<%=@dir_event.id%>/registration/discounts">Discounts</a>
+    <li><a href="/director/<%=@dir_event.id%>/registration/teams">Teams</a>
+	<li><a href="/director/<%=@dir_event.id%>/registration/bib_numbers">Bib Numbers</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/registration/export_reg">Download Registration Data</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/registration/export_merch">Download Merchandise Data</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/registration/releases">Print Releases</a></li>
+	</ul>
+</div>
+<div id="submenu_vol" class="anylinkcss">
+	<ul>
+	<li><a href="/director/<%=@dir_event.id%>/volunteers/summary">Summary</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/volunteers/jobs">Jobs </a></li>
+	<li><a href="/director/<%=@dir_event.id%>/volunteers/">Volunteers </a></li>
+	<li><a href="/director/<%=@dir_event.id%>/volunteers/groups">Groups </a>
+    <li><a href="/director/<%=@dir_event.id%>/volunteers/coordinators">Coordinators </a>
+    <li><a href="/director/<%=@dir_event.id%>/volunteers/search">Search </a>
+	<li><a href="/director/<%=@dir_event.id%>/volunteers/email">Email </a></li>
+	<li><a href="/director/<%=@dir_event.id%>/volunteers/downloads">Downloads </a></li>
+	<li><a href="/director/<%=@dir_event.id%>/volunteers/reports">Reports</a></li>
+	
+	</ul>
+<!--
+<div id="submenu6" class="anylinkcss">
+	<ul>
+	<li><a href="/director/<%=@dir_event.id%>/analytics/index">Registration Progress</a></li>
+	<li><a href="/director/<%=@dir_event.id%>/analytics/age_group">Age-Group breakdown </a></li>
+	
+	
+	</ul>
+</div>
+-->
+</div>

@@ -1,0 +1,29 @@
+<% @search = search %>
+<% form_tag(:controller => "registration", :action => "index") do%>
+<table width="100%" border="0" align="center" cellpadding="2" cellspacing="0" >
+	<tr>
+	    <td><%= text_field(:search, :first_name, {:size => "20", :id => "search_fname", :class => "search_form_input"})%><label for="search_fname" class="default-value">First Name</label></td>
+	    <td><%= text_field(:search, :last, {:size => "20", :id => "search_lname", :class => "search_form_input"})%><label for="search_lname" class="default-value">Last Name</label></td>
+	    <td><%= text_field(:search, :city, {:size => "20", :id => "search_city", :class => "search_form_input"})%><label for="search_city" class="default-value">City</label></td>
+	    <td rowspan="5"><%= search_button_image(true) %></td>
+	</tr>
+	<tr>
+	    <td><%= text_field(:search, :email, {:size => "20", :id => "search_email", :class => "search_form_input"})%><label for="search_email" class="default-value">Email</label></td>
+	    <td><%= text_field(:search, :team, {:size => "20", :id => "search_team", :class => "search_form_input"})%><label for="search_team" class="default-value">Team</label></td>
+	    <td><%= select( :search, :race, @dir_event.races.collect {|p| [ p.name, p.id ] }, {:selected => (search[:race].to_i unless search.nil?), :include_blank => "All Races"}, :class => "search_form_input", :style => "width:160px;") %></td>
+	</tr>
+	<tr>
+	    <td><%= text_field(:search, :phone, {:size => "20", :id => "search_phone", :class => "search_form_input"})%><label for="search_phone" class="default-value">Phone</label></td>
+	    <td><%= text_field(:search, :lic_code, {:size => "20", :id => "search_license", :class => "search_form_input"})%><label for="search_license" class="default-value">License / Code</label></td>
+	    <td><%= text_field(:search, :fees, {:size => "20", :id => "search_fees", :class => "search_form_input"})%><label for="search_fees" class="default-value">Fees</label></td>
+	</tr>
+	<tr>
+	    <td><%= text_field(:search, :invoice, {:size => "20", :id => "search_invoice", :class => "search_form_input"})%><label for="search_invoice" class="default-value">Invoice</label></td>
+	    <td><%= text_field(:search, :date, {:size => "20", :id => "search_dates", :class => "search_form_input"})%><label for="search_dates" class="default-value">Dates</label></td>
+	    <td></td>
+	</tr>
+	<tr>
+	    <td colspan="3"><%= check_box("search", "show_all_events", {})%>include registrants from your other events</td>
+	</tr>
+</table>
+<% end %>

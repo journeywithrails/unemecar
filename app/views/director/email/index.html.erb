@@ -1,0 +1,51 @@
+<% content_for :head_title do %>Email<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "5"}%><% end %>
+<% content_for :extra_head do %><%= javascript_include_tag :fckeditor %><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Email</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableROWS">
+	<% form_tag(:controller => "email", :action => "index") do%>
+	<table width="90%" border="0" align="center" cellpadding="5" cellspacing="0" id="formText">
+		<tr>
+        <td colspan="2" align="center"><strong>Coming Soon</strong><br/>use the form below to send emails to registrants.</td>
+	    
+	  </tr>
+	  <tr>
+	    <td align="right">Recipients:</td>
+	    <td><%= select( "export_e", "reg_type", @dir_event.cats_for_select, {}, :class => "search_form_input") %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Subject:</td>
+	    <td><%= text_field(:email, :subject, {"size" => "54", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    
+	    <td colspan="2"><%= fckeditor_textarea( "email", "content", :toolbarSet => 'Easy', :width => '100%', :height => '300px') %></td>
+	  </tr>
+	  
+    
+  
+  <tr>
+    
+    <td align="center" colspan="2"><%= ok_button_image(true) %><%= link_to cancel_button_image, {:action => "details"}, {:confirm => "are you sure? all your changes will be lost!"} %></td>
+  </tr>
+</table>
+	<% end %>
+	
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

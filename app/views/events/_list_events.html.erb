@@ -1,0 +1,30 @@
+<td id="tableROWS">
+<% unless events.blank? %>
+	<% events.each  do | event | %>
+		<div id="event_<%=event.id%>_top_con">
+		<%= render :partial => 'events/event_row', :locals => {:event => event, :mode => mode}%>
+		</div>
+	<% end %>
+<% else %>
+<% if mode == "calendar" %>
+	<div style="margin-left:50px;">
+		<center>
+			<p>&nbsp;</p>
+			<p>Sorry, your search did not have any matches. Please try expanding your search parameters.</p><p>&nbsp;<br>&nbsp;</p><p>Or, feel free to suggest an event we may have missed:</p><p>&nbsp;</p>
+			<a href="#" onclick="try {
+				$(&quot;sug_con&quot;).toggle();
+			} catch (e) { alert('RJS error:\n\n' + e.toString()); 	alert('$(\&quot;sug_con\&quot;).toggle();'); throw e }; return false;"><img 		alt="Btn_suggest_events" border="0" 	onmouseout="this.src='/images/img-inner/BTN_suggest_events.png?1248885506'" onmouseover="this.src='/images/img-inner/BTN_suggest_events_f2.png?1248885506'" src="/images/img-inner/BTN_suggest_events.png?1248885506" /></a>
+		</center>
+	</div>
+	<% end %>
+<% end %>
+
+
+<div align="center" style="text-align:center;">
+<%= #will_paginate(events) 
+%>
+
+</div>
+
+</td>
+

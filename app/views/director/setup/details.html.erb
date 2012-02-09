@@ -1,0 +1,78 @@
+<% content_for :head_title do %>Event Details<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'director/shared/top_nav', :locals => {:step => "2"}%><% end %>
+<% content_for :extra_head do %>
+	<%= javascript_include_tag "default-values" %>	
+	<%= javascript_include_tag "charcount" %>
+	<%= calendar_date_select_includes "red"%>
+	<%= javascript_include_tag "jquery-1.4.4.min" %>
+	<script>$.noConflict();</script>
+	<%= javascript_include_tag "jquery-ui-1.8.7.custom.min" %>
+	<%= stylesheet_link_tag "smoothness/jquery-ui-1.8.7.custom"%>
+<% end %>
+
+<script type="text/javascript">
+function upload(id, domid, model) {
+	return new AjaxUpload(domid, {
+		action: '/director/' + id + '/setup/update_image',
+		name: 'file_name',
+		data: { authenticity_token: <%= "'#{form_authenticity_token}'" %> , model: model },
+		autoSubmit : true,
+		responseType: false
+	});
+}
+
+</script>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" valign="bottom" class="tableHEAD"><p>Event Details</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+<td class="content_bg">
+	<% form_tag({:controller => "setup", :action => "details"}, {:multipart => true}) do%>
+	<table width="100%">
+		<tr>
+			<td>
+			  <div id="accordion">
+            <h3><a href="#">General Info</a></h3>
+            <div><%= render :partial => 'general'%></div>
+            <h3><a href="#">Date and Time</a></h3>
+            <div><%= render :partial => 'date_time', :locals => {:show_rec => true, :section => "rd"}%></div>
+            <h3><a href="#">Location</h3>
+            <div><%= render :partial => 'location'%></div>
+            <h3><a href="#">Contact Information</a></h3>
+            <div><%= render :partial => 'contact'%></div>
+            <h3><a href="#">Misc</a></h3>
+            <div><%= render :partial => 'event_misc_panel'%></div>
+        </div>
+       
+			</td>
+		</tr>
+		<tr>
+			<td align="center"><%= ok_button_image(true) %><%= link_to cancel_button_image, {:action => "details"}, {:confirm => "are you sure? all your changes will be lost!"} %>
+			</td>
+		</tr>  
+	</table>
+	<% end %>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+<script type="text/JavaScript">
+	makeItCount('event_desc', 250, true);
+</script>
+<script>
+	jQuery(function() {
+		jQuery( "#accordion" ).accordion({ autoHeight: false });
+	});
+	</script>

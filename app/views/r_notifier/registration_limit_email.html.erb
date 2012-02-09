@@ -1,0 +1,32 @@
+<html>
+	<body>
+		<div style="border:3px double #1647b2;margin:10px;padding-left:20px;padding-right:20px;margin-left:30px;margin-right:30px;width:550px;">
+
+			<h2> RaceMenu Registration Limit Notification</h2> 
+			<p>
+			<h2> <%= @event.name %> </h2>
+			<strong> Event Registration </strong> : <%= @event.register_link %>
+			<strong> Event Management </strong>   : <%= @event.register_link %>
+			</p>
+
+			<p>
+			<% if @event.registration_limit_reached? %>
+				Registration limit has reached for Event '<%= @event.name %>'.<br/>
+				<%= @event.event_registrations.processed.size %> registrations, Limit : <%= @event.entry_limit %><br/>
+			<% end %>
+			</p>
+
+			<p>
+			<% unless @races.empty? %>
+				Field size limit reached for followign races <br/>
+				<ul>
+					<% @races.each do |race| %>
+						<li><%= race.name %> ( <%= race.event_registrations.size %> registrations, Limit : <%= race.field_size %> )</li>
+					<% end %>
+				</ul>
+			<% end %>
+			</p>
+
+		</div>
+	</body>
+</html>

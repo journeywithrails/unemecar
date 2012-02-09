@@ -1,0 +1,6 @@
+if @new
+	page.redirect_to :action => "coupons"
+else
+	page.replace_html "coupon_#{@coupon.id}", :partial => 'coupon_row', :locals => {:coupon => @coupon}
+	page["coupon_#{@coupon.id}"].visual_effect :highlight, :duration => 0.4
+end

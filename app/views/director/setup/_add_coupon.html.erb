@@ -1,0 +1,23 @@
+	
+	<td></td>
+	<td colspan="4">
+		<% form_remote_tag :html => {:name => "#{coupon.id}_form"}, :url => {:action => :update_coupon, :id => coupon.id} do -%>
+		<table>
+			<tr>
+				<td>Code:</td>
+				<td><%= text_field(:coupon, :code, {:value => coupon.code, :size => "8", :class => "search_form_input"}) %></td>
+				<td>Value:</td>
+				<td><%= text_field(:coupon, :value, {:value => coupon.value, :size => "1", :class => "search_form_input"}) %></td>
+				<td>Expiration:</td>
+				<td><%= calendar_date_select_tag "e_date_and_time", coupon.expiration, :time => true, :class => "search_form_input", :id => "endDateDB" %></td>
+				<td width="200px" align="right">
+					<%= save_button_image(true)%><%= link_to_remote small_cancel_button_image, :url => { :action => "remove_coupon", :id => coupon.id } %>
+					
+				</td>
+			</tr>
+		</table>
+		<% end %>
+	</td>
+	
+	<td></td>
+	

@@ -1,0 +1,58 @@
+<!-- used to display an event details in a table -->
+<table width="100%" style="background-color:white;">
+	<tr>
+		<td width="20%" valign="top">
+			<!-- event image -->
+			<!--<%= image_tag(event.display_image_url) %>-->
+			<%= image_tag event.image.url(:thumb) %>
+		</td>
+		<td width="30%" valign="top">
+			<!-- description and link-->
+			<%= event.description %><br/>
+<!--			<span style="font-weight:bold;">More info:</span><br/>-->
+			
+		<% if true %>
+			<% if !@event_friends.blank? %>
+			<%= render :partial => 'events/show_buddies', :locals => {:friends => @event_friends}  %>
+			<% else%>
+			<%= render :partial => 'events/show_buddies', :locals => {:friends => event.order_friends_then_users(@fb_ses) } %>
+			<% end %>
+		<% else %>
+		<%= render :partial => 'events/iframe', :locals => {:event_id => 3873 } %>
+		<% end %>
+			
+			<% er = nil
+			   if logged_in? 
+				er = EventRegistration.find_by_event_id_and_rm_user_id_and_processed(event.id, current_user.id, true)
+		
+		   	   end
+			%>
+			<% if (event.is_registerable? and er.nil?)%>
+				<!-- HACK: remove later -->
+				<% if event.id == 4611 %>
+					<%= link_to register_button_image, :controller => "event", :action => "show_detailed", :id => event.id %>
+				<% else %>
+					<%= link_to register_button_image, :controller => "register", :action => "index", :event => event.id %>
+				<% end %>
+			<% end %>
+			
+		</td>
+		<td width="50%"  valign="top">
+			<!-- details table-->
+			<table valign="top">
+				<tr>
+					<td class="details_head">Start Time:</td>
+					<td class="details_data"><%= "#{event.start_time} #{event.event_date.strftime('%a, %b %d')}"%></td>
+				</tr>
+				<tr>
+					<td class="details_head">Address:</td>
+					<td class="details_data"><%= "#{event.address_info} #{event.city}, #{event.state}"%></td>
+				</tr>
+				<tr>
+					<td class="details_head">Contact:</td>
+					<td class="details_data"><%= "#{event.contact_name} #{event.contact_phone}<br/> #{event.contact_email}"%></td>
+				</tr>
+			
+		</td>
+	</tr>
+</table>

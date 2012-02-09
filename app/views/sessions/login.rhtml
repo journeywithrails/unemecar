@@ -1,0 +1,59 @@
+<% content_for :head_title do %>Log in to RaceMenu<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= image_tag "header500.jpg", :style=>"padding-left:130px;margin-top:16px;" %><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+			<% form_tag do -%>
+          <tr>
+            <td width="6">&nbsp;</td>
+            <td width="774" align="center" valign="bottom" class="tableHEAD"><p>Login below or create a new account</p></td>
+            <td width="120" class="sidebarHeaderText">Featured Events </td>
+          </tr>
+          
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableROWS">
+            	
+            	<table border="0" align="center" cellpadding="5" cellspacing="0" id="formText" style="margin-top:25px;margin-bottom:100px;margin-right:40px;"><tr><td width=45%>
+			
+             <table border="0" align="center" cellpadding="5" cellspacing="0" >
+             	<tr><td colspan="2" align="center"><%= show_error(flash[:notice])%></td></tr>
+              <tr>
+			    <td align="right"><label for="username">Email:</label></td>
+			    <td align="left"><%= text_field_tag 'username' %></td>
+			  </tr>
+			  <tr>
+			    <td align="right"><label for="password" align="right">Password:</label></td>
+			    <td align="left"><%= password_field_tag 'password' %></td>
+			  </tr>
+			</table>
+			  <center><br><%= login_button_image(true) %> <%=link_to signup_button_image, signup_path %> 
+			  <br/><a href="/forgot_password">Forgot  password?</a></center>
+			</td>
+			<td width="10%"></td>
+			<td>
+				
+				<h3>You can also use your Facebook account to login to RaceMenu</h3>
+					<p>Using Facebook Connect, you can easily share your RaceMenu activity with your Facebook friends.
+				</p>
+				<fb:login-button onlogin="window.location = '/sessions/link_user_accounts'";></fb:login-button> </td>
+			  </td></tr></table>
+          
+        			</td>
+            <td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+	<td style="padding-right:10px;"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableBOTTOMshadow">&nbsp;</td>
+            </tr>
+          <%= render :partial => 'shared/footer'%>
+          <% end -%>
+
+        </table>
+
+
+<!-- Uncomment this if you want this functionality
+<p><label for="remember_me">Remember me:</label>
+<%= check_box_tag 'remember_me' %></p>
+-->
+

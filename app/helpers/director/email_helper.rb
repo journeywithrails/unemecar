@@ -1,0 +1,2 @@
+module Director::EmailHelper
+end

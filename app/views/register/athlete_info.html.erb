@@ -1,0 +1,289 @@
+<% content_for :head_title do %>Event Registration - <%= athlete_info_title(@race)%><% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "4"}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p><%= athlete_info_title(@race)%></p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<div style="width:100%;margin-left:-18px;padding-top:4px;text-align:center;">
+	<%= header_image(@event) %>
+	</div>
+	<div>
+	<% form_tag({:controller => "register", :action => "athlete_info", :reg_id => @event_registration.id}, 
+				{:name => "athlete_info", :onSubmit => 'return validate()'}) do%>
+	<table border="0" align="center" cellpadding="5" cellspacing="0" id="formText" valign="top">
+	 <tr><td width=150px></td><td><%= error_messages_for "event_registration", :header_message => nil, :message => nil %></td></tr>
+	<% if session[:reg_ids].size > 1 or ( session[:reg_ids].size == 1 and @event_registration.new_record? ) %>
+		<tr><td align="center" colspan=3>Registrations : </td></tr>
+			<% count = 0 %>
+			<% session[:reg_ids].each do |reg_id| %>
+				<% reg = EventRegistration.find_by_id( reg_id ) %>
+				<tr><td align="right"><%= count += 1 %>.</td><td><%= "#{reg.first_name} #{reg.last_name} (#{reg.email})" %></td>
+					<td><%= link_to "edit", { :action => 'athlete_info', :reg_id => reg_id } %></td>
+					<td><%= link_to "remove", { :action => 'remove_reg', :from => "athlete", :reg_id => reg_id } %></td>
+				</tr>
+			<% end %>
+	<% end %>
+
+	
+	  <% if @cand_regs.size > 0 %>
+	  <tr><td align="right">Use Existing:</td><td colspan=2><%= collection_select(:data, :reg_id, @cand_regs, :id, :description_for_contact, {:prompt => "Choose Information from your Past Events"},{:id => "con_selector", :style => "width:450px;", :class => "search_form_input", :onchange => remote_function(:update => "none_info",
+      :url => { :action => :update_contact }, :with => "'race=#{@race.id}&id=' + $('con_selector').value")}) %></td></tr>
+      <tr><td colspan="3"><hr /></td></tr>
+      <% end %>
+
+	  <tr>
+	  	<td colspan="3" align="center">
+	  		<div id="con_info">
+	  			<%= render :partial => 'contact_info', :locals => {:event_registration => @event_registration}%>
+	  		</div>
+	  	</td>
+	  </tr>		
+		
+	  <tr><td>&nbsp;<!--<%= @event_registration.id %>--></td><td></td></tr>
+	
+
+	<!-- Custom Questions -->
+	<% @event.questions.each do | question | %>
+		<tr>
+			<td> <%= question.title %> </td>
+			<td colspan=2>
+
+				<% if question.question_type == Question::CHECKBOXES %>
+					<% question.question_options.each do |qp| %>
+						<% answer = question.answers.find( :first, :conditions => { :event_registration_id => @event_registration.id, :question_option_id => qp.id } ) %>
+						<%= check_box_tag  "question[#{question.id}]answers[#{qp.id}][]", "1", !answer.nil? %>
+						<%= qp.title %>
+					<% end -%>
+				<% else %>
+					<% answer = question.answers.find( :first, :conditions => { :event_registration_id => @event_registration.id } ) %>
+					<% fields_for "question[#{question.id}]answer", answer  do |question_fields|  %>
+
+						<% answer = answer || question.answers.new %>
+						<%= question_fields.hidden_field :id, :value => answer.id %> 
+
+						<% if question.question_type == Question::DROPDOWN_LIST %>
+
+							<%= question_fields.collection_select :question_option_id, question.question_options, 'id', 'title', {:prompt => '-please select-' } , {:class => "search_form_input"} %>
+
+						<% elsif question.question_type == Question::SINGLE_LINE_TEXT  %>
+
+							<%= question_fields.text_field :extra_info, {:class => "search_form_input"} %>
+
+						<% elsif question.question_type == Question::RADIO_BUTTONS %>
+
+					<% question.question_options.each do |qp| %>
+								<%= question_fields.radio_button :question_option_id, qp.id %>
+								<%= qp.title %>
+							<% end -%>
+
+
+						<% elsif question.question_type == Question::MULTI_LINE_TEXT %>
+							<%= question_fields.text_area :extra_info, 
+								{:class => "search_form_input", :rows => 5, :cols => 40} %>
+
+						<% end -%>
+					<% end %>
+				<% end %>
+
+		</td></tr>	
+	<% end %>
+	<!-- Custom Questions End -->
+
+	<tr><td>&nbsp;</td><td></td></tr>
+	<tr><td colspan="3" align="center">
+			<% if false %>
+				<% unless @race.is_relay %>
+					<span><%= check_box_tag 'add' %>Save and Add Another </span>
+					<% end %>
+			<% end %>
+			<%= #submit_tag 'Register Another' unless @race.is_relay	
+			%>
+			<% if session[:reg_ids].size > 1 or ( session[:reg_ids].size == 1 and @event_registration.new_record? ) %>
+				&nbsp;&nbsp;&nbsp;<%= link_to 'Cancel', { :cancel => true }, :confirm => 'Continue without adding new person ?', :class => 'button' %>
+			<% end %>
+	</td></tr>
+	<tr><td colspan="3" align="center" valign="middle">
+			<table>
+				<tr>
+					<td colspan="2" align="center">
+					  <%= submit_tag 'Register Another Person' unless (@race.is_relay or @race.event.event_series.nil? == false)	%>
+					</td>
+				</tr>
+				<tr>
+					<td><%= link_to back_button_image, :action => "registration_type" %></td>
+					<td><%= next_button_image(true) %></td>
+					
+				</tr>
+			</table>
+			
+	</td></tr>
+</table>
+	<% end %>
+	</div>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+
+
+<script type="text/javascript">
+<!--
+	function validate() {
+					var checkbox_count = 0;
+
+		if (document.getElementsByName('event_registration[first_name]')[0].value == "") { alert("Please enter your first name!"); return false; }
+		if (/\d{2}\/\d{2}\/\d{4}/.test(document.getElementsByName('event_registration[birthday]')[0].value) == false) { alert("Birth Date must be in the following format: mm/dd/yyyy!"); return false; }
+		if (document.getElementsByName('event_registration[last_name]')[0].value == "") { alert("Please enter your last name!"); return false; }
+		// TODO : isDateOkay is throwing exception
+		// Error: uncaught exception: [Exception... "Access to property denied"  code: "1010" nsresult: "0x805303f2 (NS_ERROR_DOM_PROP_ACCESS_DENIED)"
+		//if (!isDateOkay(document.getElementsByName('event_registration[birthday]')[0].value)) { return false; }
+		if (document.getElementsByName('event_registration[birthday]')[0].value == "" || document.getElementsByName('event_registration[birthday]')[0].value == "mm/dd/yyyy") { alert("Please enter your Date of Birth!"); return false; }
+		if (document.getElementsByName('event_registration[sex]')[0].value == "") { alert("Please enter your gender!"); return false; }
+		<% unless @race.event.has_tshirt_question? %>
+			if (document.getElementsByName('event_registration[tshirt]')[0].value == "") { alert("Please enter your tshirt size!"); return false; }
+		<% end %>
+		if (document.getElementsByName('event_registration[email]')[0].value == "") { alert("Please enter your email!"); return false; }
+		if (document.getElementsByName('event_registration[phone]')[0].value == "") { alert("Please enter your phone number!"); return false; }
+		if (document.getElementsByName('event_registration[address]')[0].value == "") { alert("Please enter your address!"); return false; }
+		if (document.getElementsByName('event_registration[city]')[0].value == "") { alert("Please enter your city!"); return false; }
+		if (document.getElementsByName('event_registration[country]')[0].value == "") { alert("Please enter your country!"); return false; }
+		if (document.getElementsByName('event_registration[state]')[0].value == " " 
+		      && document.getElementsByName('event_registration[country]')[0].value == "united_states") { 
+		        alert("Please enter your state!"); return false; 
+		}
+		if (document.getElementsByName('event_registration[zip]')[0].value == "") { alert("Please enter your zip!"); return false; }
+
+		<% if @race.event.is_contact_mandatory %>
+			if (document.getElementsByName('event_registration[em_con_name]')[0].value == "") { alert("Please enter Emergency Contact Name!"); return false; }
+			if (document.getElementsByName('event_registration[em_con_relationship]')[0].value == "") { alert("Please enter Emergency Contact Relationship!"); return false; }
+			if (document.getElementsByName('event_registration[em_con_phone]')[0].value == "") { alert("Please enter Emergency Contact Phone!"); return false; }
+		<% end %>
+
+
+		// Validation for custom questions with required set
+		<% @event.questions.each do | question |
+		if question.is_required
+		%>
+			<% if question.question_type == Question::SINGLE_LINE_TEXT or question.question_type == Question::MULTI_LINE_TEXT %>
+				if (document.getElementsByName('question[<%= question.id %>]answer[extra_info]')[0].value == "") { alert("Please enter <%= question.title %>!"); return false; }
+			<% elsif question.question_type == Question::RADIO_BUTTONS or question.question_type == Question::DROPDOWN_LIST %>
+				if (document.getElementsByName('question[<%= question.id %>]answer[question_option_id]')[0].value == "") { alert("Please select <%= question.title %>!"); return false; }
+			<% elsif question.question_type == Question::CHECKBOXES %>
+					checkbox_count = 0;
+					<% question.question_options.each do |option| %>
+							if( document.getElementsByName('question[<%= question.id %>]answers[<%= option.id %>][]')[0].checked ){
+								checkbox_count += 1;
+							}
+					<% end %>
+					if( checkbox_count == 0 ){
+						alert( "Please select <%= question.title %> !" ); return false;
+					}
+			<% end %>
+		<% end; end; %>
+		
+		return true;
+	}
+	
+	// Declaring valid date character, minimum year and maximum year
+	var dtCh= "/";
+	var minYear=1900;
+	var maxYear=2011;//Date.today.getFullYear();
+	
+	function isInteger(s){
+		var i;
+	    for (i = 0; i < s.length; i++){   
+	        // Check that current character is number.
+	        var c = s.charAt(i);
+	        if (((c < "0") || (c > "9"))) return false;
+	    }
+	    // All characters are numbers.
+	    return true;
+	}
+
+	function stripCharsInBag(s, bag){
+		var i;
+	    var returnString = "";
+	    // Search through string's characters one by one.
+	    // If character is not in bag, append to returnString.
+	    for (i = 0; i < s.length; i++){   
+	        var c = s.charAt(i);
+	        if (bag.indexOf(c) == -1) returnString += c;
+	    }
+	    return returnString;
+	}
+
+	function daysInFebruary (year){
+		// February has 29 days in any year evenly divisible by four,
+	    // EXCEPT for centurial years which are not also divisible by 400.
+	    return (((year % 4 == 0) && ( (!(year % 100 == 0)) || (year % 400 == 0))) ? 29 : 28 );
+	}
+	function DaysArray(n) {
+		for (var i = 1; i <= n; i++) {
+			this[i] = 31
+			if (i==4 || i==6 || i==9 || i==11) {this[i] = 30}
+			if (i==2) {this[i] = 29}
+	   } 
+	   return this
+	}
+
+	function isDateOkay(dtStr){
+		var daysInMonth = DaysArray(12)
+		var pos1=dtStr.indexOf(dtCh)
+		var pos2=dtStr.indexOf(dtCh,pos1+1)
+		var strMonth=dtStr.substring(0,pos1)
+		var strDay=dtStr.substring(pos1+1,pos2)
+		var strYear=dtStr.substring(pos2+1)
+		strYr=strYear
+		if (strDay.charAt(0)=="0" && strDay.length>1) strDay=strDay.substring(1)
+		if (strMonth.charAt(0)=="0" && strMonth.length>1) strMonth=strMonth.substring(1)
+		for (var i = 1; i <= 3; i++) {
+			if (strYr.charAt(0)=="0" && strYr.length>1) strYr=strYr.substring(1)
+		}
+		month=parseInt(strMonth)
+		day=parseInt(strDay)
+		year=parseInt(strYr)
+		if (pos1==-1 || pos2==-1){
+			alert("Please enter your birth date in the form: mm/dd/yyyy")
+			return false
+		}
+		if (strMonth.length<1 || month<1 || month>12){
+			alert("Please enter a valid birth date month")
+			return false
+		}
+		if (strDay.length<1 || day<1 || day>31 || (month==2 && day>daysInFebruary(year)) || day > daysInMonth[month]){
+			alert("Please enter a valid birth date day")
+			return false
+		}
+		if (strYear.length != 4 || year==0 || year<minYear || year>maxYear){
+			alert("Please enter a valid 4 digit birth date year between "+minYear+" and "+maxYear)
+			return false
+		}
+		if (dtStr.indexOf(dtCh,pos2+1)!=-1 || isInteger(stripCharsInBag(dtStr, dtCh))==false){
+			alert("Please enter a valid birth date date")
+			return false
+		}
+		return true
+	}
+
+	function ValidateForm(){
+		var dt=document.frmSample.txtDate
+		if (isDate(dt.value)==false){
+			dt.focus()
+			return false
+		}
+	    return true
+	 }
+-->
+</script>

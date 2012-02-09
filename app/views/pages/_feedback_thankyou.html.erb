@@ -1,0 +1,10 @@
+<div id="ufeedback" style="color:white;text-align:center;padding:30px;width:100%;font-weight:bold;">
+	<div style="width:240px;text-align:center;">
+	We appreciate your feedback.<br/><br/>
+	<%= link_to_function (ok_button_image, update_page{|page| 
+		page.replace_html "feed_con", :partial => 'shared/feedback'
+		page["feed_con"].toggle })
+	%>
+	
+	</div>
+</div>

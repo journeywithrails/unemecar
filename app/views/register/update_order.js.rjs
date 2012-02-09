@@ -1,0 +1,45 @@
+#get the value of the selected reg
+
+reg = EventRegistration.find(params[:id]) unless params[:id].blank?
+if reg.nil?
+	reg = EventRegistration.new
+end
+
+@race = Race.find(params[:race])
+@reg = reg
+@cand_regs = EventRegistration.profile_registrations(current_user, session[:reg_ids])
+
+if flash[:order].nil?
+	#set it the first time
+	@order = {}
+	@order.first_name = @reg.first_name
+	@order.last_name = @reg.last_name
+	@order.address = @reg.address
+	@order.city = @reg.city
+	@order.state = @reg.state
+	@order.zip = @reg.zip
+else
+	address = flash[:address]
+	card = flash[:order]
+	
+	@order = {}
+	@order.first_name = card.first_name
+	@order.last_name = card.last_name
+	@order.address = address[:address1]
+	@order.city = address[:city]
+	@order.state = address[:state]
+	@order.zip = address[:zip]
+	@order.card_type = card.type
+	@order.card_number = card.number
+	@order.card_verification = card.verification_value
+	
+end
+
+
+session[:e_reg] = reg.id  
+logger.debug "now e_reg => #{reg.id}"
+
+
+#update the partial
+
+page.replace_html "order_info", :partial => 'cc_form', :locals => {:event_registration => reg,:errors => flash[:bad_card], :auth_error => flash[:card_error]}

@@ -1,0 +1,26 @@
+<html>
+ <body>
+
+<div style="border:3px double #1647b2;margin:10px;padding-left:20px;padding-right:20px;margin-left:30px;margin-right:30px;width:550px;">
+
+ Hello,<br/>
+
+ <% if @mode == "RD_TEAM_ADD" %>
+   The following team has been submitted:<br/><br/>
+   <%= @team.name %>
+   <br/><br/>
+   Click <a href="<%= @url %>">here</a> to view the team information.
+ <% elsif @mode == "USER_TEAM_ADD" %>
+   Your team has been registered. <br/><br/>
+   <%= @team.name %>
+   <br/><br/>
+   Click <a href="<%= @url %>">here</a> to view people who signed up for your team.
+ <% end %>
+ 
+
+  <p>
+ <img src="http://racemenu.com/images/pb_racemenu.gif" style="border:0;">
+ </p>
+</div>
+ </body>
+</html>

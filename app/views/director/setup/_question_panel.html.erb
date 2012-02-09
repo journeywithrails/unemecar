@@ -1,0 +1,81 @@
+<td colspan="4">
+
+ <% form_tag(:controller => 'setup', :action => 'custom_questions')  do -%>
+ <table width="100%">
+
+	 <tr class="director_header_row"><td colspan=3 style="padding-left:20px;"><%= question.id ? 'Edit' : 'Add' %> Question</td></tr>
+		<tr>
+		 <td width="140px" align="left">Question Text</td>
+			
+			<td><%= text_field(:new_question,:title, { :value => question.title, :id => "question_title", "size" => "20", :class => "search_form_input"}) %> Text to display on registration form.
+			<label for="question_title" class="default-value">e.g. Free tshirt size?</label>
+			</td>
+		</tr>
+		<tr>
+			<td> 
+			<%= hidden_field_tag(:slug_question_id, question.id) %>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="140px" align="left" valign="top">Question Abbreviation</td>
+			<td><%= text_field(:new_question, :abbreviation, {:value => question.abbreviation, :id => "question_abbr", "size" => "15", :class => "search_form_input"}) %> Max 15 characters - not shown on registration form.
+			<label for="question_abbr" class="default-value">e.g. Tshirt size?</label>
+			</td>
+		</tr>
+		<tr>
+			<td width="140px" align="left" valign="top">Question Type:</td>
+			<td><%= select(:new_question, :question_type,options_for_select(Question.SELECT_Q_TYPES, question.question_type) , {:include_blank => "Select"}, {:class => "search_form_input",:style => "width:160px;"}) %>
+
+				<%= check_box(:new_question, :is_required, { :class => 'search_form_input', :checked => question.is_required })%>  Required
+			</td>
+			
+			<td>
+			
+			</td>
+		</tr>
+		
+		 <% question.question_options.each_with_index do |option, index| %>
+		     
+		<tr id="question_option_<%= option.id %>" >
+		      
+			<td> Option <%= index+1 %> </td>
+		      <td><%= option.title %> </td>
+		      <td><%= link_to_remote delete_button_image, 
+										:url => {:action => 'remove_question_option', :id => question.id , 
+		                                      :controller => 'setup'},
+		                                      :with => "'option_id='+ #{option.id}"
+		                                       %>
+		        </td>
+		</tr>
+		
+		<% end -%>
+
+		<tr id="question_option_new" >
+		
+		</tr>
+		
+		<% unless question.id.nil? or [0,1].include?( question.question_type) %>
+		<tr>    
+			<td> Add <%= 'Another' unless question.question_options.empty? %> Option   </td>
+		    <td>
+		      <%= link_to_remote(add_button_image, :url => { :id => question.id, :controller => 'setup', 
+		      :action => 'add_question_option'},  
+		      :method => :get) %>
+		      
+		    </td>
+		</tr>
+		<% end -%>
+
+		<tr>
+			<td align="center" colspan=3>
+			  <%= ok_button_image(true) %>
+			  <%= link_to cancel_button_image, {:action => "custom_questions"}, 
+				  {:onclick => "if( confirm( 'are you sure? all your changes will be lost!' ) ){ $('active_q_p').hide().innerHTML = ''; $('add_q_p').show(); } return false;" } %>
+			</td>
+		</tr>  
+
+	</table>
+	<% end %>
+
+</td>

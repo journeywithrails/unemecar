@@ -1,0 +1,172 @@
+<% content_for :head_title do %>About RaceMenu<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => nil }%><% end %>
+<% content_for :top_area do %><%= image_tag "header500.jpg", :style=>"padding-left:130px;margin-top:16px;" %>
+<% @search_request = Hash.new%>
+<!--<table><tr><td style="padding-left:25px;padding-top:30px;" valign="bottom" class="pageTITLE">About RaceMenu: </td></tr></table>-->
+	
+<% end %>
+	
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="6">&nbsp;</td>
+<td width="774" class="tableHEAD"></td>
+    <td width="120" class="sidebarHeaderText">Featured Events </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+<td class="content_bg">
+	
+	
+	<h1  class="text_pages">Add an Event:</h1>
+	<br/>
+	<%= flash[:notice]%>
+
+<% form_for :event, @simple_event, :url=> url_for(:controller => "simple_events", :action => "create") do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label "Event Name" %><br />
+    <%= f.text_field :name, :id => "fname" %>
+  </p>
+  <p>
+    <%= f.label :event_date %><br />
+    <%= f.datetime_select :event_date, :minute_step => 15, :start_year => 2009, :end_year => 2010 %>
+  </p>
+  <p>
+    <%= f.label :host %><br />
+    <%= f.text_field :host %>
+  </p>
+  <p>
+    <%= f.label "Event Type" %><br />
+    
+  
+  	<%= text_field_tag("event_discipline", "", :value => "Sport", :id => "discipline_text", :size => 30, :onclick => "showRaceType()") %>
+                  <div id="select_race_type_container" style="display:none">
+                    <div id="race_type">
+                       <%= render :partial => 'events/race_type', :locals => {:mode => "multi"} -%>
+                    </div>
+
+
+                  </div>
+                  
+              
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description, "rows" => 3 %>
+  </p>
+  <p>
+    <%= f.label :address_info %><br />
+    <%= f.text_field :address_info %>
+  </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </p>
+  <p>
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </p>
+  <p>
+    <%= f.label :state %><br />
+    <%= f.text_field :state %>
+  </p>
+  <p>
+    <%= f.label :zip %><br />
+    <%= f.text_field :zip %>
+  </p>
+  <p>
+    <%= f.label :contact_name %><br />
+    <%= f.text_field :contact_name %>
+  </p>
+  <p>
+    <%= f.label :contact_email %><br />
+    <%= f.text_field :contact_email %>
+  </p>
+  <p>
+    <%= f.label :contact_phone %><br />
+    <%= f.text_field :contact_phone %>
+  </p>
+  <p>
+    <%= f.label "website" %><br />
+    <%= f.text_field :register_link %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<div id="race_distance_fields"></div>
+
+<br>
+<br>
+
+
+	</td>
+	    <td align="left" valign="top" id="ads" width="120" >
+	    	<%= render :partial => 'shared/ads'%>
+
+		</td>
+		<td style="padding-right:10px;"></td>
+	  </tr>
+	  <tr>
+	    <td>&nbsp;</td>
+	    <td id="tableBOTTOMshadow">&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <%= render :partial => 'shared/footer'%>
+	</table>
+
+<script type="text/javascript">
+
+  $('show_all_race_cb').checked = true;
+  toggleMainCheckBoxes();  
+  
+  function hideAll() {
+  	hideRaceType();
+  }
+
+  function showRaceType(){
+	
+	//this is so that everything is checked and unactive when first opened
+	if ($('discipline_text').value == "Sport"){
+		$('show_all_race_cb').checked = false;
+		myArray = $$('input.disc_chebx');
+	  	for (var index = 0; index < myArray.length; ++index) {
+			var item = myArray[index];
+			toggleDiscCheckbox(item, false, value == true)
+		}
+	}
+	
+  	hideAll();
+    $('select_race_type_container').style.display="block";
+	$('race_type').style.display="block";
+<%#*$('select_race_type_container').onmouseout.display="none";%>
+  }
+  function hideRaceType(){
+    $('select_race_type_container').style.display = "none";
+  }
+  function showDistance(){
+  	hideAll();
+    $('race_distance_fields').style.display="block";
+  }
+  function hideDistance(){
+    $('race_distance_fields').style.display="none";
+  }
+  
+
+
+	
+
+  function showToCalendar() {
+  	hideAll();
+  	
+  	new PNSCalender().callRaceMenuCalender('to_calender_btn','to_calender','txtToDate', 'to_calender_holder');
+  }
+  
+  function showFromCalendar() {
+  	hideAll();
+  	
+  	new PNSCalender().callRaceMenuCalender('from_calender_btn','from_calender','txtFromDate', 'from_calender_holder')
+  }
+</script>

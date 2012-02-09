@@ -1,0 +1,87 @@
+<div id="suggest_popup">
+	<table style="color:white;text-align:left;padding-right:20px;padding-left:20px;width:90%;font-weight:bold;">
+		<tr>
+			<td colspan="3" style="text-align:right;padding-top:5px;"><%= link_to_function (close_button_image, update_page{|page|	page["sug_con"].hide })%></td>
+		</tr>
+		<tr>
+			<td colspan="3">Event Name:</td>
+		</tr>
+		<tr>
+			<td colspan="3"><%= text_field(:suggest, :name, "size" => "30", :class => "search_form_input") %></td>
+		</tr>
+		<tr>
+			<td width="50%">Event Date:</td>
+			<td width="30%">City:</td>
+			<td width="20%">State:</td>
+		</tr>
+		<tr>
+			<td><%= text_field(:suggest, :date, "size" => "10", :class => "search_form_input") %></td>
+			<td><%= text_field(:suggest, :city, "size" => "6", :class => "search_form_input") %></td>
+			<td><%= select :suggest, :state, ['AK',
+			'AL',
+			'AR',
+			'AZ',
+			'CA',
+			'CO',
+			'CT',
+			'DC',
+			'DE',
+			'FL',
+			'GA',
+			'HI',
+			'IA',
+			'ID',
+			'IL',
+			'IN',
+			'KS',
+			'KY',
+			'LA',
+			'MA',
+			'MD',
+			'ME',
+			'MI',
+			'MN',
+			'MO',
+			'MS',
+			'MT',
+			'NC',
+			'ND',
+			'NE',
+			'NH',
+			'NJ',
+			'NM',
+			'NV',
+			'NY',
+			'OH',
+			'OK',
+			'OR',
+			'PA',
+			'RI',
+			'SC',
+			'SD',
+			'TN',
+			'TX',
+			'UT',
+			'VA',
+			'VT',
+			'WA',
+			'WI',
+			'WV',
+			'WY'], 
+			{},  {:class => "search_form_input"} %></td>
+		</tr>
+		<tr>
+			<td colspan="3">Other info:</td>
+		</tr>
+		<tr>
+			<td colspan="3"><%= text_area(:suggest, :other, :rows => 3, :cols => 25, :class => "search_form_input") %></td>
+		</tr>
+		<tr>
+			<td colspan="3" style="text-align:center;"><%= sub_suggestion_button_image(true) %></td>
+		</tr>
+		<tr>
+			<td colspan="3" style="text-align:center;">
+          <%=link_to "Race Directors, submit here.", "/add_event", {:class => "white_link"} %></td>
+		</tr>
+	</table>
+</div>

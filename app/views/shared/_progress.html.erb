@@ -1,0 +1,9 @@
+<!-- Progress bar indicator. pass a parameter to indicate which step it should be in the PB -->
+<p>Progress<br />
+<% if step != "10" 
+	sstep = "0" + step.to_s
+   else
+   	sstep = step.to_s
+   end
+%>
+<img src="/images/img-inner/progress_bar_f<%=sstep%>.png" name="progressBAR" width="202" height="44" id="progressBAR" /></p>

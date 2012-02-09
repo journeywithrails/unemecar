@@ -1,0 +1,226 @@
+<% content_for :head_title do %>Event Registration - Team / Relay information<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "4"}%><% end %>
+<% content_for :extra_head do %>
+	<%= javascript_include_tag "default-values" %>	
+<% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Team / Relay information</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<div style="width:100%;margin-left:-18px;padding-top:4px;text-align:center;">
+	<%= header_image(@event) %>
+	</div>
+	<div>
+	<% form_tag({:controller => "register", :action => "team"}) do%>
+	<table width="700px" border="0" align="left" cellpadding="2" cellspacing="0" id="formText" valign="top">
+	 
+	
+	  <% if false %>
+	  <tr><td align="right">Select Team size:</td><td>
+	  	<%= select(:data, :reg_id, @race.min_relay_size..@race.max_relay_size, 
+	  	{:prompt => "Choose"},
+	  	{:style => "width:100px;", :class => "search_form_input", :onchange => "alert('hello');" }) %>
+	  	
+  	</td></tr>
+      
+      <tr><td colspan="2"><hr/></td></tr>
+      <% end %>
+      
+      <% fields_for "relay" do |f| %>
+      	<tr><td align="right"></td><td colspan="3" align="left"><strong>Team Information</strong></td> </tr>
+      	<tr><td colspan="4" align="center"><%= error_messages_for :relay, :header_message => nil, :message => nil%>	</td> </tr>		
+  		<tr>
+  			<td align="right">Name</td>
+  			<td><%= f.text_field :name, {"size" => "10", :class => "search_form_input"} %></td>
+            <% if @race.event_type.discipline.name.upcase == "MULTISPORT" %>
+  			<td align="right">Division:</td>
+  			<td><%= f.select :division, ['Men', 'Women', 'Mixed'], {:prompt => "-please select-"},  {:class => "search_form_input"} %></td>
+            <% else  %>
+            <td align="right"></td>
+  			<td></td>
+            <% end %>
+  		</tr>
+  		<tr>
+  			<td align="right">Team Size</td>
+  			<td><%= select(:data, :reg_id, @race.min_relay_size..@race.max_relay_size, {},{:class => "search_form_input", :onchange => "set_panels(this.value, #{@race.max_relay_size});"}) %></td>
+  			<td align="right"></td>
+  			<td></td>
+  		</tr>
+      	<tr><td colspan="4" align="left"><hr/></td> </tr>	
+      <% end %>
+      <% counter = 0 %>
+      
+      <% for @relay_entry in @entries %>
+      	<% counter += 1 %>
+      	<% if @relay_entry.new_record? and @relay_entry.errors.empty? and (counter > @race.min_relay_size)%>
+      		<tr id="relay_panel_<%=counter%>" style="display:none">
+      	<% else%>
+      		<tr id="relay_panel_<%=counter%>">
+      	<% end%>
+      		<td colspan="4">
+      			<table width="100%">
+      			
+			      	<tr><td colspan="4" align="center"><%= error_messages_for :relay_entry, :header_message => nil, :message => nil%>	</td> </tr>		
+			  		<% fields_for "relay_entry[]" do |f| %>
+			    	<tr><td align="right"><td colspan="3" align="left"><strong>Team Entry #<%=counter%></strong></td> </tr>	
+			  		<tr>
+			  			<td align="right">First Name:</td>
+			  			<td><%= f.text_field :first_name, {"size" => "10", :class => "search_form_input"} %></td>
+			  			<td align="right">Last Name:</td>
+			  			<td><%= f.text_field :last_name, {"size" => "10", :class => "search_form_input"} %></td>
+			  		</tr>
+			  		<tr>
+			  			<td align="right">Email:</td>
+			  			<td><%= f.text_field :email, {"size" => "10", :class => "search_form_input"} %></td>
+			  			<td align="right">Date of Birth:</td>
+			  			<td><%= f.text_field :date_of_birth, {"size" => "10", :id => "dob_#{counter}", :class => "search_form_input"} %><label for="<%="dob_#{counter}"%>" class="default-value">mm/dd/yyyy</label></td>
+			  		</tr>
+			        <% if @race.event_type.discipline.name.upcase == "MULTISPORT" %>
+			  		<tr>
+			  			<td align="right">Sex:</td>
+			  			<td><%= f.select :gender, ['Male', 'Female'], {:prompt => "-please select-"},  {:class => "search_form_input"} %></td>
+				<% unless @race.event.has_tshirt_question? %>
+			  			<td align="right">T-Shirt:</td>
+			  			<td><%= f.select :tshirt, ['X-Small','Small', 'Medium', 'Large', 'X-Large'], {:prompt => "-please select-"},  {:class => "search_form_input"} %></td>
+				<% end %>
+			  		</tr>
+			  		<tr>
+					    	<td align="right">USAT License:</td>
+					    		<td><%= f.select :license_type, ['annual license', 'one-day license', 'pending'],  {:include_blank => "please select"},  {:id => "usat_selector_#{counter}", :class => "search_form_input" ,:onchange => "toggleUSAT_#{counter}(this.value)" } %></td>
+					  		</tr>
+					  		<tr id="usat_license_<%=counter%>" style="display:none;">
+				    			<td align="right">USAT License #:</td>
+				    			<td><%= f.text_field(:license_num, {:id => "usat_license__#{counter}", "size" => "7", :class => "search_form_input"}) %></td>
+				  			</tr>
+					  		<tr id="usat_purchase_<%=counter%>" style="display:none;">
+					  			<td></td>
+					  			<td colspan="3">You must purchase a one-day license; $10 fee will be added at checkout ($5 if under 18)</td>
+					  		</tr>
+					  		<tr id="usat_pending_<%=counter%>" style="display:none;">
+					  			<td></td>
+					  			<td colspan="3">I've purchased an annual license but have not yet received my number.</td>
+					  		</tr>
+					  		<!-- set the license box-->
+					  		<script type="text/javascript">
+					  			value = '<%= @relay_entry.license_num%>';
+					  			Form.Element.setValue("usat_selector_<%=counter%>",value);
+					  			if (value == "annual license") {
+									$("usat_purchase_<%=counter%>").hide();
+									$("usat_pending_<%=counter%>").hide();
+									$("usat_license_<%=counter%>").show();
+								}
+								else if (value == "one-day license") {
+									$("usat_purchase_<%=counter%>").show();
+									$("usat_pending_<%=counter%>").hide();
+									$("usat_license_<%=counter%>").hide();
+								}
+								else if (value == "pending") {
+									$("usat_purchase_<%=counter%>").hide();
+									$("usat_pending_<%=counter%>").show();
+									$("usat_license_<%=counter%>").hide();
+									Form.Element.setValue("usat_license_<%=counter%>","");
+									
+								}
+								else {
+									$("usat_purchase_<%=counter%>").hide();
+									$("usat_pending_<%=counter%>").hide();
+									$("usat_license_<%=counter%>").hide();
+								}
+								
+								function setLic_<%=counter%>(value) {
+									Form.Element.setValue("usat_selector_<%=counter%>",value);
+								}
+								function toggleUSAT_<%=counter%>(value) {
+									if (value == "annual license") {
+										$('usat_purchase_<%=counter%>').hide();
+										$('usat_pending_<%=counter%>').hide();
+										$('usat_license_<%=counter%>').show();
+									}
+									else if (value == "one-day license") {
+										$('usat_purchase_<%=counter%>').show();
+										$('usat_pending_<%=counter%>').hide();
+										$('usat_license_<%=counter%>').hide();
+									}
+									else if (value == "pending") {
+										$('usat_purchase_<%=counter%>').hide();
+										$('usat_pending_<%=counter%>').show();
+										$('usat_license_<%=counter%>').hide();
+									}
+									else {
+										$('usat_purchase_<%=counter%>').hide();
+										$('usat_pending_<%=counter%>').hide();
+										$('usat_license_<%=counter%>').hide();
+									}
+								}
+					  		</script>
+			                <% else  %>
+						<% unless @race.event.has_tshirt_question? %>
+			                <tr>
+			                    <td align="right">T-Shirt:</td>
+			                    <td><%= f.select :tshirt, ['X-Small','Small', 'Medium', 'Large', 'X-Large'], {:prompt => "-please select-"},  {:class => "search_form_input"} %></td>
+			                    <td align="right"></td>
+			                    <td></td>
+			                </tr>
+						<% end %>
+			        <% end %>
+			  		<tr>
+			  			<td align="right">Emergency Contact:</td>
+			  			<td><%= f.text_field :em_con_name, {"size" => "10", :class => "search_form_input"} %></td>
+			  			<td align="right">Emergency Phone:</td>
+			  			<td><%= f.text_field :em_con_phone, {"size" => "10", :class => "search_form_input"} %></td>
+			  		</tr>
+			  		<% end %>
+			  		<tr><td colspan="4" align="left"><hr/></td> </tr>
+  	  		</table>	
+  	  	</td>
+  	  </tr>
+	  <% end %>
+	  
+		
+	  	  
+	  <tr><td>&nbsp;</td><td></td></tr>
+	  <tr>
+	    
+	    <td colspan="4" align="center"><%= link_to back_button_image, :action => "athlete_info" %><%= next_button_image(true) %></td>
+	  </tr>
+</table>
+	<% end %>
+	</div>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+<script type="text/javascript">
+
+	
+	function set_panels(current, total) {
+		//alert(current * 1);
+		//alert(total);
+		for(i = 0; i < total + 1; i++){
+			view = i + 1;
+			pstring = 'relay_panel_' + view;
+			//alert(pstring);
+			if (i < (current)) {
+				$(pstring).show();
+				//alert('show');
+			}
+			else {
+				$(pstring).hide();
+				//alert('hide');
+			}
+		}
+		
+	}
+</script>

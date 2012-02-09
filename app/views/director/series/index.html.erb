@@ -1,0 +1,79 @@
+<% content_for :head_title do %>Series List<% end %>
+<% content_for :top_nav do %><%#= render :partial => 'shared/top_nav',:locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%#= render :partial => 'director/shared/top_nav', :locals => {:step => "3"}%><% end %>
+<% content_for :extra_head do %>
+	
+	<%= javascript_include_tag "default-values" %>
+<% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td colspan="3"> <%= link_to "Create New Series",:controller => "director/series",:action => "new" %> </td>
+</tr>
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Series List</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<div id="director_table_holder">
+	<table width="100%" cellspacing="0">		
+		
+		<tr class="director_header_row">
+				
+				
+				<td>Name</td>
+				<td>Header</td>
+				<td>Description</td>				
+				<td>&nbsp;</td>
+		</tr>
+			
+		
+	<% if !@series_list.blank? %>	
+		<% @series_list.each do | series | %>
+		<tr class="director_row1">
+			<td><%= series.name %></td>
+			<td ><%= series.header_file_name %></td>			
+			<td ><%= series.description %></td>
+			<td><%= link_to "Edit",:controller => "director/series",:action => "edit" ,:evid => 763,:id => series.id %></td>
+		</tr>
+			
+		<% end %>
+	<% else %>
+		<tr class="director_row1">
+		<td colspan="3">No Series Posted Yet.</td>
+		</tr>
+	<% end %>
+		<tr class="director_row1">
+			<td></td>
+			<td colspan="7"><%#= will_paginate(@regs, :params => {:search_req => @search_req, :sort => params[:sort]}) %></td>
+		</tr>
+		
+	</table>
+	</div>
+	
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+<script>
+function toggleSearch(){
+	if ($('searchFieldsOpen').visible()) {
+		$('searchFieldsOpen').hide();
+		$('searchBarOpen').removeClassName('director_search_row_open')		
+	}
+	else {
+		$('searchFieldsOpen').show();
+		$('searchBarOpen').addClassName('director_search_row_open')	
+	}
+    
+
+  }
+</script>

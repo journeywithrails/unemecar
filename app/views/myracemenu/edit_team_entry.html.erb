@@ -1,0 +1,137 @@
+<% content_for :head_title do %>Edit Team Entry - <%= @entry.name %><% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => "myracemenu"}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'myracemenu/mrm_top', :locals => {:param => nil, :show_buddies => true}%><% end %>
+
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Edit Team Entry - <%= @entry.name %></p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td class="content_bg">
+	<% form_tag(:controller => "myracemenu", :action => "edit_team_entry", :id => @entry, :team => @entry.team.id) do%>
+
+	<table width="100%" border="0" align="center" cellpadding="5" cellspacing="0" id="formText" valign="top">
+	  <tr><td></td><td>
+	  	<%= error_messages_for "entry", :header_message => nil, :message => nil %>
+	  	<%= error_messages_for "reg", :header_message => nil, :message => nil %>
+	  </td></tr>
+	  
+      <% unless flash[:error].blank? %>
+        <tr><td colspan="2"><%= show_error(flash[:error]) %></td></tr>
+      <% end  %>
+	 <tr>
+	    <td align="right" width="300px">Timestamp, UTC (EST=UTC-5):</td>
+	    <td ><%= @team.created_at.strftime("%Y-%m-%d %I:%M%p %Z") %></td>
+	   </tr>
+       <tr>
+	    <td align="right"></td>
+	    <td><%= check_box(:entry, :approved, { :class => 'search_form_input' })%> Approved Entry?</td>
+	  </tr>
+	  <% fields_for "event_registration", @entry.event_registration do |f| %>
+      <tr>
+	    <td align="right">First Name:</td>
+	    <td ><%= f.text_field(:first_name, {:size=>"25", :class => "search_form_input"}) %></td>
+	   </tr>
+      <tr>
+	    <td align="right">Last Name:</td>
+	    <td><%= f.text_field(:last_name, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Address:</td>
+	    <td><%= f.text_field(:address, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">City:</td>
+	    <td><%= f.text_field(:city, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">State:</td>
+	    <td><%= f.select :state, ['AK',
+			'AL',
+			'AR',
+			'AZ',
+			'CA',
+			'CO',
+			'CT',
+			'DC',
+			'DE',
+			'FL',
+			'GA',
+			'HI',
+			'IA',
+			'ID',
+			'IL',
+			'IN',
+			'KS',
+			'KY',
+			'LA',
+			'MA',
+			'MD',
+			'ME',
+			'MI',
+			'MN',
+			'MO',
+			'MS',
+			'MT',
+			'NC',
+			'ND',
+			'NE',
+			'NH',
+			'NJ',
+			'NM',
+			'NV',
+			'NY',
+			'OH',
+			'OK',
+			'OR',
+			'PA',
+			'RI',
+			'SC',
+			'SD',
+			'TN',
+			'TX',
+			'UT',
+			'VA',
+			'VT',
+			'WA',
+			'WI',
+			'WV',
+			'WY'], 
+			{},  {:class => "search_form_input"} %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Zip:</td>
+	    <td><%= f.text_field(:zip, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">Email:</td>
+	    <td><%= f.text_field(:email, {"size" => "25", :class => "search_form_input"}) %></td>
+	  </tr>
+      <% end %>
+
+
+       <tr><td>&nbsp;</td><td></td></tr>
+       
+	  <tr>
+	    
+	    <td colspan="2" align="center"><%= ok_button_image(true) %><%= link_to cancel_button_image, :action => "index" %></td>
+	  </tr>
+	  <tr><td colspan="2" align="center"><%= link_to "back to team management", :controller => "myracemenu", :action => "team", :event => @entry.event_registration.event.id%></td</tr>
+</table>
+	<% end %>
+
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>
+

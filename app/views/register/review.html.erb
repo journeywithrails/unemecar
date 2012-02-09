@@ -1,0 +1,77 @@
+<!-- NOT BEING USED -->
+<% content_for :head_title do %>Review Registration Information<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "7"}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="6">&nbsp;</td>
+            <td width="774" align="center" valign="bottom" class="tableHEAD"><p>Review Registration Information</p></td>
+            <td width="120" class="sidebarHeaderText">Featured Events </td>
+          </tr>
+          <tr>
+            <td width="6">&nbsp;</td>
+            <td width="774" align="center" valign="bottom"  id="tableROWS">
+            	<div style="width:100%;margin-left:-18px;padding-top:4px;text-align:center;">
+				<%= header_image(@event) %>
+				</div>
+
+            </td>
+            <td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableROWS">
+            	<% form_tag(:controller => "register", :action => "review") do%>
+            	<table width="614" border="0" align="center" cellpadding="5" cellspacing="0" id="formText">
+              <tr>
+			    
+			    <td colspan="2" align="center">
+			    	
+				 <table>
+					<tr><td>&nbsp;</td></tr>
+					<% if @reg.race.supports_team_creation %>
+					<tr><td align="right"><b>Team Name:</b>&nbsp;&nbsp;</td><td><%= @reg.club_team %> </td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<% end %>
+					
+					<tr><td align="right"><b>Your Name:</b>&nbsp;&nbsp;</td><td><%= @reg.first_name %> <%= @reg.last_name %></td></tr>
+					<tr><td align="right"><b>Birth Date:</b>&nbsp;&nbsp;</td><td><%= @reg.birthday.strftime("%m/%d/%Y") %></td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td align="right"><b>Race/Category:</b>&nbsp;&nbsp;</td><td><%= @reg.race.name %></td></tr>
+					<% if false #if @reg_type.supports_teams %>
+					<tr><td align="right"><b>Team:</b>&nbsp;&nbsp;</td><td><%= @reg.team.name unless @reg.team.blank? %></td></tr>
+					<% end %>
+					
+										
+					<tr><td align="right"><b>Gender:</b>&nbsp;&nbsp;</td><td><%= @reg.sex %></td></tr>
+					<tr><td align="right"><b>Email:</b>&nbsp;&nbsp;</td><td><%= @reg.email %></td></tr>
+					<tr><td align="right"><b>Phone:</b>&nbsp;&nbsp;</td><td><%= @reg.phone %></td></tr>
+					<tr><td align="right"><b>Address:</b>&nbsp;&nbsp;</td><td><%= @reg.address %>
+					<%= if (!@reg.apt.nil? and @reg.apt.size>0) then ", Apt "+@reg.apt else "" end %>, <%= @reg.city %>, <%= @reg.state %> <%= @reg.zip %></td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td align="right"><b>Emergency Contact Person:</b>&nbsp;</td><td><%= @reg.em_con_name %></td></tr>
+					<tr><td align="right"><b>Relationship to You:</b>&nbsp;</td><td><%= @reg.em_con_relationship %></td></tr>
+					<tr><td align="right"><b>Phone:</b>&nbsp;</td><td><%= @reg.em_con_phone %></td></tr>
+					<tr><td>&nbsp;</td></tr>
+					
+				  </table>
+				
+			    </td>
+			  </tr>
+              <tr>
+			    
+			    <td colspan="2" align="center"><%= link_to back_button_image, :action => "disclaimers" %><%= next_button_image(true) %></td>
+			  </tr>
+            </table>
+            <% end %>
+        			</td>
+            <td></td>
+<td style="padding-right:10px;"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableBOTTOMshadow">&nbsp;</td>
+            </tr>
+          <%= render :partial => 'shared/footer'%>
+        </table>

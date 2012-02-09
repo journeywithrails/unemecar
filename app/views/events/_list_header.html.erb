@@ -1,0 +1,16 @@
+<td width="774" class="tableHEAD">
+	<!-- ===========================   you can adjust the column widths in the CSS, but do not adjust the row heights, especially for the "tableHEAD" cell. Also, note the images for the column sorting indicators. sort-arrows.png is the default state, sort-arrows_f02.png is the down arrow state, sort-arrows_f03.png is the up arrow state (or maybe it's the other way around). The orange arrow points in the direction of the sort. -->
+		<div id="col1">Date <%=show_sort_image("event_date")%></div>
+      	<div id="col2">City / State <%=show_sort_image("city")%></div>
+		<div id="col3">Race Name <%=show_sort_image("name")%></div>
+		<!--
+      	<div id="col4">Sport <%=show_sort_image("discipline_id")%></div> -->
+      	<div id="col5">Type <%=#show_sort_image("event_type_id")
+      		
+      	%></div>
+      	<div id="col6"><% unless hide_header %> 
+      		<%= render :partial => "events/pagination", :locals => {:items => events} %>
+      	<% end %>
+      					
+  		</div>
+</td>

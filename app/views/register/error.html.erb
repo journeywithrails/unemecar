@@ -1,0 +1,49 @@
+<% content_for :head_title do %>Registration Error<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav', :locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'register/reg_top_nav', :locals => {:event => @event, :step => "9"}%><% end %>
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="6">&nbsp;</td>
+            <td width="774" align="center" valign="bottom" class="tableHEAD"><p>Registration Finished <!--Error--></p></td>
+            <td width="120" class="sidebarHeaderText">Featured Events </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableROWS">
+            	
+		    
+            	<table width="614" border="0" align="center" cellpadding="10" cellspacing="0" id="formText">
+	          	<tr>
+			      <td align="center">
+			      	
+					 <table>
+						<tr><td>
+							
+							<p>&nbsp;</p>
+							<p>Thank you for registering!</p>
+			           		<p><a href="http://www.facebook.com/share.php?u=http://www.racemenu.com/event/show_detailed/4611" target="_blank" class="fb_share_link" style="border:0px;text-decoration:none;"><img src="http://racemenu.com/images/fb.gif" style="border:0px;"></a> <a href="http://www.facebook.com/share.php?u=http://www.racemenu.com/event/show_detailed/4611" target="_blank" class="fb_share_link">Share on Facebook</a> | <a href="http://twitter.com/home?status=RT+@racemenu+Come+run+the+Thompson+Island+4K+on+Sept+17th+http://tinyurl.com/lp2cgf" target="_blank" >Share on Twitter</a></p>
+							
+							<p><a href="http://racemenu.com/myracemenu">Proceed to your MyRaceMenu</a> or <a href="http://racemenu.com/calendar">search for more races.</a></p>
+					<p>&nbsp;</p>		
+							</td></tr>
+						
+					 </table>
+
+					 
+
+			      </td>
+			    </tr>
+              	
+			
+            </table>
+            
+        			</td>
+            <td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td id="tableBOTTOMshadow">&nbsp;</td>
+            </tr>
+          <%= render :partial => 'shared/footer'%>
+        </table>

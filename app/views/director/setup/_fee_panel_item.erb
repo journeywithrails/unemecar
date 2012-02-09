@@ -1,0 +1,39 @@
+
+<% id = rfchange.new_record? ? 'new' : rfchange.id %>
+<% field_model = id.eql?('new')  ? "changes[#{id}][]" : "changes[#{id}]" %>
+<% tr_id = id.eql?('new') ? nil : "race_fee_#{id}" %>	
+
+
+<% fields_for field_model, rfchange do |f| %>
+<tr id="<%= tr_id %>">
+  <td width="100px"> &nbsp; 
+	<%= f.hidden_field :race_id, :value => @race ? @race.id : nil %>
+	<% unless id.eql?('new') %>
+	    <%= f.hidden_field :_delete, {:value => 0, :id => "race_fee_#{id}_delete"} %>
+	<% end -%>
+	</td>
+	<td> <strong> Changes to: $ </strong>
+		<%= f.text_field :fee, {:size => 10, :class => 'search_form_input', :disabled => ( @race and !@race.event_registrations.empty? and rfchange.change_date and rfchange.change_date < Time.now )} %> 
+		
+	</td>
+	
+	<td> <strong> From </strong>: 
+		<% cfield = id.eql?('new') ? "changes[#{id}][][change_date]" : "changes[#{id}][change_date]" %>
+
+		<% if @race.nil? or @race.event_registrations.empty? or rfchange.change_date.nil? or rfchange.change_date > Time.now %>
+		<%= calendar_date_select_tag cfield, rfchange.change_date, :after_close_a => "validate_date(this)", 
+								:time => true, :size => 20, :class => 'search_form_input' %> 
+	 		</td>
+                        <td> 
+						<%= link_to_function delete_button_image, update_page{ |page| 
+                                  page["race_fee_#{id}_delete"].value = 1
+                                  page["race_fee_#{id}"].hide
+                        } unless rfchange.new_record? %>
+						
+						
+            </td>
+		<% else %>
+			<%= rfchange.change_date.strftime("%B %d, %Y %I:%M %P") if rfchange and rfchange.change_date %>
+		<% end %>
+</tr>
+<% end -%>

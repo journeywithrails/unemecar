@@ -1,0 +1,50 @@
+<% content_for :head_title do %>Create a New Event - Name Check<% end %>
+<% content_for :top_nav do %><%= render :partial => 'shared/top_nav',:locals => {:param => nil}%><% end %>
+<% content_for :top_area do %><%= render :partial => 'add_event/top_nav', :locals => {:event => @event, :step => "1"}%><% end %>
+
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="6">&nbsp;</td>
+<td width="774" align="center" valign="bottom" class="tableHEAD"><p>Name Check</p></td>
+<td width="120" class="sidebarHeaderText">Featured Events </td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableROWS">
+	<% form_tag(:controller => "add_event", :action => "name_check") do%>
+	<table border="0" align="center" cellpadding="5" cellspacing="0" id="formText">
+		<tr><td align="center" colspan="2">Please check to see if the event you want to create is already in our calendar.<br/><br/>
+			If last year's event is on our calendar, please create a new<br/> event rather than editing info from last year's race.</td></tr>
+		<tr><td>&nbsp;</td></tr>
+    
+  		<tr>
+	    <td align="right">Name:</td>
+	    <td valign="top"><%= text_field(:event, :dname, {"size" => "54", :class => "search_form_input"}) %></td>
+	  </tr>
+	  <tr>
+	    <td align="right">City:</td>
+	    <td><%= text_field(:event, :city, {"size" => "36", :class => "search_form_input"}) %>&nbsp;&nbsp;State:<%= select :event, :state, ['AK',
+			'AL','AR','AZ','CA','CO','CT','DC','DE','FL','GA',
+			'HI','IA','ID','IL','IN','KS','KY','LA','MA','MD',
+			'ME','MI','MN','MO','MS','MT','NC','ND','NE','NH',
+			'NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC',
+			'SD','TN','TX','UT','VA','VT','WA','WI','WV',
+			'WY'], 
+			{},  {:class => "search_form_input"} %></td>
+	  </tr>
+  <tr>
+    
+    <td align="center" colspan="2"><%= search_calendar_button_image(true) %></td>
+  </tr>
+</table>
+	<% end %>
+</td>
+<td width="120" rowspan="2" align="left" valign="top" id="ads"><%= render :partial => 'shared/ads'%></td>
+<td style="padding-right:10px;"></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td id="tableBOTTOMshadow">&nbsp;</td>
+</tr>
+<%= render :partial => 'shared/footer'%>
+</table>

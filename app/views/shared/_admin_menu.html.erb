@@ -1,0 +1,46 @@
+<% @infos = %w( dummy dummy dummy dummy dummy dummy) %>
+<% stp = @step.to_i %>
+<% @infos[stp - 1] = "activeanchor" %>
+<div style="width:100%;color:white;">
+<a href="/admin/events/list" class="anchorclass <%=@infos[0]%>" rel="submenu1">Events</a>
+<a href="/admin/features/list" class="anchorclass <%=@infos[1]%>" rel="submenu2">Features</a>
+<a href="/admin/add_events/list" class="anchorclass <%=@infos[2]%>" rel="submenu3">Requests</a>
+<a href="/admin/rm_users/list" class="anchorclass <%=@infos[3]%>" rel="submenu4">Users</a>
+<a href="/admin/tools/export" class="anchorclass <%=@infos[4]%>" rel="submenu5">Tools</a>
+<a href="/admin/login/out" class="anchorclass <%=@infos[5]%>" rel="submenu6">Logout</a>
+<div id="submenu1" class="anylinkcss">
+	<ul>
+		<li><a href="/admin/events/list">All Events</a></li>
+		<li><a href="/admin/active_events/list">Powered by RM</a></li>
+		<li><a href="/admin/cancellations/list">Cancellations</a></li>
+		<li><a href="/admin/event_types/list">Event Types</a></li>
+	</ul>
+</div>
+<div id="submenu2" class="anylinkcss">
+	<ul>
+		<li><a href="/admin/features/list">Ad Features</a></li>
+		<li><a href="/admin/home_features/list">Homepage Features</a></li>
+	</ul>
+</div>
+<div id="submenu3" class="anylinkcss">
+	<ul>
+	<li><a href="/admin/add_events/list">Add Event Requests</a></li>
+	<li><a href="/admin/manual_entries/list">Simple Form Requests</a></li>
+	<li><a href="/admin/director_requests/list">Facebook Requests</a></li>
+	</ul>
+</div>
+
+<div id="submenu4" class="anylinkcss">
+	
+</div>
+<div id="submenu5" class="anylinkcss">
+	<ul>
+		
+		<li><a href="/admin/tools/export">Email Exporter</a></li>
+		<li><a href="/admin/contents">Content Management</a></li>
+		<li><a href="/admin/reports/index">Reports</a></li>
+		<li><a href="/admin/audits">Audit Log</a></li>
+		<li><a href="/admin/redirects">Custom Redirects</a></li>
+	</ul>
+</div>
+</div>

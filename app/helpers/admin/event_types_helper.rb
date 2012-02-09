@@ -1,0 +1,2 @@
+module Admin::EventTypesHelper
+end

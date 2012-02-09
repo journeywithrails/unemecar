@@ -1,0 +1,38 @@
+<frameset> 
+<div style="width:290px;margin-left:10px;margin-top:5px;">
+	<% event = Event.find(event_id) %>
+	<%= Event.find(event_id).description %>
+	<br/>
+	<% er = nil
+	   if logged_in? 
+		er = EventRegistration.find_by_event_id_and_rm_user_id_and_processed(event.id, current_user.id, true)
+
+   	   end
+	%>
+	<% if event.is_registerable? %>
+		<!-- HACK: remove later -->
+		<% if er.nil? %>
+		<br/>
+			<%= link_to register_button_image, {:controller => "event", :action => "show_detailed", :id => event.id}  %>
+		<% else %>
+		<br/>
+			<%= link_to "View Event Details", {:controller => "event", :action => "show_detailed", :id => event.id}  %>
+		<% end %>
+	
+	<% end %>
+	<br>
+	
+	<% if Event.find(event_id).list_users == [] %>
+	</div>
+	<% else %>
+	<span  id="iframe-loader-<%= event_id %>">
+	<br>
+	<center><%= image_tag "iframe-loader.gif", :style=>"margin-top:5px;" %></center>
+	<br>
+	</span>
+</div>
+<br>
+<iframe id="buddies-iframe-<%= event_id %>" height="10" width="300px" frameborder="0" src="/event/friends/<%= event_id %>" scrolling="no" style="margin-top:0px;margin-left:-0px;" onLoad="Element.hide('iframe-loader-<%= event_id %>');$('buddies-iframe-<%= event_id %>').writeAttribute('height', '180px');"></iframe>
+<% end %>
+</frameset>
+

@@ -1,0 +1,19 @@
+<% real_friends = friends * 1 %>
+<% friends = real_friends %>
+
+
+
+<% unless friends == [] %>
+<span style="font-weight:bold;">Race Buddies:</span><br/>
+<div class="event_buddies">
+<% friends.first(8).each do |friend|%>
+	<% if friend.methods.include?("fb_usid") %>
+	<div style="margin-right:5px;margin-top:4px;float:left;">
+	<% link_to fb_profile_pic(friend.fb_usid, :size => :square, :facebook_logo => true, :linked => false, :height => "40", :style=>"border-size:0px;"), {:controller => "myracemenu", :action => "index", :racer => friend.fb_usid}, :target=>"_blank", :style=>"border-size:0px;" %>
+	<%= link_to fb_profile_pic(friend.fb_usid, :size => :square, :facebook_logo => true, :linked => false, :height => "50"), {:controller => "myracemenu", :action => "index", :racer => friend.fb_usid}, :target=>"_blank", :style=>"border-size:1px;" %><br/>
+	<% link_to fb_name(friend.fb_usid, :firstnameonly => true, :linked => false), :controller => "myracemenu", :action => "index", :racer => friend.fb_usid %>
+	</div>
+	<% end %>
+<% end %>
+</div>
+<% end %>

@@ -1,0 +1,50 @@
+# Logfile created on Thu Jan 20 08:53:13 +0530 2011 by /
+[01/20/11 08:53:13 India Standard Time inkakkinada (7176)] INFO : Dispatcher: mongrel
+[01/20/11 08:53:13 India Standard Time inkakkinada (7176)] INFO : Application: My Application
+[01/20/11 08:53:13 India Standard Time inkakkinada (7176)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[01/20/11 08:53:13 India Standard Time inkakkinada (7176)] INFO : New Relic RPM Agent 2.13.1 Initialized: pid = 7176
+[01/20/11 08:53:13 India Standard Time inkakkinada (7176)] INFO : Agent Log found in E:/racemenu/20-01-2011/racemenu/log/newrelic_agent.log
+[01/20/11 09:10:09 India Standard Time inkakkinada (1588)] INFO : Dispatcher: mongrel
+[01/20/11 09:10:09 India Standard Time inkakkinada (1588)] INFO : Application: My Application
+[01/20/11 09:10:09 India Standard Time inkakkinada (1588)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[01/20/11 09:10:09 India Standard Time inkakkinada (1588)] INFO : New Relic RPM Agent 2.13.1 Initialized: pid = 1588
+[01/20/11 09:10:09 India Standard Time inkakkinada (1588)] INFO : Agent Log found in E:/racemenu/20-01-2011/racemenu/log/newrelic_agent.log
+[01/20/11 12:12:59 India Standard Time inkakkinada (1588)] WARN : The error reporting queue has reached 20. The error detail for this and subsequent errors will not be transmitted to RPM until the queued errors have been sent: No action responded to new. Actions: add_race_to_mrm, add_result_to_mrm, calendar, create_facebook_session, facebook_params, facebook_session, facebook_session_parameters, index, redirect_to, remove_event, render_publisher_error, render_publisher_interface, render_publisher_response, set_facebook_session, test, and wants_interface?
+[01/20/11 12:32:41 India Standard Time inkakkinada (1588)] WARN : The error reporting queue has reached 20. The error detail for this and subsequent errors will not be transmitted to RPM until the queued errors have been sent: undefined method `forgot_password_deliver' for RNotifier:Class
+[01/20/11 14:40:26 India Standard Time inkakkinada (9164)] INFO : Dispatcher: mongrel
+[01/20/11 14:40:26 India Standard Time inkakkinada (9164)] INFO : Application: My Application
+[01/20/11 14:40:26 India Standard Time inkakkinada (9164)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[01/20/11 14:40:26 India Standard Time inkakkinada (9164)] INFO : New Relic RPM Agent 2.13.1 Initialized: pid = 9164
+[01/20/11 14:40:26 India Standard Time inkakkinada (9164)] INFO : Agent Log found in E:/racemenu/20-01-2011/racemenu/log/newrelic_agent.log
+[01/20/11 15:01:32 India Standard Time inkakkinada (8840)] INFO : Dispatcher: mongrel
+[01/20/11 15:01:32 India Standard Time inkakkinada (8840)] INFO : Application: My Application
+[01/20/11 15:01:32 India Standard Time inkakkinada (8840)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[01/20/11 15:01:32 India Standard Time inkakkinada (8840)] INFO : New Relic RPM Agent 2.13.1 Initialized: pid = 8840
+[01/20/11 15:01:32 India Standard Time inkakkinada (8840)] INFO : Agent Log found in E:/racemenu/20-01-2011/racemenu/log/newrelic_agent.log
+[01/21/11 08:41:14 India Standard Time inkakkinada (4996)] INFO : Dispatcher: mongrel
+[01/21/11 08:41:14 India Standard Time inkakkinada (4996)] INFO : Application: My Application
+[01/21/11 08:41:14 India Standard Time inkakkinada (4996)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[01/21/11 08:41:14 India Standard Time inkakkinada (4996)] INFO : New Relic RPM Agent 2.13.1 Initialized: pid = 4996
+[01/21/11 08:41:14 India Standard Time inkakkinada (4996)] INFO : Agent Log found in E:/racemenu/20-01-2011/racemenu/log/newrelic_agent.log
+[01/21/11 08:56:13 India Standard Time inkakkinada (7280)] INFO : Dispatcher: mongrel
+[01/21/11 08:56:13 India Standard Time inkakkinada (7280)] INFO : Application: My Application
+[01/21/11 08:56:13 India Standard Time inkakkinada (7280)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[01/21/11 08:56:13 India Standard Time inkakkinada (7280)] INFO : New Relic RPM Agent 2.13.1 Initialized: pid = 7280
+[01/21/11 08:56:13 India Standard Time inkakkinada (7280)] INFO : Agent Log found in E:/racemenu/20-01-2011/racemenu/log/newrelic_agent.log
+[01/21/11 09:14:27 India Standard Time inkakkinada (1148)] INFO : Dispatcher: mongrel
+[01/21/11 09:14:27 India Standard Time inkakkinada (1148)] INFO : Application: My Application
+[01/21/11 09:14:27 India Standard Time inkakkinada (1148)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[01/21/11 09:14:27 India Standard Time inkakkinada (1148)] INFO : New Relic RPM Agent 2.13.1 Initialized: pid = 1148
+[01/21/11 09:14:27 India Standard Time inkakkinada (1148)] INFO : Agent Log found in E:/racemenu/20-01-2011/racemenu/log/newrelic_agent.log
+[01/21/11 09:17:28 India Standard Time inkakkinada (7344)] INFO : Dispatcher: mongrel
+[01/21/11 09:17:28 India Standard Time inkakkinada (7344)] INFO : Application: My Application
+[01/21/11 09:17:28 India Standard Time inkakkinada (7344)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[01/21/11 09:17:28 India Standard Time inkakkinada (7344)] INFO : New Relic RPM Agent 2.13.1 Initialized: pid = 7344
+[01/21/11 09:17:28 India Standard Time inkakkinada (7344)] INFO : Agent Log found in E:/racemenu/20-01-2011/racemenu/log/newrelic_agent.log
+[01/21/11 11:39:51 India Standard Time inkakkinada (7344)] WARN : The error reporting queue has reached 20. The error detail for this and subsequent errors will not be transmitted to RPM until the queued errors have been sent: undefined method `perform_delivery_activerecord' for #<RNotifier:0x7550af8>
+[01/21/11 11:47:35 India Standard Time inkakkinada (7344)] WARN : The error reporting queue has reached 20. The error detail for this and subsequent errors will not be transmitted to RPM until the queued errors have been sent: undefined method `perform_delivery_activerecord' for #<RNotifier:0x79ff4dc>
+[01/21/11 11:49:21 India Standard Time inkakkinada (7344)] WARN : The error reporting queue has reached 20. The error detail for this and subsequent errors will not be transmitted to RPM until the queued errors have been sent: undefined method `perform_delivery_activerecord' for #<RNotifier:0x758bc70>
+[01/21/11 11:50:46 India Standard Time inkakkinada (7344)] WARN : The error reporting queue has reached 20. The error detail for this and subsequent errors will not be transmitted to RPM until the queued errors have been sent: undefined method `perform_delivery_activerecord' for #<RNotifier:0x7720ae0>
+[01/21/11 11:51:37 India Standard Time inkakkinada (7344)] WARN : The error reporting queue has reached 20. The error detail for this and subsequent errors will not be transmitted to RPM until the queued errors have been sent: undefined method `perform_delivery_activerecord' for #<RNotifier:0x7645850>
+[01/21/11 12:11:50 India Standard Time inkakkinada (7344)] WARN : The error reporting queue has reached 20. The error detail for this and subsequent errors will not be transmitted to RPM until the queued errors have been sent: undefined method `perform_delivery_activerecord' for #<RNotifier:0x746d820>
+[01/21/11 12:12:12 India Standard Time inkakkinada (7344)] WARN : The error reporting queue has reached 20. The error detail for this and subsequent errors will not be transmitted to RPM until the queued errors have been sent: undefined method `perform_delivery_activerecord' for #<RNotifier:0x752f2a4>

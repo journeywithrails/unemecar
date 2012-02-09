@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- Trent's Changes -->
+<!--html xmlns="http://www.w3.org/1999/xhtml"-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+
+<head>
+<%= javascript_include_tag :defaults%>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>RaceMenu | Make it your race calendar!</title>
+<link href="/stylesheets/CSS-home.css" rel="stylesheet" type="text/css" />
+<script type="text/JavaScript">
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+function MM_showHideLayers() { //v6.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+function P7_hideDiv(evt) { //v1.3 by PVII
+ var b,relT,mT=false;
+ if(document.layers){b=evt.target;if(b.p7aHide){
+ b.visibility="hidden";}else{routeEvent(evt);}
+ }else if(document.all&&!window.opera){b=event.srcElement;
+ while(b!=null){if(b.tagName=="DIV" && b.p7ahD){mT=true;break;}b=b.parentElement;}
+ if(!b.contains(event.toElement)){b.style.visibility="hidden";}
+ }else if(document.getElementById){b=evt.currentTarget;relT=evt.relatedTarget;
+ while(relT!=null){if(b==relT){mT=true;break;}
+ relT=relT.parentNode;}if(!mT){b.style.visibility="hidden";}}
+}
+function P7_autoHide() { //v1.3 by PVII
+ var i,g,args=P7_autoHide.arguments;
+ for(i=0;i<args.length;i++){if((g=MM_findObj(args[i]))!=null){
+ g.p7aHide=true;if(document.layers){
+ g.captureEvents(Event.MOUSEOUT);}g.onmouseout=P7_hideDiv;g.p7ahD=true;}}
+}
+//-->
+</script>
+</head>
+
+<body onload="MM_preloadImages('/images/img-inner/BTN_login_signup_f2.png','/images/img-inner/BTN_fb_connect_f2.png','/images/img-inner/BTN_login_f2.png','/images/img-inner/BTN_signup_f2.png','/images/img-inner/BTN_fb_square_f2.png','/images/img-home/BTN_more_info_f2.png','/images/img-home/BTN_register_f2.png','/images/img-home/BTN_add_event_f2.png','/images/img-home/BTN_raceCalendar_f2.png','/images/img-home/photo-socialnetworking-hover.jpg');P7_autoHide('login')">
+<%= fb_connect_javascript_tag %>
+<%= init_fb_connect "XFBML"%>	
+<table width="932" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="/images/img-home/shadow_pageTOP.png" width="932" height="45" /></td>
+  </tr>
+  <tr>
+    <td background="/images/img-home/shadow_page.png"><table width="932" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="16"><img src="/images/img-home/spacer.gif" width="16" height="16" /></td>
+        <td width="458" align="right" background="/images/img-home/BG_logo.png"><img src="/images/img-home/logo2.png" width="427" height="68" /></td>
+        <td width="442" align="right" valign="top" background="/images/img-home/BG_logo.png"><%= render :partial => 'shared/top_buttons'%></td>
+        <td width="16"><img src="/images/img-home/spacer.gif" width="16" height="16" /></td>
+      </tr>
+    </table>
+      <table width="932" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="16"><img src="/images/img-home/spacer.gif" width="16" height="16" /></td>
+          <td width="900" align="right"><img src="images/img-home/photo.jpg" name="bigphoto" width="900" height="330" border="0" id="bigphoto" /></td>
+          <td width="16"><img src="/images/img-home/spacer.gif" width="16" height="16" /></td>
+        </tr>
+      </table>
+      <table width="932" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="16"><img src="/images/img-home/spacer.gif" width="16" height="109" /></td>
+          <td width="900" align="center" background="/images/img-home/BG_features.png">
+	        <div id="anchor">
+		
+				<div id="BTNreflection">
+					<% if logged_in? == false %>
+					
+					<% end %>
+				</div>
+		
+<%= render :partial => 'shared/login'%>
+          <div id="features">
+            <% index = 1 %>
+            <% HomeFeature.find(:all, :order => "feature_order ASC", :limit => 3).each do |feature| %>
+              <%= render :partial => 'feature', :locals => {:feature => feature, :fnum => index} %>
+              <% index += 1 %>
+            <% end %>
+          </div>
+
+
+
+          <div id="headline"><img src="/images/img-home/headline.png" width="308" height="91" /></div>
+		  
+          
+		     <div id="calendar"><a href="/events/calendar"><img src="/images/img-home/BTN_raceCalendar.png" name="BTNcalendar" width="246" height="97" border="0" id="BTNcalendar" onmouseover="MM_swapImage('BTNcalendar','','/images/img-home/BTN_raceCalendar_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a></div>
+		     <div id="bullets"><img src="/images/img-home/bullets.png" width="247" height="116" /></div>
+			 
+			 
+			 
+			 
+			 
+		     <div id="RDtextLayer"><img src="/images/img-home/RD_text.png" width="187" height="132" /></div>
+			 
+	        <div id="AddEventLayer"><a href="/rd_services"><img src="images/img-home/BTN_add_event.png" name="BTNaddEvent" width="151" height="75" border="0" id="BTNaddEvent" onmouseover="MM_swapImage('bigphoto','','images/img-home/photo-socialnetworking-hover.jpg','BTNaddEvent','','images/img-home/BTN_add_event_f2.png',1)" onmouseout="MM_swapImgRestore()" /></a></div>
+		  
+		  
+		  
+	      </td>
+          <td width="16"><img src="/images/img-home/spacer.gif" width="16" height="16" /></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><img src="/images/img-home/shadow_pageBOTTOM.jpg" width="932" height="36" /></td>
+  </tr>
+
+</table>
+  
+
+
+
+	<div align="center" valign="middle" id="footer">&copy; 2010 RaceMenu,
+Inc. All rights reserved. | <%= link_to "About Us", about_path %> | <%= link_to "Contact Us", contact_path %> | <%= link_to "Terms of Use", terms_path %> | <%= link_to "Privacy Policy", policy_path %> </div>
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4750884-9");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+</body>
+</html>
